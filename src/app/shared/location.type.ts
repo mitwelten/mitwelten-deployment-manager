@@ -2,14 +2,14 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { Point } from './point.type';
+import type { CoordinatePoint } from './coordinate-point.type';
 
 /**
  * A location record, describing metadata of a coordinate
  */
 export type Location = {
     id?: number;
-    location: Point;
+    location: CoordinatePoint;
     type?: string;
     name?: string;
     description?: string;

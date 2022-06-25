@@ -21,6 +21,9 @@
     "@angular/platform-browser": "^14.0.0",
     "@angular/platform-browser-dynamic": "^14.0.0",
     "@angular/router": "^14.0.0",
+    "@types/geojson": "^7946.0.8",
+    "@types/maplibre-gl": "^1.14.0",
+    "maplibre-gl": "^2.1.9",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"

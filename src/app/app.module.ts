@@ -23,6 +23,7 @@ import { DeploymentListComponent } from './components/deployment-list/deployment
 import { DeploymentComponent } from './components/deployment/deployment.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MapComponent } from './components/map/map.component';
 
 /* God-dayum o.O https://teradata.github.io/covalent/v4/#/components */
 
@@ -32,7 +33,8 @@ import { MatGridListModule } from '@angular/material/grid-list';
     ListComponent,
     DeploymentListComponent,
     EditFormComponent,
-    DeploymentComponent
+    DeploymentComponent,
+    MapComponent
   ],
   imports: [
     BrowserModule,

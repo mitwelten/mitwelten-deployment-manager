@@ -9,10 +9,20 @@
     <div>{{deployment.period.start | date:'mediumDate'}} - {{deployment.period.end | date:'mediumDate'}}</div>
 
     <strong>Location</strong>
-    <div><strong>{{deployment.location.name}}</strong> ({{deployment.location.description}})</div>
+    <div style="max-width: fit-content;">
+      <p>
+        <strong>{{deployment.location.name}}</strong>
+        ({{deployment.location.description}})
+      </p>
+    </div>
 
-    <h3>Node Details</h3>
+    <app-map [coordinates]="deployment.location.location"></app-map>
 
+  </div>
+
+  <h3>Node Details</h3>
+
+  <div class="node-container">
     <strong *ngIf="deployment.node.type">Type</strong>
     <div *ngIf="deployment.node.type">{{deployment.node.type}}</div>
 
@@ -39,7 +49,6 @@
 
     <strong *ngIf="deployment.node.firmware_version">Firmware Version</strong>
     <div *ngIf="deployment.node.firmware_version">{{deployment.node.firmware_version}}</div>
-
   </div>
 
 </div>

@@ -5,7 +5,7 @@
 /**
  * Coordinate in WGS84 format
  */
-export type Point = {
+export type CoordinatePoint = {
     lat: number;
     lon: number;
 };
