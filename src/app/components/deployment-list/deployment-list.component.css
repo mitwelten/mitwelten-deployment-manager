@@ -1,0 +1,18 @@
+.container {
+  position: relative;
+}
+.table-container {
+  position: relative;
+  min-height: 200px;
+  max-height: 400px;
+  overflow: auto;
+}
+
+.full-width-table {
+  width: 100%;
+}
+
+mat-row,
+td.mat-cell {
+  cursor: pointer;
+}

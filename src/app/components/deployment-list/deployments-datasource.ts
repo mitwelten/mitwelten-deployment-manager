@@ -4,15 +4,15 @@ import { MatSort } from '@angular/material/sort';
 import { map } from 'rxjs/operators';
 import { Observable, merge } from 'rxjs';
 import { DataService } from 'src/app/shared/data.service';
-import { Node } from 'src/app/shared'
+import { Deployment } from 'src/app/shared'
 
 /**
  * Data source for the InputList view. This class should
  * encapsulate all logic for fetching and manipulating the displayed data
  * (including sorting, pagination, and filtering).
  */
-export class ListDataSource extends DataSource<Node> {
-  data: Node[] | [] = [];
+export class DeploymentsDataSource extends DataSource<Deployment> {
+  data: Deployment[] | [] = [];
   paginator: MatPaginator | undefined;
   sort: MatSort | undefined;
 
@@ -25,13 +25,13 @@ export class ListDataSource extends DataSource<Node> {
    * the returned stream emits new items.
    * @returns A stream of the items to be rendered.
    */
-  connect(): Observable<Node[]> {
+  connect(): Observable<Deployment[]> {
 
 
     if (this.paginator && this.sort) {
       // Combine everything that affects the rendered data into one update
       // stream for the data-table to consume.
-      return merge(this.dataService.listNodes().pipe(map((data: any) => {
+      return merge(this.dataService.listDeployments().pipe(map((data: any) => {
         this.data = data;
       })), this.paginator.page, this.sort.sortChange)
         .pipe(map(() => {
@@ -52,7 +52,7 @@ export class ListDataSource extends DataSource<Node> {
    * Paginate the data (client-side). If you're using server-side pagination,
    * this would be replaced by requesting the appropriate data from the server.
    */
-  private getPagedData(data: Node[]): Node[] {
+  private getPagedData(data: Deployment[]): Deployment[] {
     if (this.paginator) {
       const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
       return data.splice(startIndex, this.paginator.pageSize);
@@ -65,7 +65,7 @@ export class ListDataSource extends DataSource<Node> {
    * Sort the data (client-side). If you're using server-side sorting,
    * this would be replaced by requesting the appropriate data from the server.
    */
-  private getSortedData(data: Node[]): Node[] {
+  private getSortedData(data: Deployment[]): Deployment[] {
     if (!this.sort || !this.sort.active || this.sort.direction === '') {
       return data;
     }
@@ -73,10 +73,7 @@ export class ListDataSource extends DataSource<Node> {
     return data.sort((a, b) => {
       const isAsc = this.sort?.direction === 'asc';
       switch (this.sort?.active) {
-        case 'node_label': return compare(a.node_label, b.node_label, isAsc);
-        case 'type': return compare(a.type, b.type, isAsc);
-        case 'platform': return compare(a.platform ?? '', b.platform ?? '', isAsc);
-        case 'description': return compare(a.description ?? '', b.description ?? '', isAsc);
+        case 'period': return compare(a.period.start ?? '', b.period.start ?? '', isAsc);
         default: return 0;
       }
     });

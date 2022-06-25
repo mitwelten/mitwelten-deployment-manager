@@ -1,4 +1,4 @@
-<h1>Nodes list</h1>
+<h1>Deployments</h1>
 
 <div class="container mat-elevation-z8">
 <div class="table-container">
@@ -9,43 +9,48 @@
       <ng-container matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef>Action</th>
         <td mat-cell *matCellDef="let row">
-          <button mat-icon-button><mat-icon>edit</mat-icon></button>
-
+          <button mat-icon-button [routerLink]="['/deployments/edit/', row.deployment_id]"><mat-icon>edit</mat-icon></button>
         </td>
       </ng-container>
 
       <!-- Node Name Column -->
       <ng-container matColumnDef="node_label">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
-        <td mat-cell *matCellDef="let row">{{row.node_label}}</td>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Node</th>
+        <td mat-cell *matCellDef="let row">{{row.node.node_label}}</td>
+      </ng-container>
+
+      <!-- Period From Column -->
+      <ng-container matColumnDef="period_from">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Period (from)</th>
+        <td mat-cell *matCellDef="let row">{{row.period.start | date:'mediumDate'}}</td>
+      </ng-container>
+
+      <!-- Period To Column -->
+      <ng-container matColumnDef="period_to">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Period (to)</th>
+        <td mat-cell *matCellDef="let row">{{row.period.end | date:'mediumDate'}}</td>
       </ng-container>
 
       <!-- Location Column -->
-      <!-- <ng-container matColumnDef="location">
+      <ng-container matColumnDef="location">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Location</th>
-        <td mat-cell *matCellDef="let row">{{row.location.name}}</td>
-      </ng-container> -->
+        <td mat-cell *matCellDef="let row">{{row.location.name ?? row.location.description}}</td>
+      </ng-container>
 
       <!-- Type Column -->
       <ng-container matColumnDef="type">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Type</th>
-        <td mat-cell *matCellDef="let row">{{row.type}}</td>
+        <td mat-cell *matCellDef="let row">{{row.node.type}}</td>
       </ng-container>
 
       <!-- Platform Column -->
       <ng-container matColumnDef="platform">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Platform</th>
-        <td mat-cell *matCellDef="let row">{{row.platform}}</td>
-      </ng-container>
-
-      <!-- Description Column -->
-      <ng-container matColumnDef="description">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Description</th>
-        <td mat-cell *matCellDef="let row">{{row.description }}</td>
+        <td mat-cell *matCellDef="let row">{{row.node.platform}}</td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" [routerLink]="['/deployments', row.deployment_id]"></tr>
     </table>
   </div>
 

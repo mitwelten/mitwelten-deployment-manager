@@ -18,7 +18,7 @@ export class ListComponent implements OnInit, AfterViewInit {
   dataSource: ListDataSource;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['action', 'name', 'location', 'type', 'platform', 'description'];
+  displayedColumns = ['action', 'node_label', 'type', 'platform', 'description'];
 
   constructor(private dataService: DataService) {
     this.dataSource = new ListDataSource(dataService);

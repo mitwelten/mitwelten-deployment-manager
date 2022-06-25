@@ -19,11 +19,13 @@ import { EditFormComponent } from './components/edit-form/edit-form.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
+import { DeploymentListComponent } from './components/deployment-list/deployment-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ListComponent,
+    DeploymentListComponent,
     EditFormComponent
   ],
   imports: [
