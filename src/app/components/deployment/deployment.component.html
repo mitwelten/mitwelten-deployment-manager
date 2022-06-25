@@ -1,0 +1,49 @@
+<h1 mat-dialog-title>Deployment of Node {{deployment.node.node_label}}</h1>
+<div mat-dialog-content>
+
+  <div class="details-container">
+    <strong>Node ID</strong>
+    <div>{{deployment.node.node_label}}</div>
+
+    <strong>Deployment Period</strong>
+    <div>{{deployment.period.start | date:'mediumDate'}} - {{deployment.period.end | date:'mediumDate'}}</div>
+
+    <strong>Location</strong>
+    <div><strong>{{deployment.location.name}}</strong> ({{deployment.location.description}})</div>
+
+    <h3>Node Details</h3>
+
+    <strong *ngIf="deployment.node.type">Type</strong>
+    <div *ngIf="deployment.node.type">{{deployment.node.type}}</div>
+
+    <strong *ngIf="deployment.node.serial_number">Serial Number</strong>
+    <div *ngIf="deployment.node.serial_number">{{deployment.node.serial_number}}</div>
+
+    <strong *ngIf="deployment.node.description">Description</strong>
+    <div *ngIf="deployment.node.description">{{deployment.node.description}}</div>
+
+    <strong *ngIf="deployment.node.platform">Platform</strong>
+    <div *ngIf="deployment.node.platform">{{deployment.node.platform}}</div>
+
+    <strong *ngIf="deployment.node.connectivity">Connectivity</strong>
+    <div *ngIf="deployment.node.connectivity">{{deployment.node.connectivity}}</div>
+
+    <strong *ngIf="deployment.node.power">Power</strong>
+    <div *ngIf="deployment.node.power">{{deployment.node.power}}</div>
+
+    <strong *ngIf="deployment.node.hardware_version">Hardware Version</strong>
+    <div *ngIf="deployment.node.hardware_version">{{deployment.node.hardware_version}}</div>
+
+    <strong *ngIf="deployment.node.software_version">Software Version</strong>
+    <div *ngIf="deployment.node.software_version">{{deployment.node.software_version}}</div>
+
+    <strong *ngIf="deployment.node.firmware_version">Firmware Version</strong>
+    <div *ngIf="deployment.node.firmware_version">{{deployment.node.firmware_version}}</div>
+
+  </div>
+
+</div>
+<div mat-dialog-actions>
+  <button mat-stroked-button color="accent" (click)="edit()">Edit</button>
+  <button mat-stroked-button [mat-dialog-close]="deployment" cdkFocusInitial>Close</button>
+</div>

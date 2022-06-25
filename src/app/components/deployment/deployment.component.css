@@ -1,0 +1,19 @@
+.details-container {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  column-gap: 10px;
+  row-gap: 10px;
+  position: relative;
+  top:0;
+  bottom:0;
+  left:0;
+  right:0;
+  min-width: 500px;
+}
+
+.details-container h3 {
+  grid-column-start: 1;
+  grid-column-end: span 2;
+  margin: 16px 0 0 0;
+}
+

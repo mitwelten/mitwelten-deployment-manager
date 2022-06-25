@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { DeploymentsDataSource } from './deployments-datasource';
-import { DataService, Deployment } from 'src/app/shared';
+import { DataService, Deployment, Node } from 'src/app/shared';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
@@ -14,6 +14,8 @@ import {
   transition,
   // ...
 } from '@angular/animations';
+import { MatDialog } from '@angular/material/dialog';
+import { DeploymentComponent } from '../deployment/deployment.component';
 
 @Component({
   selector: 'app-list',
@@ -30,6 +32,8 @@ import {
 })
 export class DeploymentListComponent implements OnInit, AfterViewInit {
 
+
+
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatTable) table!: MatTable<Deployment>;
@@ -38,7 +42,11 @@ export class DeploymentListComponent implements OnInit, AfterViewInit {
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['action', 'node_label', 'type', 'platform', 'location', 'period_from', 'period_to']; // , 'type', 'platform', 'description'
 
-  constructor(private dataService: DataService, private router: Router) {
+  constructor(
+    private dataService: DataService,
+    private router: Router,
+    public dialog: MatDialog,
+  ) {
     this.dataSource = new DeploymentsDataSource(dataService);
   }
 
@@ -49,6 +57,12 @@ export class DeploymentListComponent implements OnInit, AfterViewInit {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     this.table.dataSource = this.dataSource;
+  }
+
+  detail(deployment: Deployment) {
+    const dialogRef = this.dialog.open(DeploymentComponent, {
+      data: deployment
+    });
   }
 
 }

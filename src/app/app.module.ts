@@ -20,13 +20,19 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { DeploymentListComponent } from './components/deployment-list/deployment-list.component';
+import { DeploymentComponent } from './components/deployment/deployment.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatGridListModule } from '@angular/material/grid-list';
+
+/* God-dayum o.O https://teradata.github.io/covalent/v4/#/components */
 
 @NgModule({
   declarations: [
     AppComponent,
     ListComponent,
     DeploymentListComponent,
-    EditFormComponent
+    EditFormComponent,
+    DeploymentComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +50,9 @@ import { DeploymentListComponent } from './components/deployment-list/deployment
     MatInputModule,
     MatPaginatorModule,
     MatTableModule,
-    MatSortModule
+    MatSortModule,
+    MatDialogModule,
+    MatGridListModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
