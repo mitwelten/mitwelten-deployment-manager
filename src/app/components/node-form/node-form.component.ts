@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ActivatedRoute } from '@angular/router';
-import { DataService, Node } from 'src/app/shared';
+import { ActivatedRoute, ActivatedRouteSnapshot, ActivationEnd, Params, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { DataService } from 'src/app/shared';
 import { NodeValidator } from 'src/app/shared/node-validator.service';
 
 @Component({
@@ -10,14 +11,16 @@ import { NodeValidator } from 'src/app/shared/node-validator.service';
   templateUrl: './node-form.component.html',
   styleUrls: ['./node-form.component.css']
 })
-export class NodeFormComponent implements OnInit {
+export class NodeFormComponent implements OnInit, OnDestroy {
 
-  title = 'EditAdd a new node'
+  title = 'Add a new node';
+  mode: 'edit'|'add' = 'add';
+  routerEvents$: Subscription;
 
   nodeForm =          new FormGroup({
+    node_id:          new FormControl<number|null>(null),
     node_label:       new FormControl<string|null>(null, {
-      validators:  [Validators.required, Validators.pattern('^\\d{4}-\\d{4}$')],
-      asyncValidators: [this.nodeValidator.validate.bind(this.nodeValidator)]
+      validators:  [Validators.required, Validators.pattern('^\\d{4}-\\d{4}$')]
     }),
     type:             new FormControl<string|null>(null, {validators: [Validators.required]}),
     serial_number:    new FormControl<string|null>(null),
@@ -28,18 +31,47 @@ export class NodeFormComponent implements OnInit {
     hardware_version: new FormControl<string|null>(null),
     software_version: new FormControl<string|null>(null),
     firmware_version: new FormControl<string|null>(null),
+  }, {
+    asyncValidators: [this.nodeValidator.validate.bind(this.nodeValidator)]
   })
 
   constructor(
     private dataService: DataService,
     private route: ActivatedRoute,
+    private router: Router,
     private nodeValidator: NodeValidator,
     private snackBar: MatSnackBar,
   ) { }
 
   ngOnInit(): void {
-    if ('id' in this.route.snapshot.params) {
-      const id = Number(this.route.snapshot.params['id']);
+
+    this.initialise(this.route.snapshot.params);
+
+    this.routerEvents$ = this.router.events.subscribe(event => {
+      if (event instanceof ActivationEnd) {
+        this.initialise(event.snapshot.params)
+      }
+    });
+
+  }
+
+  ngOnDestroy(): void {
+    this.routerEvents$.unsubscribe();
+  }
+
+  private initialise(params: Params) {
+    if ('id' in params) {
+      this.mode = 'edit';
+      const id = Number(params['id']);
+      this.dataService.getNodeById(id).subscribe(node => {
+        console.log('getNodeById subscription firing');
+
+        this.title = `Edit Node ${node.node_label} (${node.node_id})`
+        this.nodeForm.patchValue(node);
+      });
+    } else {
+      this.mode = 'add';
+      this.title = 'Add a new Node';
     }
   }
 
@@ -65,13 +97,14 @@ export class NodeFormComponent implements OnInit {
   }
 
   submit() {
-    this.dataService.putNode(this.nodeForm.value).subscribe(r => {
-      this.nodeForm.reset();
-      this.snackBar.open('Node added', '🎉', {
+    this.dataService.putNode(this.nodeForm.value).subscribe(node_id => {
+      const msg = this.mode == 'add' ? 'Node added.' : 'Node changes saved.';
+      this.snackBar.open(msg, '🎉', {
         duration: 3000,
         horizontalPosition: 'right',
         verticalPosition: 'top',
-      })
+      });
+      this.router.navigate(['/nodes/edit', node_id]);
     });
   }
 

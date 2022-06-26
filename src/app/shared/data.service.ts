@@ -49,8 +49,8 @@ export class DataService {
       return this.http.put(`http://localhost:8000/deployments`, deployment, { });
     }
 
-    public putNode(node: any) {
-      return this.http.put(`http://localhost:8000/nodes`, node, { });
+    public putNode(node: Partial<Node>): Observable<number> {
+      return this.http.put<number>(`http://localhost:8000/nodes`, node, { });
     }
 
     public isDeploymentOverlapping(deployment: any) {

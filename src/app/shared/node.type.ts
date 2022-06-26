@@ -9,22 +9,22 @@ import type { Type } from './type.type';
  * A device deployed in the field, commondly collecting and/or processing data
  */
 export type Node = {
-    node_id?: number;
+    node_id?: number | null;
     /** Identifyer, a.k.a _Node ID_, _Node Label_, or _Label_ */
     node_label: string;
     /** Desription of function */
-    type: Type;
+    type: string;
     // location: Location;
-    serial_number?: string;
-    description?: string;
+    serial_number?: string | null;
+    description?: string | null;
     /** Hardware platform */
-    platform?: string;
-    connectivity?: string;
-    power?: string;
-    hardware_version?: string;
-    software_version?: string;
-    firmware_version?: string;
-    created_at?: string;
-    updated_at?: string;
+    platform?: string | null;
+    connectivity?: string | null;
+    power?: string | null;
+    hardware_version?: string | null;
+    software_version?: string | null;
+    firmware_version?: string | null;
+    created_at?: string | null;
+    updated_at?: string | null;
 };
 

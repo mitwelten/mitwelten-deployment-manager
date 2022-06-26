@@ -61,7 +61,7 @@
 
   </div>
 
-  <button type="submit" mat-raised-button color="primary">Submit</button>
+  <button type="submit" [disabled]="!nodeForm.valid" mat-raised-button color="primary">Submit</button>
 
   <!-- https://www.freakyjolly.com/angular-material-109-datepicker-timepicker-tutorial/ -->
 
