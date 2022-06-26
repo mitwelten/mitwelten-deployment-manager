@@ -57,8 +57,8 @@ export class DataService {
       return this.http.put<boolean>(`http://localhost:8000/validate/deployment`, deployment, {});
     }
 
-    public isNodeUnique(node: string) {
-      return this.http.put<boolean>(`http://localhost:8000/validate/node`, {node_label: node}, {});
+    public isNodeUnique(node: Partial<Node>) {
+      return this.http.put<boolean>(`http://localhost:8000/validate/node`, node, {});
     }
 
 }
