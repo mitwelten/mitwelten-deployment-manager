@@ -1,0 +1,61 @@
+<h1>{{ title }}</h1>
+
+<!-- #deploymentForm="ngForm" -->
+<form [formGroup]="deploymentForm" (ngSubmit)="submit()">
+
+  <mat-form-field class="full-width-field" appearance="outline">
+    <mat-label>Node</mat-label>
+    <mat-select formControlName="node_id">
+      <mat-option *ngFor="let node of nodes" [value]="node.node_id">
+        {{node.node_label}} ({{node.type}}, {{node.platform}})
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field class="full-width-field" appearance="outline">
+    <mat-label>Deployment Period</mat-label>
+    <mat-date-range-input [rangePicker]="rangePicker">
+      <input matStartDate placeholder="Start date" formControlName="period_start">
+      <input matEndDate placeholder="End date" formControlName="period_end">
+    </mat-date-range-input>
+    <mat-hint>DD.MM.YYYY – DD.MM.YYYY</mat-hint>
+    <mat-datepicker-toggle matSuffix [for]="rangePicker"></mat-datepicker-toggle>
+    <mat-date-range-picker #rangePicker>
+      <mat-date-range-picker-actions>
+        <button mat-button matDateRangePickerCancel>Cancel</button>
+        <button mat-raised-button color="primary" matDateRangePickerApply>Apply</button>
+      </mat-date-range-picker-actions>
+    </mat-date-range-picker>
+  </mat-form-field>
+
+  <app-map [coordinates]="coordinates" [readonly]="false" (coordinatesSet)="displayCoordinates=$event"></app-map>
+
+  <div class="coordinates-container">
+    <mat-form-field class="full-width-field" appearance="outline">
+      <mat-label>Latitude (WSG48)</mat-label>
+      <input matInput type="number" [value]="displayCoordinates?.lat" disabled id="latitude">
+    </mat-form-field>
+
+    <mat-form-field class="full-width-field" appearance="outline">
+      <mat-label>Longitude (WSG48)</mat-label>
+      <input matInput type="number" [value]="displayCoordinates?.lon" disabled id="longitude">
+    </mat-form-field>
+  </div>
+
+  <div>
+    <button style="display: inline;" type="submit" mat-raised-button color="primary">Submit</button>
+    <mat-spinner *ngIf="deploymentForm.pending" style="display: inline;" [diameter]="24" [strokeWidth]="4"></mat-spinner>
+  </div>
+
+  <div>
+    {{deploymentForm.status | json}}
+    {{deploymentForm.value | json}}
+  </div>
+
+  <!-- https://www.freakyjolly.com/angular-material-109-datepicker-timepicker-tutorial/ -->
+
+  <!-- https://www.npmjs.com/package/location-picker -->
+
+  <!-- https://github.com/mebjas/html5-qrcode -->
+
+</form>

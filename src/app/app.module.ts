@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -24,6 +24,15 @@ import { DeploymentComponent } from './components/deployment/deployment.componen
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MapComponent } from './components/map/map.component';
+import { DeploymentFormComponent } from './components/deployment-form/deployment-form.component';
+import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MAT_MOMENT_DATE_FORMATS, MomentDateAdapter, MomentDateModule } from '@angular/material-moment-adapter';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
+import '@angular/common/locales/global/de';
+import 'date-fns/locale/de';
 
 /* God-dayum o.O https://teradata.github.io/covalent/v4/#/components */
 
@@ -34,7 +43,8 @@ import { MapComponent } from './components/map/map.component';
     DeploymentListComponent,
     EditFormComponent,
     DeploymentComponent,
-    MapComponent
+    MapComponent,
+    DeploymentFormComponent
   ],
   imports: [
     BrowserModule,
@@ -55,8 +65,17 @@ import { MapComponent } from './components/map/map.component';
     MatSortModule,
     MatDialogModule,
     MatGridListModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MomentDateModule,
+    MatProgressSpinnerModule,
   ],
-  providers: [],
+  providers: [
+    { provide: LOCALE_ID, useValue: 'de-CH' },
+    { provide: MAT_DATE_LOCALE, useValue: 'de' },
+    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [ MAT_DATE_LOCALE ] },
+    { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

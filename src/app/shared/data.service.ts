@@ -36,4 +36,21 @@ export class DataService {
     ): Observable<Array<Deployment>> {
         return this.http.get<Array<Deployment>>('http://localhost:8000/deployments', {});
     }
+
+    public getNodeById(id: number): Observable<Node> {
+      return this.http.get<Node>(`http://localhost:8000/node/${id}`, {});
+    }
+
+    public getDeploymentById(id: number): Observable<Deployment> {
+      return this.http.get<Deployment>(`http://localhost:8000/deployment/${id}`, {});
+    }
+
+    public putDeployment(deployment: any) {
+      console.log(deployment);
+      return this.http.put(`http://localhost:8000/deployments`, deployment, { });
+    }
+
+    public isDeploymentOverlapping(deployment: any) {
+      return this.http.put<boolean>(`http://localhost:8000/validate/deployment`, deployment, {});
+    }
 }
