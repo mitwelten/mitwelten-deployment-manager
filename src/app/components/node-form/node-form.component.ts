@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ActivatedRoute, ActivatedRouteSnapshot, ActivationEnd, Params, Router } from '@angular/router';
+import { ActivatedRoute, ActivationEnd, Params, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { DataService } from 'src/app/shared';
 import { NodeValidator } from 'src/app/shared/node-validator.service';
@@ -19,10 +19,10 @@ export class NodeFormComponent implements OnInit, OnDestroy {
 
   nodeForm =          new FormGroup({
     node_id:          new FormControl<number|null>(null),
-    node_label:       new FormControl<string|null>(null, {
-      validators:  [Validators.required, Validators.pattern('^\\d{4}-\\d{4}$')]
+    node_label:       new FormControl<string|null>(null),
+    type:             new FormControl<string|null>(null, {
+      validators: [Validators.required]
     }),
-    type:             new FormControl<string|null>(null, {validators: [Validators.required]}),
     serial_number:    new FormControl<string|null>(null),
     description:      new FormControl<string|null>(null),
     platform:         new FormControl<string|null>(null),
@@ -31,8 +31,14 @@ export class NodeFormComponent implements OnInit, OnDestroy {
     hardware_version: new FormControl<string|null>(null),
     software_version: new FormControl<string|null>(null),
     firmware_version: new FormControl<string|null>(null),
-  }, {
-    asyncValidators: [this.nodeValidator.validate.bind(this.nodeValidator)]
+    labelValidator:   new FormGroup({
+      node_id:          new FormControl<number|null>(null),
+      node_label:       new FormControl<string|null>(null, {
+        validators: [Validators.required, Validators.pattern('^\\d{4}-\\d{4}$')]
+      })
+    }, {
+      asyncValidators: [this.nodeValidator.validate.bind(this.nodeValidator)]
+    })
   })
 
   constructor(
@@ -44,6 +50,32 @@ export class NodeFormComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
+
+    /*
+    Proxy FormGroup with async validator, adding node_id if present to the
+    node_label check: If node_id present: check node_label duplicates
+    _except_ in record with node_id.
+
+    Like this, the Node object signature stays intact for patching in values
+    and sending out to the backend.
+    */
+    this.nodeForm.controls.node_label.valueChanges.subscribe(node_label => {
+      const c = this.nodeForm.controls.labelValidator.controls
+      c.node_label.setValue(node_label);
+      if (this.nodeForm.controls.node_id.value !== null) {
+        c.node_id.setValue(this.nodeForm.controls.node_id.value)
+      }
+    });
+
+    // Copy the errors of the proxy back to the original FormControl
+    this.nodeForm.controls.labelValidator.statusChanges.subscribe(status => {
+      let errors = Object.assign({},
+        this.nodeForm.controls.labelValidator.errors,
+        this.nodeForm.controls.labelValidator.controls.node_label.errors);
+      this.nodeForm.controls.node_label.setErrors(
+        Object.keys(errors).length === 0 ? null : errors,
+        { emitEvent: true });
+    })
 
     this.initialise(this.route.snapshot.params);
 
@@ -76,7 +108,7 @@ export class NodeFormComponent implements OnInit, OnDestroy {
   }
 
   generateLabel() {
-    const part = () => String(Math.round(Math.random() * 5000)).padStart(4, '0');
+    const part = () => String(Math.round(5000*Math.random())).padStart(4, '0');
     this.nodeForm.controls.node_label.setValue(`${part()}-${part()}`);
   }
 

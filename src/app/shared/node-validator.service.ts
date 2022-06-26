@@ -12,13 +12,16 @@ export class NodeValidator implements AsyncValidator {
 
   validate(control: AbstractControl<any, any>): Observable<ValidationErrors | null> {
     if ('node_label' in control.value) {
+      if (control.value.node_label == null) {
+        return of(null)
+      }
       // check the whole group to include the id in case we're editing a record
       return this.dataService.isNodeUnique(control.value).pipe(
         map(isUnique => (isUnique ? null : { isDuplicate: true })),
         catchError(() => of(null))
       );
     } else {
-      return null
+      return of(null)
     }
   }
 }
