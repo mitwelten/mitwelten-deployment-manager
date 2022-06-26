@@ -15,7 +15,7 @@ import { ListComponent } from './components/list/list.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { EditFormComponent } from './components/edit-form/edit-form.component';
+import { NodeFormComponent } from './components/node-form/node-form.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
@@ -41,7 +41,7 @@ import 'date-fns/locale/de';
     AppComponent,
     ListComponent,
     DeploymentListComponent,
-    EditFormComponent,
+    NodeFormComponent,
     DeploymentComponent,
     MapComponent,
     DeploymentFormComponent

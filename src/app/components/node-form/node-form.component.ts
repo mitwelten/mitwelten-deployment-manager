@@ -4,11 +4,11 @@ import { ActivatedRoute } from '@angular/router';
 import { DataService, Node } from 'src/app/shared';
 
 @Component({
-  selector: 'app-edit-form',
-  templateUrl: './edit-form.component.html',
-  styleUrls: ['./edit-form.component.css']
+  selector: 'app-node-form',
+  templateUrl: './node-form.component.html',
+  styleUrls: ['./node-form.component.css']
 })
-export class EditFormComponent implements OnInit {
+export class NodeFormComponent implements OnInit {
 
   nodes: Node[] | [] = [];
 
