@@ -93,3 +93,13 @@
   <!-- https://github.com/mebjas/html5-qrcode -->
 
 </form>
+
+<ng-template #deleteError let-node_label>
+  <h1 mat-dialog-title>Deleting Node {{ node_label }} failed:</h1>
+  <div mat-dialog-content>
+    <p>The Node {{ node_label }} is still referenced by at least one deployment.</p>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button [mat-dialog-close]="true" cdkFocusInitial>OK</button>
+  </div>
+</ng-template>

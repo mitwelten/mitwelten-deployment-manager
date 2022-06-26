@@ -33,6 +33,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { DeleteConfirmDialogComponent } from './components/delete-confirm-dialog/delete-confirm-dialog.component';
 
 import '@angular/common/locales/global/de';
 import 'date-fns/locale/de';
@@ -53,7 +54,8 @@ export class CustomMaterialFormsMatcher implements ErrorStateMatcher {
     NodeFormComponent,
     DeploymentComponent,
     MapComponent,
-    DeploymentFormComponent
+    DeploymentFormComponent,
+    DeleteConfirmDialogComponent
   ],
   imports: [
     BrowserModule,

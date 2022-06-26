@@ -1,10 +1,13 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { ActivatedRoute, ActivationEnd, Params, Router } from '@angular/router';
-import { Observable, Subscription, startWith, switchMap, debounceTime } from 'rxjs';
+import { Observable, Subscription, startWith, switchMap, debounceTime, catchError, of } from 'rxjs';
 import { DataService } from 'src/app/shared';
 import { NodeValidator } from 'src/app/shared/node-validator.service';
+import { DeleteConfirmDialogComponent } from '../delete-confirm-dialog/delete-confirm-dialog.component';
 
 @Component({
   selector: 'app-node-form',
@@ -46,12 +49,21 @@ export class NodeFormComponent implements OnInit, OnDestroy {
   connectivityOptions: Observable<string[]>;
   powerOptions: Observable<string[]>;
 
+  @ViewChild('deleteError') deleteErrorDialog: TemplateRef<any>;
+
+  snackBarConfig: MatSnackBarConfig = {
+    duration: 3000,
+    horizontalPosition: 'right',
+    verticalPosition: 'top',
+  };
+
   constructor(
     private dataService: DataService,
     private route: ActivatedRoute,
     private router: Router,
     private nodeValidator: NodeValidator,
     private snackBar: MatSnackBar,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -153,25 +165,37 @@ export class NodeFormComponent implements OnInit, OnDestroy {
   submit() {
     this.dataService.putNode(this.nodeForm.value).subscribe(node_id => {
       const msg = this.mode == 'add' ? 'Node added.' : 'Node changes saved.';
-      this.snackBar.open(msg, '🎉', {
-        duration: 3000,
-        horizontalPosition: 'right',
-        verticalPosition: 'top',
-      });
+      this.snackBar.open(msg, '🎉', this.snackBarConfig);
       this.router.navigate(['/nodes/edit', node_id]);
     });
   }
 
   delete() {
     const id = this.nodeForm.controls.node_id.value;
+    const node_label = this.nodeForm.controls.node_label.value;
+
     if (id !== null) {
-      this.dataService.deleteNode(id).subscribe(response => {
-        this.snackBar.open('Node deleted', '😵', {
-          duration: 3000,
-          horizontalPosition: 'right',
-          verticalPosition: 'top',
-        });
-        this.router.navigate(['/nodes']);
+      const dialogRef = this.dialog.open(DeleteConfirmDialogComponent, {
+        data: { recordType: 'Node', recordLabel: node_label }
+      });
+
+      dialogRef.afterClosed().subscribe(response => {
+        if (response === true) {
+          this.dataService.deleteNode(id).pipe(
+            catchError((err: HttpErrorResponse) => {
+              if (err.status === 409) {
+                this.dialog.open(this.deleteErrorDialog, { data: node_label });
+              }
+              return of(false);
+          })).subscribe(response => {
+            if (response === true) {
+              this.snackBar.open('Node deleted', '😵', this.snackBarConfig);
+              this.router.navigate(['/nodes']);
+            } else {
+              this.snackBar.open('Node NOT deleted', '🙈', this.snackBarConfig);
+            }
+          });
+        }
       });
     }
   }
