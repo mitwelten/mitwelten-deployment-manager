@@ -11,6 +11,18 @@ form {
   row-gap: 8px;
 }
 
+.form-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 24px;
+  row-gap: 8px;
+  justify-items: start;
+}
+
+.form-buttons button {
+  min-width: 50%;
+}
+
 .full-width-field {
   width: 100%;
 }

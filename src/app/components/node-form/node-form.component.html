@@ -81,7 +81,10 @@
 
   </div>
 
-  <button type="submit" [disabled]="!nodeForm.valid" mat-raised-button color="primary">Submit</button>
+  <div class="form-buttons">
+    <button type="submit" [disabled]="!nodeForm.valid" mat-raised-button color="primary">{{ mode==='add' ? 'Add' : 'Save' }}</button>
+    <button style="place-self: end" type="button" (click)="delete()" *ngIf="mode==='edit'" mat-raised-button color="warn">Delete</button>
+  </div>
 
   <!-- https://www.freakyjolly.com/angular-material-109-datepicker-timepicker-tutorial/ -->
 

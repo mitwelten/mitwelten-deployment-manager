@@ -13,7 +13,7 @@ import { NodeValidator } from 'src/app/shared/node-validator.service';
 })
 export class NodeFormComponent implements OnInit, OnDestroy {
 
-  title = 'Add a new node';
+  title: string;
   mode: 'edit'|'add' = 'add';
   routerEvents$: Subscription;
 
@@ -113,18 +113,19 @@ export class NodeFormComponent implements OnInit, OnDestroy {
   }
 
   private initialise(params: Params) {
+
+    this.mode = 'add';
+    this.title = 'Add a new Node';
+
     if ('id' in params) {
-      this.mode = 'edit';
       const id = Number(params['id']);
       this.dataService.getNodeById(id).subscribe(node => {
-        console.log('getNodeById subscription firing');
-
-        this.title = `Edit Node ${node.node_label} (${node.node_id})`
-        this.nodeForm.patchValue(node);
+        if (node !== null) {
+          this.mode = 'edit';
+          this.title = `Edit Node ${node.node_label} (${node.node_id})`
+          this.nodeForm.patchValue(node);
+        }
       });
-    } else {
-      this.mode = 'add';
-      this.title = 'Add a new Node';
     }
   }
 
@@ -159,6 +160,20 @@ export class NodeFormComponent implements OnInit, OnDestroy {
       });
       this.router.navigate(['/nodes/edit', node_id]);
     });
+  }
+
+  delete() {
+    const id = this.nodeForm.controls.node_id.value;
+    if (id !== null) {
+      this.dataService.deleteNode(id).subscribe(response => {
+        this.snackBar.open('Node deleted', '😵', {
+          duration: 3000,
+          horizontalPosition: 'right',
+          verticalPosition: 'top',
+        });
+        this.router.navigate(['/nodes']);
+      });
+    }
   }
 
 }

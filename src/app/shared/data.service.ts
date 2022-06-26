@@ -41,6 +41,10 @@ export class DataService {
       return this.http.get<Node>(`http://localhost:8000/node/${id}`, {});
     }
 
+    public deleteNode(id: number): Observable<boolean> {
+      return this.http.delete<boolean>(`http://localhost:8000/node/${id}`);
+    }
+
     public getDeploymentById(id: number): Observable<Deployment> {
       return this.http.get<Deployment>(`http://localhost:8000/deployment/${id}`, {});
     }
