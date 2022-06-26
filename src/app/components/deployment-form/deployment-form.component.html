@@ -43,7 +43,7 @@
   </div>
 
   <div>
-    <button style="display: inline;" type="submit" mat-raised-button color="primary">Submit</button>
+    <button [disabled]="!deploymentForm.valid"  style="display: inline;" type="submit" mat-raised-button color="primary">Submit</button>
     <mat-spinner *ngIf="deploymentForm.pending" style="display: inline;" [diameter]="24" [strokeWidth]="4"></mat-spinner>
   </div>
 
