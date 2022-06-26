@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { DeploymentFormComponent } from './components/deployment-form/deployment-form.component';
 import { DeploymentListComponent } from './components/deployment-list/deployment-list.component';
 import { NodeFormComponent } from './components/node-form/node-form.component';
-import { NodeListComponent } from './components/list/list.component';
+import { NodeListComponent } from './components/node-list/node-list.component';
 
 const routes: Routes = [
   { path: "nodes/edit/:id", component: NodeFormComponent, runGuardsAndResolvers: 'always' },

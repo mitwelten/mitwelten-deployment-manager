@@ -7,8 +7,8 @@ import { MatTable } from '@angular/material/table';
 
 @Component({
   selector: 'app-list',
-  templateUrl: './list.component.html',
-  styleUrls: ['./list.component.css']
+  templateUrl: './node-list.component.html',
+  styleUrls: ['./node-list.component.css']
 })
 export class NodeListComponent implements OnInit, AfterViewInit {
 
