@@ -46,11 +46,19 @@ export class DataService {
     }
 
     public putDeployment(deployment: any) {
-      console.log(deployment);
       return this.http.put(`http://localhost:8000/deployments`, deployment, { });
+    }
+
+    public putNode(node: any) {
+      return this.http.put(`http://localhost:8000/nodes`, node, { });
     }
 
     public isDeploymentOverlapping(deployment: any) {
       return this.http.put<boolean>(`http://localhost:8000/validate/deployment`, deployment, {});
     }
+
+    public isNodeUnique(node: string) {
+      return this.http.put<boolean>(`http://localhost:8000/validate/node`, {node_label: node}, {});
+    }
+
 }

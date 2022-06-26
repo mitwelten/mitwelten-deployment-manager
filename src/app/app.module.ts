@@ -12,7 +12,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { ListComponent } from './components/list/list.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { NodeFormComponent } from './components/node-form/node-form.component';
@@ -28,13 +28,21 @@ import { DeploymentFormComponent } from './components/deployment-form/deployment
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MAT_MOMENT_DATE_FORMATS, MomentDateAdapter, MomentDateModule } from '@angular/material-moment-adapter';
-import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { DateAdapter, ErrorStateMatcher, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import '@angular/common/locales/global/de';
 import 'date-fns/locale/de';
 
 /* God-dayum o.O https://teradata.github.io/covalent/v4/#/components */
+
+export class CustomMaterialFormsMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null): boolean {
+      return !!(control && control.invalid && (control.dirty || control.touched));
+  }
+}
 
 @NgModule({
   declarations: [
@@ -69,12 +77,15 @@ import 'date-fns/locale/de';
     MatDatepickerModule,
     MomentDateModule,
     MatProgressSpinnerModule,
+    MatTooltipModule,
+    MatSnackBarModule,
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'de-CH' },
     { provide: MAT_DATE_LOCALE, useValue: 'de' },
     { provide: DateAdapter, useClass: MomentDateAdapter, deps: [ MAT_DATE_LOCALE ] },
     { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
+    { provide: ErrorStateMatcher, useClass: CustomMaterialFormsMatcher },
   ],
   bootstrap: [AppComponent]
 })

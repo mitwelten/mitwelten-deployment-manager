@@ -4,6 +4,13 @@ form {
   width: 100%;
 }
 
+.detail {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 24px;
+  row-gap: 8px;
+}
+
 .full-width-field {
   width: 100%;
 }
