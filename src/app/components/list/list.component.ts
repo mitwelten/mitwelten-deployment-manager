@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { ListDataSource } from './list-datasource';
+import { NodesDataSource } from './list-datasource';
 import { DataService, Node } from 'src/app/shared';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -15,13 +15,13 @@ export class NodeListComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatTable) table!: MatTable<Node>;
-  dataSource: ListDataSource;
+  dataSource: NodesDataSource;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['action', 'node_label', 'type', 'platform', 'description'];
 
   constructor(private dataService: DataService) {
-    this.dataSource = new ListDataSource(dataService);
+    this.dataSource = new NodesDataSource(dataService);
   }
 
   ngOnInit(): void {

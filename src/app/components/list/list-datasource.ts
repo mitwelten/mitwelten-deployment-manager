@@ -11,7 +11,7 @@ import { Node } from 'src/app/shared'
  * encapsulate all logic for fetching and manipulating the displayed data
  * (including sorting, pagination, and filtering).
  */
-export class ListDataSource extends DataSource<Node> {
+export class NodesDataSource extends DataSource<Node> {
   data: Node[] | [] = [];
   paginator: MatPaginator | undefined;
   sort: MatSort | undefined;
