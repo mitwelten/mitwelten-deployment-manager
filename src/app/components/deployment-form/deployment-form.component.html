@@ -1,6 +1,5 @@
 <h1>{{ title }}</h1>
 
-<!-- #deploymentForm="ngForm" -->
 <form [formGroup]="deploymentForm" (ngSubmit)="submit()">
 
   <mat-form-field class="full-width-field" appearance="outline">
@@ -51,11 +50,5 @@
     {{deploymentForm.status | json}}
     {{deploymentForm.value | json}}
   </div>
-
-  <!-- https://www.freakyjolly.com/angular-material-109-datepicker-timepicker-tutorial/ -->
-
-  <!-- https://www.npmjs.com/package/location-picker -->
-
-  <!-- https://github.com/mebjas/html5-qrcode -->
 
 </form>
