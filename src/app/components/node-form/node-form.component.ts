@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, ActivationEnd, Params, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription, startWith, switchMap, debounceTime } from 'rxjs';
 import { DataService } from 'src/app/shared';
 import { NodeValidator } from 'src/app/shared/node-validator.service';
 
@@ -39,7 +39,12 @@ export class NodeFormComponent implements OnInit, OnDestroy {
     }, {
       asyncValidators: [this.nodeValidator.validate.bind(this.nodeValidator)]
     })
-  })
+  });
+
+  typeOptions: Observable<string[]>;
+  platformOptions: Observable<string[]>;
+  connectivityOptions: Observable<string[]>;
+  powerOptions: Observable<string[]>;
 
   constructor(
     private dataService: DataService,
@@ -85,6 +90,22 @@ export class NodeFormComponent implements OnInit, OnDestroy {
       }
     });
 
+    this.typeOptions = this.nodeForm.controls.type.valueChanges.pipe(
+      startWith(''), debounceTime(250),
+      switchMap(v => this.dataService.getNodeTypeOptions(v))
+    );
+    this.platformOptions = this.nodeForm.controls.platform.valueChanges.pipe(
+      startWith(''), debounceTime(250),
+      switchMap(v => this.dataService.getNodePlatformOptions(v))
+    );
+    this.connectivityOptions = this.nodeForm.controls.connectivity.valueChanges.pipe(
+      startWith(''), debounceTime(250),
+      switchMap(v => this.dataService.getNodeConnectivityOptions(v))
+    );
+    this.powerOptions = this.nodeForm.controls.power.valueChanges.pipe(
+      startWith(''), debounceTime(250),
+      switchMap(v => this.dataService.getNodePowerOptions(v))
+    );
   }
 
   ngOnDestroy(): void {

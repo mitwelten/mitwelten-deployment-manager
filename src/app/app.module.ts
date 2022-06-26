@@ -32,6 +32,7 @@ import { DateAdapter, ErrorStateMatcher, MAT_DATE_FORMATS, MAT_DATE_LOCALE } fro
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 import '@angular/common/locales/global/de';
 import 'date-fns/locale/de';
@@ -79,6 +80,7 @@ export class CustomMaterialFormsMatcher implements ErrorStateMatcher {
     MatProgressSpinnerModule,
     MatTooltipModule,
     MatSnackBarModule,
+    MatAutocompleteModule,
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'de-CH' },

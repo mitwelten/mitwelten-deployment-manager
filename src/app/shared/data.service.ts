@@ -61,4 +61,20 @@ export class DataService {
       return this.http.put<boolean>(`http://localhost:8000/validate/node`, node, {});
     }
 
+    public getNodeTypeOptions(searchTerm: string) {
+      return this.http.get<string[]>(`http://localhost:8000/node/type_options/${searchTerm}`);
+    }
+
+    public getNodePlatformOptions(searchTerm: string) {
+      return this.http.get<string[]>(`http://localhost:8000/node/platform_options/${searchTerm}`);
+    }
+
+    public getNodeConnectivityOptions(searchTerm: string) {
+      return this.http.get<string[]>(`http://localhost:8000/node/connectivity_options/${searchTerm}`);
+    }
+
+    public getNodePowerOptions(searchTerm: string) {
+      return this.http.get<string[]>(`http://localhost:8000/node/power_options/${searchTerm}`);
+    }
+
 }

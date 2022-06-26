@@ -20,13 +20,23 @@
 
     <mat-form-field class="full-width-field" appearance="outline">
       <mat-label>Type</mat-label>
-      <input matInput type="text" placeholder="Audio" formControlName="type" id="type">
+      <input [matAutocomplete]="typeAuto" matInput type="text" placeholder="Audio" formControlName="type" id="type">
       <mat-error *ngIf="nodeForm.controls.type.invalid">{{ getErrorMessage() }}</mat-error>
+      <mat-autocomplete #typeAuto="matAutocomplete">
+        <mat-option *ngFor="let option of typeOptions | async" [value]="option">
+          {{option}}
+        </mat-option>
+      </mat-autocomplete>
     </mat-form-field>
 
     <mat-form-field class="full-width-field" appearance="outline">
       <mat-label>Platform</mat-label>
-      <input matInput type="text" placeholder="Audiomoth" formControlName="platform" id="platform">
+      <input [matAutocomplete]="platformAuto" matInput type="text" placeholder="Audiomoth" formControlName="platform" id="platform">
+      <mat-autocomplete #platformAuto="matAutocomplete">
+        <mat-option *ngFor="let option of platformOptions | async" [value]="option">
+          {{option}}
+        </mat-option>
+      </mat-autocomplete>
     </mat-form-field>
 
     <mat-form-field class="full-width-field" appearance="outline">
@@ -36,12 +46,22 @@
 
     <mat-form-field class="full-width-field" appearance="outline">
       <mat-label>Connectivity</mat-label>
-      <input matInput type="text" placeholder="3G" formControlName="connectivity" id="connectivity">
+      <input [matAutocomplete]="connectivityAuto" matInput type="text" placeholder="3G" formControlName="connectivity" id="connectivity">
+      <mat-autocomplete #connectivityAuto="matAutocomplete">
+        <mat-option *ngFor="let option of connectivityOptions | async" [value]="option">
+          {{option}}
+        </mat-option>
+      </mat-autocomplete>
     </mat-form-field>
 
     <mat-form-field class="full-width-field" appearance="outline">
       <mat-label>Power Source</mat-label>
-      <input matInput type="text" placeholder="3x AAA" formControlName="power" id="power">
+      <input [matAutocomplete]="powerAuto" matInput type="text" placeholder="3x AAA" formControlName="power" id="power">
+      <mat-autocomplete #powerAuto="matAutocomplete">
+        <mat-option *ngFor="let option of powerOptions | async" [value]="option">
+          {{option}}
+        </mat-option>
+      </mat-autocomplete>
     </mat-form-field>
 
     <mat-form-field class="full-width-field" appearance="outline">
