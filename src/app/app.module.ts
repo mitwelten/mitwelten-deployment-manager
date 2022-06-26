@@ -11,7 +11,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
-import { ListComponent } from './components/list/list.component';
+import { NodeListComponent } from './components/list/list.component';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -49,7 +49,7 @@ export class CustomMaterialFormsMatcher implements ErrorStateMatcher {
 @NgModule({
   declarations: [
     AppComponent,
-    ListComponent,
+    NodeListComponent,
     DeploymentListComponent,
     NodeFormComponent,
     DeploymentComponent,
