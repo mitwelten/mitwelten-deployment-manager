@@ -1,13 +1,13 @@
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { AbstractControl, AsyncValidatorFn, FormControl, FormGroup, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { MatDatepicker } from '@angular/material/datepicker';
 import { ActivatedRoute } from '@angular/router';
-import { DataService, Deployment, Node } from 'src/app/shared';
+import { DataService, Node } from 'src/app/shared';
 import { CoordinatePoint } from 'src/app/shared/coordinate-point.type';
 import { MapComponent } from '../map/map.component';
 import { Validators } from '@angular/forms';
 import { NoOverlapValidator } from 'src/app/shared/overlap-validator.service';
-import { Observable, Subscription, throttleTime } from 'rxjs';
+import { Subscription, throttleTime } from 'rxjs';
 
 @Component({
   selector: 'app-deployment-form',
