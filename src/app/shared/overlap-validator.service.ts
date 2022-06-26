@@ -28,7 +28,6 @@ export class NoOverlapValidator implements AsyncValidator {
     };
 
     return this.dataService.isDeploymentOverlapping(deployment).pipe(
-      tap(v => console.log(v)),
       map(isOverlapping => (isOverlapping ? { isOverlapping: true } : null)),
       catchError(() => of(null))
     );
