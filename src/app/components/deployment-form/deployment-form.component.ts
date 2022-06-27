@@ -16,7 +16,8 @@ import { Subscription, throttleTime } from 'rxjs';
 })
 export class DeploymentFormComponent implements OnInit, AfterViewInit, OnDestroy {
 
-  title = 'Add Deployment';
+  title: string;
+  mode: 'edit'|'add' = 'add';
   coordinates: CoordinatePoint = { lon: 7.614704694445322, lat: 47.53603016174955 };
 
   nodes: Node[] | [] = [];
@@ -46,43 +47,51 @@ export class DeploymentFormComponent implements OnInit, AfterViewInit, OnDestroy
 
   ngOnInit(): void {
 
-    if ('id' in this.route.snapshot.params) {
-      this.title = 'Edit Deployment';
-      const id = Number(this.route.snapshot.params['id']);
+    this.title = 'Edit Deployment';
+    this.mode = 'add';
 
+    if ('id' in this.route.snapshot.params) {
+      const id = Number(this.route.snapshot.params['id']);
       this.dataService.getDeploymentById(id).subscribe(deployment => {
         // TODO: only if deployment id != null. check nodes form
-        this.deploymentForm.controls.deployment_id.setValue(deployment.deployment_id ?? null);
-        this.deploymentForm.controls.node_id.setValue(deployment.node.node_id ?? null);
-        this.deploymentForm.controls.period_start.setValue(deployment.period.start ?? null);
-        this.deploymentForm.controls.period_end.setValue(deployment.period.end ?? null);
-        this.displayCoordinates = deployment.location.location;
-        this.deploymentForm.controls.lat.setValue(deployment.location.location.lat);
-        this.deploymentForm.controls.lon.setValue(deployment.location.location.lon);
-        if (this.map !== undefined) {
-          this.coordinates = deployment.location.location
+        if (deployment !== null) {
+          this.title = 'Edit Deployment';
+          this.mode = 'edit';
+          this.deploymentForm.controls.deployment_id.setValue(deployment.deployment_id ?? null);
+          this.deploymentForm.controls.node_id.setValue(deployment.node.node_id ?? null);
+          this.deploymentForm.controls.period_start.setValue(deployment.period.start ?? null);
+          this.deploymentForm.controls.period_end.setValue(deployment.period.end ?? null);
+          this.displayCoordinates = deployment.location.location;
+          this.deploymentForm.controls.lat.setValue(deployment.location.location.lat);
+          this.deploymentForm.controls.lon.setValue(deployment.location.location.lon);
+          if (this.map !== undefined) {
+            this.coordinates = deployment.location.location
+          }
         }
       });
     } else {
-      this.title = 'Add Deployment';
       this.deploymentForm.controls.deployment_id.clearValidators();
       this.deploymentForm.controls.lat.setValue(this.coordinates.lat);
       this.deploymentForm.controls.lon.setValue(this.coordinates.lon);
+
+      this.title = '! Add Deployment';
+      this.dataService.listNodes().subscribe(nodes => this.nodes = nodes);
     }
 
     if ('node' in this.route.snapshot.params) {
+      this.title = 'Deploy node';
       this.dataService.getNodeById(Number(this.route.snapshot.params['node']))
         .subscribe(node => {
           if (node === null) {
+            this.title = 'Add Deployment';
             this.dataService.listNodes().subscribe(nodes => this.nodes = nodes);
           } else {
+            this.title = `Deploy node ${node.node_label}`;
             this.nodes = [node];
             this.deploymentForm.controls.node_id.setValue(node.node_id ?? null);
             this.deploymentForm.markAsTouched();
           }
         });
-    } else {
-      this.dataService.listNodes().subscribe(nodes => this.nodes = nodes);
     }
   }
 
@@ -119,7 +128,6 @@ export class DeploymentFormComponent implements OnInit, AfterViewInit, OnDestroy
     });
   }
 
-  mode = 'edit'
   delete() {
 
   }
