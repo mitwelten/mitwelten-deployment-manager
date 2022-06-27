@@ -14,8 +14,8 @@ export type TimeRange = {
 
 export type Deployment = {
     deployment_id?: number;
-    node_id: string;
-    location_id: string;
+    node_id: number;
+    location_id: number;
     period: TimeRange;
     node: Node;
     location: Location

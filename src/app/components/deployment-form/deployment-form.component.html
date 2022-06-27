@@ -51,9 +51,27 @@
   <div class="form-buttons">
     <button [disabled]="!deploymentForm.valid"  style="display: inline; min-width: 100%" type="submit" mat-raised-button color="primary">Submit</button>
     <div>
-      <mat-spinner *ngIf="deploymentForm.pending" [diameter]="24" [strokeWidth]="4"></mat-spinner>
+      <mat-spinner *ngIf="deploymentForm.pending || deletePending " [diameter]="24" [strokeWidth]="4"></mat-spinner>
     </div>
     <button style="place-self: end" type="button" (click)="delete()" *ngIf="mode==='edit'" mat-raised-button color="warn">Delete</button>
   </div>
 
 </form>
+
+<ng-template #deleteError let-data>
+  <h1 mat-dialog-title>Deleting the deployment failed:</h1>
+  <div mat-dialog-content>
+    <!--
+      Strictly speaking this is not correct. It's just that there are data records referring to the node of
+      this deployment, and possibly these records fall into the period of the deployment. The database schema
+      would have to be changed to let the records directly refer to the deployment.
+    -->
+    <p>
+      There are data records referring to the node {{data.node_label}}
+      in the period between {{data.period_start | date:'mediumDate' }} and {{data.period_end | date:'mediumDate'}}.
+    </p>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-stroked-button [mat-dialog-close]="true" cdkFocusInitial>OK</button>
+  </div>
+</ng-template>

@@ -53,6 +53,11 @@ export class DataService {
       return this.http.put(`http://localhost:8000/deployments`, deployment, { });
     }
 
+    public deleteDeployment(id: number): Observable<boolean> {
+      return this.http.delete<boolean>(`http://localhost:8000/deployment/${id}`);
+    }
+
+
     public putNode(node: Partial<Node>): Observable<number> {
       return this.http.put<number>(`http://localhost:8000/nodes`, node, { });
     }

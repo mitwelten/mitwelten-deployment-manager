@@ -1,13 +1,17 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDatepicker } from '@angular/material/datepicker';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DataService, Node } from 'src/app/shared';
 import { CoordinatePoint } from 'src/app/shared/coordinate-point.type';
 import { MapComponent } from '../map/map.component';
 import { Validators } from '@angular/forms';
 import { NoOverlapValidator } from 'src/app/shared/overlap-validator.service';
-import { Subscription, throttleTime } from 'rxjs';
+import { catchError, of, Subscription, throttleTime } from 'rxjs';
+import { DeleteConfirmDialogComponent } from '../delete-confirm-dialog/delete-confirm-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
+import { HttpErrorResponse } from '@angular/common/http';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-deployment-form',
@@ -18,6 +22,7 @@ export class DeploymentFormComponent implements OnInit, AfterViewInit, OnDestroy
 
   title: string;
   mode: 'edit'|'add' = 'add';
+  deletePending = false;
   coordinates: CoordinatePoint = { lon: 7.614704694445322, lat: 47.53603016174955 };
 
   nodes: Node[] | [] = [];
@@ -33,13 +38,23 @@ export class DeploymentFormComponent implements OnInit, AfterViewInit, OnDestroy
 
   displayCoordinates: CoordinatePoint | undefined;
 
+  @ViewChild('deleteError') deleteErrorDialog: TemplateRef<any>;
   @ViewChild(MatDatepicker) rangePicker: MatDatepicker<Date> | undefined;
   @ViewChild(MapComponent) map: MapComponent | undefined;
   mapSubscription: Subscription | undefined;
 
+  snackBarConfig: MatSnackBarConfig = {
+    duration: 3000,
+    horizontalPosition: 'right',
+    verticalPosition: 'top',
+  };
+
   constructor(
     private dataService: DataService,
     private route: ActivatedRoute,
+    private router: Router,
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar,
     private noOverlapValidator: NoOverlapValidator
   ) {
     this.deploymentForm.setAsyncValidators([noOverlapValidator.validate.bind(noOverlapValidator)])
@@ -49,50 +64,71 @@ export class DeploymentFormComponent implements OnInit, AfterViewInit, OnDestroy
 
     this.title = 'Edit Deployment';
     this.mode = 'add';
+    this.displayCoordinates = this.coordinates;
 
     if ('id' in this.route.snapshot.params) {
       const id = Number(this.route.snapshot.params['id']);
       this.dataService.getDeploymentById(id).subscribe(deployment => {
-        // TODO: only if deployment id != null. check nodes form
         if (deployment !== null) {
+
+          const controls = this.deploymentForm.controls;
           this.title = 'Edit Deployment';
           this.mode = 'edit';
-          this.deploymentForm.controls.deployment_id.setValue(deployment.deployment_id ?? null);
-          this.deploymentForm.controls.node_id.setValue(deployment.node.node_id ?? null);
-          this.deploymentForm.controls.period_start.setValue(deployment.period.start ?? null);
-          this.deploymentForm.controls.period_end.setValue(deployment.period.end ?? null);
+
+          this.dataService.listNodes().subscribe(nodes => {
+            this.nodes = nodes;
+            controls.node_id.setValue(deployment.node.node_id);
+          });
+
+          controls.deployment_id.setValue(deployment.deployment_id);
+          controls.period_start.setValue(deployment.period.start);
+          controls.period_end.setValue(deployment.period.end);
+
           this.displayCoordinates = deployment.location.location;
-          this.deploymentForm.controls.lat.setValue(deployment.location.location.lat);
-          this.deploymentForm.controls.lon.setValue(deployment.location.location.lon);
+
+          controls.lat.setValue(deployment.location.location.lat);
+          controls.lon.setValue(deployment.location.location.lon);
+
           if (this.map !== undefined) {
             this.coordinates = deployment.location.location
           }
+        } else {
+          this.initializeAddMode();
         }
       });
-    } else {
-      this.deploymentForm.controls.deployment_id.clearValidators();
-      this.deploymentForm.controls.lat.setValue(this.coordinates.lat);
-      this.deploymentForm.controls.lon.setValue(this.coordinates.lon);
-
-      this.title = '! Add Deployment';
-      this.dataService.listNodes().subscribe(nodes => this.nodes = nodes);
     }
-
-    if ('node' in this.route.snapshot.params) {
-      this.title = 'Deploy node';
+    else if ('node' in this.route.snapshot.params) {
+      // configure deploy node mode (don't fetch nodes list)
+      this.title = 'Deploy Node';
       this.dataService.getNodeById(Number(this.route.snapshot.params['node']))
         .subscribe(node => {
           if (node === null) {
-            this.title = 'Add Deployment';
-            this.dataService.listNodes().subscribe(nodes => this.nodes = nodes);
+            this.initializeAddMode();
           } else {
-            this.title = `Deploy node ${node.node_label}`;
+            this.title = `Deploy Node ${node.node_label}`;
             this.nodes = [node];
-            this.deploymentForm.controls.node_id.setValue(node.node_id ?? null);
+            this.deploymentForm.controls.deployment_id.clearValidators();
+            this.deploymentForm.controls.deployment_id.updateValueAndValidity();
+            this.deploymentForm.controls.lat.setValue(this.coordinates.lat);
+            this.deploymentForm.controls.lon.setValue(this.coordinates.lon);
+            this.deploymentForm.controls.node_id.setValue(node.node_id);
             this.deploymentForm.markAsTouched();
           }
         });
     }
+    else {
+      this.initializeAddMode();
+    }
+  }
+
+  private initializeAddMode() {
+    this.deploymentForm.controls.deployment_id.clearValidators();
+    this.deploymentForm.controls.deployment_id.updateValueAndValidity();
+    this.deploymentForm.controls.lat.setValue(this.coordinates.lat);
+    this.deploymentForm.controls.lon.setValue(this.coordinates.lon);
+
+    this.title = 'Add Deployment';
+    this.dataService.listNodes().subscribe(nodes => this.nodes = nodes);
   }
 
   ngAfterViewInit(): void {
@@ -124,11 +160,48 @@ export class DeploymentFormComponent implements OnInit, AfterViewInit, OnDestroy
     };
     this.dataService.putDeployment(deployment).subscribe(r => {
       this.deploymentForm.reset();
-      console.log('done');
+      this.router.navigate(['/deployments']);
     });
   }
 
   delete() {
+    const deployment_id = this.deploymentForm.controls.deployment_id.value;
+    if (deployment_id !== null) {
+      const node = this.nodes.filter(n => n.node_id === this.deploymentForm.controls.node_id.value)[0];
+      const dialogRef = this.dialog.open(DeleteConfirmDialogComponent, {
+        data: {
+          recordType: 'Deployment',
+          recordLabel: `of Node ${node.node_label} (${node.type})`
+        }
+      });
 
+      dialogRef.afterClosed().subscribe(response => {
+        if (response === true) {
+          this.deletePending = true;
+          this.dataService.deleteDeployment(deployment_id).pipe(
+            catchError((err: HttpErrorResponse) => {
+              if (err.status === 409) {
+                this.dialog.open(this.deleteErrorDialog, {
+                  data: {
+                    node_label: node.node_label,
+                    node_type: node.type,
+                    period_start: this.deploymentForm.controls.period_start.value,
+                    period_end: this.deploymentForm.controls.period_end.value,
+                  }
+                });
+              }
+              return of(false);
+          })).subscribe(response => {
+            if (response === true) {
+              this.deletePending = false;
+              this.snackBar.open('Deployment deleted', '😬', this.snackBarConfig);
+              this.router.navigate(['/deployments']);
+            } else {
+              this.snackBar.open('Deployment NOT deleted', '🙈', this.snackBarConfig);
+            }
+          });
+        }
+      });
+    }
   }
 }
