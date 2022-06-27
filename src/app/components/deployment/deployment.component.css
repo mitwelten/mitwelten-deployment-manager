@@ -8,7 +8,8 @@
   bottom:0;
   left:0;
   right:0;
-  min-width: 500px;
+  min-width: 400px;
+  max-width: 700px;
 }
 
 
@@ -31,5 +32,6 @@ h3 {
   bottom:0;
   left:0;
   right:0;
-  min-width: 500px;
+  min-width: 400px;
+  max-width: 700px;
 }
