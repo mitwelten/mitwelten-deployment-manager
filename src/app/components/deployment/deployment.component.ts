@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { Deployment } from 'src/app/shared';
 
 @Component({
@@ -11,7 +12,11 @@ export class DeploymentComponent implements OnInit {
 
   deployment: Deployment;
 
-  constructor(@Inject(MAT_DIALOG_DATA) deployment: Deployment) {
+  constructor (
+    public dialogRef: MatDialogRef<DeploymentComponent>,
+    private router: Router,
+    @Inject(MAT_DIALOG_DATA) deployment: Deployment,
+    ) {
     this.deployment = deployment;
   }
 
@@ -19,6 +24,10 @@ export class DeploymentComponent implements OnInit {
   }
 
   edit(): void {
+    this.dialogRef.afterClosed().subscribe(() => {
+      this.router.navigate(['/deployments/edit/', this.deployment.deployment_id]);
+    });
+    this.dialogRef.close();
   }
 
 }
