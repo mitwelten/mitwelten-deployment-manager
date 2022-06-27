@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://data.mitwelten.org/manager'
+  apiUrl: 'https://data.mitwelten.org/manager/v1'
 };
