@@ -18,7 +18,6 @@ export class DeploymentFormComponent implements OnInit, AfterViewInit, OnDestroy
 
   title = 'Add Deployment';
   coordinates: CoordinatePoint = { lon: 7.614704694445322, lat: 47.53603016174955 };
-  test: any;
 
   nodes: Node[] | [] = [];
 
@@ -51,6 +50,7 @@ export class DeploymentFormComponent implements OnInit, AfterViewInit, OnDestroy
       this.title = 'Edit Deployment';
       const id = Number(this.route.snapshot.params['id']);
       this.dataService.getDeploymentById(id).subscribe(deployment => {
+        // TODO: only if deployment id != null. check nodes form
         this.deploymentForm.controls.deployment_id.setValue(deployment.deployment_id ?? null);
         this.deploymentForm.controls.node_id.setValue(deployment.node.node_id ?? null);
         this.deploymentForm.controls.period_start.setValue(deployment.period.start ?? null);

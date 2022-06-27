@@ -9,7 +9,13 @@
         {{node.node_label}} ({{node.type}}, {{node.platform}})
       </mat-option>
     </mat-select>
+    <mat-error *ngIf="deploymentForm.controls.node_id.errors?.['required']">You must enter a value</mat-error>
+    <mat-hint>Select a node to deploy</mat-hint>
   </mat-form-field>
+
+  <div *ngIf="deploymentForm.errors?.['isOverlapping'] && (deploymentForm.touched || deploymentForm.dirty)" class="node-period-overlap mat-error">
+      <mat-icon class="material-symbols-outlined">error</mat-icon>The selected node and period overlap with an existing deployment!
+  </div>
 
   <mat-form-field class="full-width-field" appearance="outline">
     <mat-label>Deployment Period</mat-label>
@@ -17,7 +23,8 @@
       <input matStartDate placeholder="Start date" formControlName="period_start">
       <input matEndDate placeholder="End date" formControlName="period_end">
     </mat-date-range-input>
-    <mat-hint>DD.MM.YYYY – DD.MM.YYYY</mat-hint>
+    <mat-hint>DD.MM.YYYY – DD.MM.YYYY (leave a date empty for unbounded range)</mat-hint>
+    <mat-error *ngIf="deploymentForm.errors !== null">errors</mat-error>
     <mat-datepicker-toggle matSuffix [for]="rangePicker"></mat-datepicker-toggle>
     <mat-date-range-picker #rangePicker>
       <mat-date-range-picker-actions>
@@ -44,11 +51,6 @@
   <div>
     <button [disabled]="!deploymentForm.valid"  style="display: inline;" type="submit" mat-raised-button color="primary">Submit</button>
     <mat-spinner *ngIf="deploymentForm.pending" style="display: inline;" [diameter]="24" [strokeWidth]="4"></mat-spinner>
-  </div>
-
-  <div>
-    {{deploymentForm.status | json}}
-    {{deploymentForm.value | json}}
   </div>
 
 </form>

@@ -11,6 +11,13 @@ form {
   width: 100%;
 }
 
+.node-period-overlap {
+  display: grid;
+  align-items: center;
+  grid-template-columns: min-content max-content;
+  column-gap: 4px;
+}
+
 .coordinates-container {
   width: 100%;
   display: grid;

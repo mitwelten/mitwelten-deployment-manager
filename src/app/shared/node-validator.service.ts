@@ -12,7 +12,7 @@ export class NodeValidator implements AsyncValidator {
 
   validate(control: AbstractControl<any, any>): Observable<ValidationErrors | null> {
     if ('node_label' in control.value) {
-      if (control.value.node_label == null) {
+      if (control.value.node_label === null) {
         return of(null)
       }
       // check the whole group to include the id in case we're editing a record
