@@ -118,4 +118,9 @@ export class DeploymentFormComponent implements OnInit, AfterViewInit, OnDestroy
       console.log('done');
     });
   }
+
+  mode = 'edit'
+  delete() {
+
+  }
 }

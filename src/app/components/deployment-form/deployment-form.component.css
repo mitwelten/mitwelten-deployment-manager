@@ -25,6 +25,19 @@ form {
   column-gap: 10px;
 }
 
+.form-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr 2fr;
+  column-gap: 24px;
+  row-gap: 8px;
+  justify-items: start;
+  align-items: center;
+}
+
+.form-buttons button {
+  min-width: 50%;
+}
+
 app-map {
   margin: 16px 0;
 }
