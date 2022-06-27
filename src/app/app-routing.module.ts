@@ -14,7 +14,7 @@ const routes: Routes = [
   { path: "deployments/add", component: DeploymentFormComponent },
   { path: "deployments/:id", component: DeploymentListComponent },
   { path: "deployments", component: DeploymentListComponent },
-  { path: "", component: NodeFormComponent },
+  { path: "", component: DeploymentListComponent },
 ];
 
 @NgModule({
