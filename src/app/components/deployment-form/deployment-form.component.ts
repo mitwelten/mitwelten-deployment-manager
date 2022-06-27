@@ -49,6 +49,7 @@ export class DeploymentFormComponent implements OnInit, AfterViewInit, OnDestroy
     if ('id' in this.route.snapshot.params) {
       this.title = 'Edit Deployment';
       const id = Number(this.route.snapshot.params['id']);
+
       this.dataService.getDeploymentById(id).subscribe(deployment => {
         // TODO: only if deployment id != null. check nodes form
         this.deploymentForm.controls.deployment_id.setValue(deployment.deployment_id ?? null);
@@ -69,7 +70,20 @@ export class DeploymentFormComponent implements OnInit, AfterViewInit, OnDestroy
       this.deploymentForm.controls.lon.setValue(this.coordinates.lon);
     }
 
-    this.dataService.listNodes().subscribe(nodes => this.nodes = nodes);
+    if ('node' in this.route.snapshot.params) {
+      this.dataService.getNodeById(Number(this.route.snapshot.params['node']))
+        .subscribe(node => {
+          if (node === null) {
+            this.dataService.listNodes().subscribe(nodes => this.nodes = nodes);
+          } else {
+            this.nodes = [node];
+            this.deploymentForm.controls.node_id.setValue(node.node_id ?? null);
+            this.deploymentForm.markAsTouched();
+          }
+        });
+    } else {
+      this.dataService.listNodes().subscribe(nodes => this.nodes = nodes);
+    }
   }
 
   ngAfterViewInit(): void {

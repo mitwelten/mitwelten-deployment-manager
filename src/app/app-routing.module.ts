@@ -10,6 +10,7 @@ const routes: Routes = [
   { path: "nodes/add", component: NodeFormComponent },
   { path: "nodes", component: NodeListComponent },
   { path: "deployments/edit/:id", component: DeploymentFormComponent  },
+  { path: "deployments/add/:node", component: DeploymentFormComponent },
   { path: "deployments/add", component: DeploymentFormComponent },
   { path: "deployments/:id", component: DeploymentListComponent },
   { path: "deployments", component: DeploymentListComponent },

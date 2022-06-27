@@ -9,8 +9,8 @@
       <ng-container matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef>Action</th>
         <td mat-cell *matCellDef="let row">
-          <button mat-icon-button [routerLink]="['/nodes/edit/', row.node_id]"><mat-icon>edit</mat-icon></button>
-
+          <button mat-icon-button [routerLink]="['/nodes/edit/', row.node_id]"><mat-icon class="material-symbols-outlined">edit</mat-icon></button>
+          <button mat-icon-button [routerLink]="['/deployments/add/', row.node_id]"><mat-icon class="material-symbols-outlined">add_location_alt</mat-icon></button>
         </td>
       </ng-container>
 
