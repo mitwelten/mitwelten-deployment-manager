@@ -82,8 +82,11 @@
   </div>
 
   <div class="form-buttons">
-    <button type="submit" [disabled]="!nodeForm.valid" mat-raised-button color="primary">{{ mode==='add' ? 'Add' : 'Save' }}</button>
-    <button style="place-self: end" type="button" (click)="delete()" *ngIf="mode==='edit'" mat-raised-button color="warn">Delete</button>
+    <div class="form-buttons" style="width: 100%;">
+      <button type="submit" [disabled]="!nodeForm.valid" mat-raised-button color="primary">{{ mode==='add' ? 'Add' : 'Save' }}</button>
+      <button type="button" [routerLink]="['/deployments/add/', nodeForm.controls.node_id.value]" *ngIf="mode==='edit'" mat-raised-button color="accent">Deploy</button>
+    </div>
+    <button style="place-self: end; min-width: 50%;" type="button" (click)="delete()" *ngIf="mode==='edit'" mat-raised-button color="warn">Delete</button>
   </div>
 
 </form>
