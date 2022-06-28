@@ -16,6 +16,10 @@ export class DataService {
 
   constructor(public readonly http: HttpClient) {}
 
+  public login(): Observable<{authenticated: boolean}> {
+    return this.http.get<{authenticated: boolean}>(`${this.apiUrl}/login`);
+  }
+
   public listNodes(): Observable<Array<Node>> {
     return this.http.get<Array<Node>>(`${this.apiUrl}/nodes`);
   }

@@ -6,9 +6,11 @@
     <mat-toolbar>Menu</mat-toolbar>
     <mat-nav-list>
       <a mat-list-item routerLink="/deployments">Deployments</a>
-      <a mat-list-item routerLink="/deployments/add">Add Deployment</a>
+      <a mat-list-item *ngIf="loggedIn" routerLink="/deployments/add">Add Deployment</a>
       <a mat-list-item routerLink="/nodes">Nodes</a>
-      <a mat-list-item routerLink="/nodes/add">Add Node</a>
+      <a mat-list-item *ngIf="loggedIn" routerLink="/nodes/add">Add Node</a>
+      <a mat-list-item *ngIf="!(loggedIn)" routerLink="/login">Log In</a>
+      <a mat-list-item *ngIf="loggedIn" (click)="logout()">Log Out</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>

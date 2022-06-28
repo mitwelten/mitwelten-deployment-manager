@@ -1,6 +1,6 @@
 import { NgModule, LOCALE_ID } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -34,9 +34,11 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { DeleteConfirmDialogComponent } from './components/delete-confirm-dialog/delete-confirm-dialog.component';
+import { LoginFormComponent } from './components/login-form/login-form.component';
+import { BasicAuthInterceptor } from './shared/basic-auth.interceptor';
+import { AuthErrorInterceptor } from './shared/auth-error.interceptor';
 
 import '@angular/common/locales/global/de';
-import 'date-fns/locale/de';
 
 /* God-dayum o.O https://teradata.github.io/covalent/v4/#/components */
 
@@ -55,7 +57,8 @@ export class CustomMaterialFormsMatcher implements ErrorStateMatcher {
     DeploymentComponent,
     MapComponent,
     DeploymentFormComponent,
-    DeleteConfirmDialogComponent
+    DeleteConfirmDialogComponent,
+    LoginFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -90,6 +93,8 @@ export class CustomMaterialFormsMatcher implements ErrorStateMatcher {
     { provide: DateAdapter, useClass: MomentDateAdapter, deps: [ MAT_DATE_LOCALE ] },
     { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
     { provide: ErrorStateMatcher, useClass: CustomMaterialFormsMatcher },
+    { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthErrorInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]
 })
