@@ -1,12 +1,16 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { AfterViewInit, Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import {
+  AfterViewInit, Component, OnDestroy, OnInit, TemplateRef, ViewChild
+} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDatepicker } from '@angular/material/datepicker';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { catchError, of, Subscription, throttleTime } from 'rxjs';
-import { CoordinatePoint, DataService, Node, NoOverlapValidator } from 'src/app/shared';
+import {
+  CoordinatePoint, DataService, LocationService, Node, NoOverlapValidator
+} from 'src/app/shared';
 import { DeleteConfirmDialogComponent } from '../delete-confirm-dialog/delete-confirm-dialog.component';
 import { MapComponent } from '../map/map.component';
 
@@ -52,6 +56,7 @@ export class DeploymentFormComponent implements OnInit, AfterViewInit, OnDestroy
     private router: Router,
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
+    private locationService: LocationService,
     private noOverlapValidator: NoOverlapValidator
   ) {
     this.deploymentForm.setAsyncValidators([noOverlapValidator.validate.bind(noOverlapValidator)])
@@ -139,6 +144,19 @@ export class DeploymentFormComponent implements OnInit, AfterViewInit, OnDestroy
 
   ngOnDestroy(): void {
     this.mapSubscription?.unsubscribe();
+  }
+
+  getLocation() {
+    this.locationService.getLocation().subscribe(location => {
+      if (location === false) {
+        this.snackBar.open('Finding your location failed.', '😔', this.snackBarConfig)
+      } else {
+        this.coordinates = location;
+        this.displayCoordinates = location;
+        this.deploymentForm.controls.lat.setValue(location.lat);
+        this.deploymentForm.controls.lon.setValue(location.lon);
+      }
+    });
   }
 
   submit() {

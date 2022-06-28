@@ -37,6 +37,9 @@
   <app-map [coordinates]="coordinates" [readonly]="false" (coordinatesSet)="displayCoordinates=$event"></app-map>
 
   <div class="coordinates-container">
+    <button (click)="getLocation()" type="button" mat-icon-button color="accent" matTooltip="Use my location" matTooltipPosition="before" matTooltipClass="tight-tooltip">
+      <mat-icon>my_location</mat-icon>
+    </button>
     <mat-form-field class="full-width-field" appearance="outline">
       <mat-label>Latitude (WSG48)</mat-label>
       <input matInput type="number" [value]="displayCoordinates?.lat" disabled id="latitude">

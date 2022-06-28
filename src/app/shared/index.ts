@@ -1,4 +1,5 @@
 export * from './data.service'
+export * from './location.service'
 export * from './authentication.service'
 export * from './authentication.guard'
 export * from './node-validator.service'
