@@ -1,7 +1,9 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnChanges,
-  OnDestroy, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import {
+  AfterViewInit, Component, ElementRef, EventEmitter, Input, OnChanges,
+  OnDestroy, OnInit, Output, SimpleChanges, ViewChild
+} from '@angular/core';
 import { Map, Marker } from 'maplibre-gl';
-import { CoordinatePoint } from 'src/app/shared/coordinate-point.type';
+import { CoordinatePoint } from 'src/app/shared';
 
 @Component({
   // changeDetection: ChangeDetectionStrategy.OnPush,

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthenticationService } from 'src/app/shared/authentication.service';
+import { AuthenticationService } from 'src/app/shared';
 
 @Component({
   selector: 'app-login-form',

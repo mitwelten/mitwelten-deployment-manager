@@ -5,8 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { ActivatedRoute, ActivationEnd, Params, Router } from '@angular/router';
 import { catchError, debounceTime, Observable, of, startWith, Subscription, switchMap } from 'rxjs';
-import { DataService } from 'src/app/shared';
-import { NodeValidator } from 'src/app/shared/node-validator.service';
+import { DataService, NodeValidator } from 'src/app/shared';
 import { DeleteConfirmDialogComponent } from '../delete-confirm-dialog/delete-confirm-dialog.component';
 
 @Component({

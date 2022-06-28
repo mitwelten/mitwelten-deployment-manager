@@ -3,8 +3,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { merge, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Deployment } from 'src/app/shared';
-import { DataService } from 'src/app/shared/data.service';
+import { DataService, Deployment } from 'src/app/shared';
 
 /**
  * Data source for the InputList view. This class should

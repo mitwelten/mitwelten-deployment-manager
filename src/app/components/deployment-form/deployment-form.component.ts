@@ -6,9 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { catchError, of, Subscription, throttleTime } from 'rxjs';
-import { DataService, Node } from 'src/app/shared';
-import { CoordinatePoint } from 'src/app/shared/coordinate-point.type';
-import { NoOverlapValidator } from 'src/app/shared/overlap-validator.service';
+import { CoordinatePoint, DataService, Node, NoOverlapValidator } from 'src/app/shared';
 import { DeleteConfirmDialogComponent } from '../delete-confirm-dialog/delete-confirm-dialog.component';
 import { MapComponent } from '../map/map.component';
 
