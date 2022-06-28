@@ -1,5 +1,6 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, OnDestroy, Input, Output, EventEmitter, OnChanges, SimpleChanges, ChangeDetectionStrategy } from '@angular/core';
-import { LngLat, Map, Marker } from 'maplibre-gl';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnChanges,
+  OnDestroy, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { Map, Marker } from 'maplibre-gl';
 import { CoordinatePoint } from 'src/app/shared/coordinate-point.type';
 
 @Component({
@@ -70,6 +71,5 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy, OnChanges
       this.marker?.setLngLat(changes['coordinates'].currentValue)
     }
   }
-
 
 }

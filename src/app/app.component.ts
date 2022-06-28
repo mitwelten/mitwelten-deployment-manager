@@ -1,12 +1,8 @@
-import { Component, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map, mergeMap, shareReplay } from 'rxjs/operators';
-import { MatDialog } from '@angular/material/dialog';
-import { LoginFormComponent } from './components/login-form/login-form.component';
+import { map, shareReplay } from 'rxjs/operators';
 import { AuthenticationService } from './shared/authentication.service';
-import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
-import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -28,8 +24,6 @@ export class AppComponent implements OnInit {
 
   constructor(
     private breakpointObserver: BreakpointObserver,
-    private route: ActivatedRoute,
-    private router: Router,
     private authService: AuthenticationService,
   ) {}
 

@@ -1,17 +1,16 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { AfterViewInit, Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDatepicker } from '@angular/material/datepicker';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
+import { catchError, of, Subscription, throttleTime } from 'rxjs';
 import { DataService, Node } from 'src/app/shared';
 import { CoordinatePoint } from 'src/app/shared/coordinate-point.type';
-import { MapComponent } from '../map/map.component';
-import { Validators } from '@angular/forms';
 import { NoOverlapValidator } from 'src/app/shared/overlap-validator.service';
-import { catchError, of, Subscription, throttleTime } from 'rxjs';
 import { DeleteConfirmDialogComponent } from '../delete-confirm-dialog/delete-confirm-dialog.component';
-import { MatDialog } from '@angular/material/dialog';
-import { HttpErrorResponse } from '@angular/common/http';
-import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
+import { MapComponent } from '../map/map.component';
 
 @Component({
   selector: 'app-deployment-form',

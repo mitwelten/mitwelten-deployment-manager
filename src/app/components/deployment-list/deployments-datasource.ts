@@ -1,10 +1,10 @@
 import { DataSource } from '@angular/cdk/collections';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { merge, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Observable, merge } from 'rxjs';
+import { Deployment } from 'src/app/shared';
 import { DataService } from 'src/app/shared/data.service';
-import { Deployment } from 'src/app/shared'
 
 /**
  * Data source for the InputList view. This class should
@@ -26,7 +26,6 @@ export class DeploymentsDataSource extends DataSource<Deployment> {
    * @returns A stream of the items to be rendered.
    */
   connect(): Observable<Deployment[]> {
-
 
     if (this.paginator && this.sort) {
       // Combine everything that affects the rendered data into one update

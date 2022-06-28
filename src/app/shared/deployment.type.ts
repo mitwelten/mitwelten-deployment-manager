@@ -4,13 +4,11 @@
 
 import type { Location } from './location.type';
 import type { Node } from './node.type';
-import type { Type } from './type.type';
 
 export type TimeRange = {
   start?: string;
   end?: string;
 }
-
 
 export type Deployment = {
     deployment_id?: number;

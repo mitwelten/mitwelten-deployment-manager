@@ -44,10 +44,9 @@ export class DeploymentListComponent implements OnInit, AfterViewInit {
 
   constructor(
     private dataService: DataService,
-    private router: Router,
     public dialog: MatDialog,
   ) {
-    this.dataSource = new DeploymentsDataSource(dataService);
+    this.dataSource = new DeploymentsDataSource(this.dataService);
   }
 
   ngOnInit(): void {
@@ -60,7 +59,7 @@ export class DeploymentListComponent implements OnInit, AfterViewInit {
   }
 
   detail(deployment: Deployment) {
-    const dialogRef = this.dialog.open(DeploymentComponent, {
+    this.dialog.open(DeploymentComponent, {
       data: deployment
     });
   }

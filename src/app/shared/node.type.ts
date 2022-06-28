@@ -1,9 +1,4 @@
 /* istanbul ignore file */
-/* tslint:disable */
-/* eslint-disable */
-
-import type { Location } from './location.type';
-import type { Type } from './type.type';
 
 /**
  * A device deployed in the field, commondly collecting and/or processing data
