@@ -37,12 +37,6 @@ export class AppComponent implements OnInit {
   }
 
   private checkLogin() {
-    this.authService.checkLogin().subscribe(state => {
-      if (state.authenticated) {
-        this.loggedIn = true;
-      } else {
-        this.loggedIn = false;
-      }
-    });
+    this.authService.checkLogin().subscribe(state => this.loggedIn = state)
   }
 }

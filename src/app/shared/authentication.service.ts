@@ -13,7 +13,6 @@ export interface Credentials {
 })
 export class AuthenticationService {
 
-  // private currentCredentialsSubject: BehaviorSubject<string>;
   public token: string = null;
   public currentCredentials: Observable<string>;
   public authStateSubject: BehaviorSubject<boolean>;
@@ -32,7 +31,6 @@ export class AuthenticationService {
   login(credentials: Credentials): Observable<boolean> {
     this.token = btoa(`${credentials.username}:${credentials.password}`);
     return this.dataService.login().pipe(
-      map(response => response.authenticated),
       map(loggedIn => {
         if (loggedIn) {
           this.authStateSubject.next(true);
@@ -58,11 +56,11 @@ export class AuthenticationService {
   // and on app load in main component
   checkLogin() {
     if (this.authStateSubject.getValue()) {
-      return of({ authenticated: true })
+      return of(true)
     } else if (this.token !== null) {
       return this.dataService.login();
     } else {
-      return of({ authenticated: false });
+      return of(false);
     }
   }
 

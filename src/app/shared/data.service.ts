@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 
 import { Deployment } from './deployment.type';
 import { Node } from './node.type';
@@ -16,8 +16,10 @@ export class DataService {
 
   constructor(public readonly http: HttpClient) {}
 
-  public login(): Observable<{authenticated: boolean}> {
-    return this.http.get<{authenticated: boolean}>(`${this.apiUrl}/login`);
+  public login(): Observable<boolean> {
+    return this.http.get<{authenticated: boolean}>(`${this.apiUrl}/login`).pipe(
+      map(response => response.authenticated)
+    );
   }
 
   public listNodes(): Observable<Array<Node>> {
