@@ -1,19 +1,11 @@
-import { AfterViewInit, Component, HostListener, OnInit, ViewChild } from '@angular/core';
-import { DeploymentsDataSource } from './deployments-datasource';
-import { DataService, Deployment, Node } from 'src/app/shared';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
-import { Router } from '@angular/router';
+import { DataService, Deployment } from 'src/app/shared';
+import { DeploymentsDataSource } from './deployments-datasource';
 
-import {
-  trigger,
-  state,
-  style,
-  animate,
-  transition,
-  // ...
-} from '@angular/animations';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { MatDialog } from '@angular/material/dialog';
 import { DeploymentComponent } from '../deployment/deployment.component';
 
@@ -30,7 +22,7 @@ import { DeploymentComponent } from '../deployment/deployment.component';
     ])
   ]
 })
-export class DeploymentListComponent implements OnInit, AfterViewInit {
+export class DeploymentListComponent implements AfterViewInit {
 
 
 
@@ -40,16 +32,13 @@ export class DeploymentListComponent implements OnInit, AfterViewInit {
   dataSource: DeploymentsDataSource;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['action', 'node_label', 'type', 'platform', 'location', 'period_start', 'period_end']; // , 'type', 'platform', 'description'
+  displayedColumns = ['action', 'node_label', 'type', 'platform', 'location', 'period_start', 'period_end'];
 
   constructor(
     private dataService: DataService,
     public dialog: MatDialog,
   ) {
     this.dataSource = new DeploymentsDataSource(this.dataService);
-  }
-
-  ngOnInit(): void {
   }
 
   ngAfterViewInit(): void {

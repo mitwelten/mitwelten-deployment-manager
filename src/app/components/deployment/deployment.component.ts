@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Deployment } from 'src/app/shared';
@@ -8,7 +8,7 @@ import { Deployment } from 'src/app/shared';
   templateUrl: './deployment.component.html',
   styleUrls: ['./deployment.component.css']
 })
-export class DeploymentComponent implements OnInit {
+export class DeploymentComponent {
 
   deployment: Deployment;
 
@@ -18,9 +18,6 @@ export class DeploymentComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) deployment: Deployment,
     ) {
     this.deployment = deployment;
-  }
-
-  ngOnInit(): void {
   }
 
   edit(): void {

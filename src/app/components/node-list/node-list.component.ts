@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
@@ -10,7 +10,7 @@ import { NodesDataSource } from './list-datasource';
   templateUrl: './node-list.component.html',
   styleUrls: ['./node-list.component.css']
 })
-export class NodeListComponent implements OnInit, AfterViewInit {
+export class NodeListComponent implements AfterViewInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -22,9 +22,6 @@ export class NodeListComponent implements OnInit, AfterViewInit {
 
   constructor(private dataService: DataService) {
     this.dataSource = new NodesDataSource(dataService);
-  }
-
-  ngOnInit(): void {
   }
 
   ngAfterViewInit(): void {
