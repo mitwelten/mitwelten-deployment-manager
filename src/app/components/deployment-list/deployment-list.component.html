@@ -9,7 +9,7 @@
       <ng-container matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef>Action</th>
         <td mat-cell *matCellDef="let row">
-          <button mat-icon-button [routerLink]="['/deployments/edit/', row.deployment_id]" >
+          <button mat-icon-button [routerLink]="['/deployments/edit/', row.deployment_id]" (click)="$event.stopPropagation();" >
             <mat-icon class="material-symbols-outlined" matTooltip="Edit this deployment" matTooltipPosition="before" matTooltipClass="tight-tooltip">edit</mat-icon>
           </button>
         </td>
