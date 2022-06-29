@@ -36,4 +36,11 @@ export class NodeComponent implements OnInit {
     this.dialogRef.close();
   }
 
+  editDeployment(deployment_id: number): void {
+    this.dialogRef.afterClosed().subscribe(() => {
+      this.router.navigate(['/deployments/edit/', deployment_id]);
+    });
+    this.dialogRef.close();
+  }
+
 }

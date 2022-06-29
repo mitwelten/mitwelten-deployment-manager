@@ -47,6 +47,9 @@
       <ng-template #periodAlways>
         <div class="details" #periodAlways>always</div>
       </ng-template>
+      <div class="edit">
+          <mat-icon (click)="editDeployment(deployment.deployment_id)" class="material-symbols-outlined" matTooltip="Edit this deployment" matTooltipPosition="before" matTooltipClass="tight-tooltip">edit</mat-icon>
+      </div>
 
       <strong *ngIf="deployment.location.name || deployment.location.description">Location</strong>
       <div class="details location" *ngIf="deployment.location.name || deployment.location.description" >
@@ -56,6 +59,7 @@
         </p>
       </div>
     </div>
+    <div></div>
     <mat-divider *ngIf="!last"></mat-divider>
   </div>
 
