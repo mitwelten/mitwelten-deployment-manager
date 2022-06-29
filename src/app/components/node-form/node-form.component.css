@@ -13,10 +13,11 @@ form {
 
 .form-buttons {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   column-gap: 24px;
   row-gap: 8px;
   justify-items: start;
+  margin-bottom: 24px;
 }
 
 .form-buttons button {

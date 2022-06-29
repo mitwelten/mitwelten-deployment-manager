@@ -52,10 +52,11 @@
   </div>
 
   <div class="form-buttons">
-    <button [disabled]="!deploymentForm.valid"  style="display: inline; min-width: 100%" type="submit" mat-raised-button color="primary">Submit</button>
+    <button [disabled]="!deploymentForm.valid" type="submit" mat-raised-button color="primary">Submit</button>
     <div>
       <mat-spinner *ngIf="deploymentForm.pending || deletePending " [diameter]="24" [strokeWidth]="4"></mat-spinner>
     </div>
+    <button  type="button" mat-raised-button [routerLink]="['/deployments']">Cancel</button>
     <button style="place-self: end" type="button" (click)="delete()" *ngIf="mode==='edit'" mat-raised-button color="warn">Delete</button>
   </div>
 
