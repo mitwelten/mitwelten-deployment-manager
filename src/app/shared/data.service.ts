@@ -26,8 +26,9 @@ export class DataService {
     return this.http.get<Array<Node>>(`${this.apiUrl}/nodes`);
   }
 
-  public listDeployments(): Observable<Array<Deployment>> {
-    return this.http.get<Array<Deployment>>(`${this.apiUrl}/deployments`);
+  public listDeployments(node_id?: number): Observable<Array<Deployment>> {
+    const queryParams = node_id !== undefined ? `?node_id=${node_id}` : '';
+    return this.http.get<Array<Deployment>>(`${this.apiUrl}/deployments${queryParams}`);
   }
 
   public getNodeById(id: number): Observable<Node> {

@@ -1,8 +1,10 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
 import { DataService, Node } from 'src/app/shared';
+import { NodeComponent } from '../node/node.component';
 import { NodesDataSource } from './list-datasource';
 
 @Component({
@@ -20,7 +22,10 @@ export class NodeListComponent implements AfterViewInit {
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['action', 'node_label', 'type', 'platform', 'description'];
 
-  constructor(private dataService: DataService) {
+  constructor(
+    private dataService: DataService,
+    private dialog: MatDialog,
+  ) {
     this.dataSource = new NodesDataSource(dataService);
   }
 
@@ -28,6 +33,12 @@ export class NodeListComponent implements AfterViewInit {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     this.table.dataSource = this.dataSource;
+  }
+
+  detail(node: Node) {
+    this.dialog.open(NodeComponent, {
+      data: node
+    });
   }
 
 }

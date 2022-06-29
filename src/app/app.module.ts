@@ -10,6 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { DateAdapter, ErrorStateMatcher, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
@@ -35,12 +36,11 @@ import { LoginFormComponent } from './components/login-form/login-form.component
 import { MapComponent } from './components/map/map.component';
 import { NodeFormComponent } from './components/node-form/node-form.component';
 import { NodeListComponent } from './components/node-list/node-list.component';
+import { NodeComponent } from './components/node/node.component';
 import { AuthErrorInterceptor } from './shared/auth-error.interceptor';
 import { BasicAuthInterceptor } from './shared/basic-auth.interceptor';
 
 import '@angular/common/locales/global/de';
-
-/* God-dayum o.O https://teradata.github.io/covalent/v4/#/components */
 
 export class CustomMaterialFormsMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null): boolean {
@@ -59,6 +59,7 @@ export class CustomMaterialFormsMatcher implements ErrorStateMatcher {
     DeploymentFormComponent,
     DeleteConfirmDialogComponent,
     LoginFormComponent,
+    NodeComponent,
   ],
   imports: [
     BrowserModule,
@@ -86,6 +87,7 @@ export class CustomMaterialFormsMatcher implements ErrorStateMatcher {
     MatTooltipModule,
     MatSnackBarModule,
     MatAutocompleteModule,
+    MatDividerModule,
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'de-CH' },

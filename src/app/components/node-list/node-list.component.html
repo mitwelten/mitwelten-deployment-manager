@@ -9,10 +9,10 @@
       <ng-container matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef>Action</th>
         <td mat-cell *matCellDef="let row">
-          <button mat-icon-button [routerLink]="['/nodes/edit/', row.node_id]">
+          <button mat-icon-button [routerLink]="['/nodes/edit/', row.node_id]" (click)="$event.stopPropagation()">
             <mat-icon class="material-symbols-outlined" matTooltip="Edit this node" matTooltipPosition="before" matTooltipClass="tight-tooltip">edit</mat-icon>
           </button>
-          <button mat-icon-button [routerLink]="['/deployments/add/', row.node_id]">
+          <button mat-icon-button [routerLink]="['/deployments/add/', row.node_id]" (click)="$event.stopPropagation()">
             <mat-icon class="material-symbols-outlined" matTooltip="Deploy this node" matTooltipPosition="after" matTooltipClass="tight-tooltip">add_location_alt</mat-icon>
           </button>
         </td>
@@ -49,7 +49,7 @@
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="detail(row)"></tr>
     </table>
   </div>
 
