@@ -207,8 +207,8 @@ export class DeploymentFormComponent implements OnInit, AfterViewInit, OnDestroy
               }
               return of(false);
           })).subscribe(response => {
+            this.deletePending = false;
             if (response === true) {
-              this.deletePending = false;
               this.snackBar.open('Deployment deleted', '😬', this.snackBarConfig);
               this.router.navigate(['/deployments']);
             } else {
