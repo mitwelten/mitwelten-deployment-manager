@@ -29,15 +29,14 @@
 
   <h3>Node Details</h3>
 
+  <div style="margin-bottom: 24px;" *ngIf="deployment.node.description">{{deployment.node.description}}</div>
+
   <div class="node-container">
     <strong *ngIf="deployment.node.type">Type</strong>
     <div *ngIf="deployment.node.type">{{deployment.node.type}}</div>
 
     <strong *ngIf="deployment.node.serial_number">Serial Number</strong>
     <div *ngIf="deployment.node.serial_number">{{deployment.node.serial_number}}</div>
-
-    <strong *ngIf="deployment.node.description">Description</strong>
-    <div *ngIf="deployment.node.description">{{deployment.node.description}}</div>
 
     <strong *ngIf="deployment.node.platform">Platform</strong>
     <div *ngIf="deployment.node.platform">{{deployment.node.platform}}</div>
@@ -60,6 +59,6 @@
 
 </div>
 <div mat-dialog-actions>
-  <button mat-stroked-button color="accent" (click)="edit()">Edit</button>
+  <button mat-stroked-button color="accent" (click)="edit()">Edit Deployment</button>
   <button mat-stroked-button mat-dialog-close cdkFocusInitial>Close</button>
 </div>
