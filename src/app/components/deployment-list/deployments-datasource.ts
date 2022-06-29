@@ -76,7 +76,7 @@ export class DeploymentsDataSource extends DataSource<Deployment> {
         case 'platform': return compare(a.node.platform ?? '', b.node.platform ?? '', isAsc);
         case 'location': return compare(a.location.name ?? a.location.description ?? '', b.location.name ?? b.location.description ?? '', isAsc);
         case 'period_start': return compare(a.period.start ?? '', b.period.start ?? '', isAsc);
-        case 'period_end': return compare(a.period.end ?? '', b.period.end ?? '', isAsc);
+        case 'period_end': return compare(a.period.end ?? '99999', b.period.end ?? '99999', isAsc);
         default: return 0;
       }
     });
