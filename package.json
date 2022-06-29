@@ -1,10 +1,10 @@
 {
-  "name": "node-entry",
-  "version": "0.0.0",
+  "name": "deployment-manager",
+  "version": "1.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build --base-href https://deploy.mitwelten.org/",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "generate-client": "openapi --input https://data.mitwelten.org/openapi.json --output ./src/client --client angular",
