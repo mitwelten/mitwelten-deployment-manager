@@ -64,19 +64,23 @@ export class DataService {
   }
 
   public getNodeTypeOptions(searchTerm: string) {
-    return this.http.get<string[]>(`${this.apiUrl}/node/type_options/${searchTerm}`);
+    const segment = searchTerm === '' ? '' : `/${searchTerm}`;
+    return this.http.get<string[]>(`${this.apiUrl}/node/type_options${segment}`);
   }
 
   public getNodePlatformOptions(searchTerm: string) {
-    return this.http.get<string[]>(`${this.apiUrl}/node/platform_options/${searchTerm}`);
+    const segment = searchTerm === '' ? '' : `/${searchTerm}`;
+    return this.http.get<string[]>(`${this.apiUrl}/node/platform_options${segment}`);
   }
 
   public getNodeConnectivityOptions(searchTerm: string) {
-    return this.http.get<string[]>(`${this.apiUrl}/node/connectivity_options/${searchTerm}`);
+    const segment = searchTerm === '' ? '' : `/${searchTerm}`;
+    return this.http.get<string[]>(`${this.apiUrl}/node/connectivity_options${segment}`);
   }
 
   public getNodePowerOptions(searchTerm: string) {
-    return this.http.get<string[]>(`${this.apiUrl}/node/power_options/${searchTerm}`);
+    const segment = searchTerm === '' ? '' : `/${searchTerm}`;
+    return this.http.get<string[]>(`${this.apiUrl}/node/power_options${segment}`);
   }
 
 }
