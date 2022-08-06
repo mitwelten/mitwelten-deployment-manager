@@ -47,7 +47,8 @@ export class MapComponent implements AfterViewInit, OnDestroy, OnChanges {
 
     this.map = new Map({
       container: this.mapContainer.nativeElement,
-      style: `https://vectortiles.geo.admin.ch/styles/ch.swisstopo.leichte-basiskarte.vt/style.json`,
+      // `https://vectortiles.geo.admin.ch/styles/ch.swisstopo.leichte-basiskarte.vt/style.json`,
+      style: `https://vectortiles.geo.admin.ch/styles/ch.swisstopo.leichte-basiskarte-imagery.vt/style.json`,
       center: [initialState.lng, initialState.lat],
       zoom: initialState.zoom
     });
