@@ -22,7 +22,7 @@ export class AuthenticationService {
     private router: Router,
     private dataService: DataService,
   ) {
-    this.token = JSON.parse(localStorage.getItem('credentials'));
+    this.token = JSON.parse(localStorage.getItem('credentials') ?? 'null');
 
     this.authStateSubject = new BehaviorSubject<boolean>(false);
     this.authState = this.authStateSubject.asObservable();
