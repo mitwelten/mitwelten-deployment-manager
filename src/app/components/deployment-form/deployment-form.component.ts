@@ -142,13 +142,13 @@ export class DeploymentFormComponent implements OnInit, AfterViewInit, OnDestroy
     });
   }
 
-  editCoordinates(e?: any) {
-    if (e.target.name === 'lat') {
-      this.coordinates = {lat: e.target.value, lon: this.deploymentForm.controls.lon.value};
+  editCoordinates(event: Event) {
+    if ((event.target as HTMLInputElement).name === 'lat') {
+      this.coordinates = {lat: Number((event.target as HTMLInputElement).value), lon: this.deploymentForm.controls.lon.value};
       this.deploymentForm.controls.lat.setValue(this.coordinates.lat);
     }
-    if (e.target.name === 'lon') {
-      this.coordinates = {lat: this.deploymentForm.controls.lat.value, lon: e.target.value};
+    if ((event.target as HTMLInputElement).name === 'lon') {
+      this.coordinates = {lat: this.deploymentForm.controls.lat.value, lon: Number((event.target as HTMLInputElement).value)};
       this.deploymentForm.controls.lon.setValue(this.coordinates.lon);
     }
   }
