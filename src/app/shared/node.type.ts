@@ -9,7 +9,6 @@ export type Node = {
     node_label: string;
     /** Desription of function */
     type: string;
-    // location: Location;
     serial_number?: string | null;
     description?: string | null;
     /** Hardware platform */

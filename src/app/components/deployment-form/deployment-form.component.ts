@@ -91,13 +91,13 @@ export class DeploymentFormComponent implements OnInit, AfterViewInit, OnDestroy
           if (deployment.period.start !== null) controls.period_start.setValue(moment.utc(deployment.period.start).local());
           if (deployment.period.end !== null) controls.period_end.setValue(moment.utc(deployment.period.end).local());
 
-          this.displayCoordinates = deployment.location.location;
+          this.displayCoordinates = deployment.location;
 
-          controls.lat.setValue(deployment.location.location.lat);
-          controls.lon.setValue(deployment.location.location.lon);
+          controls.lat.setValue(deployment.location.lat);
+          controls.lon.setValue(deployment.location.lon);
 
           if (this.map !== undefined) {
-            this.coordinates = deployment.location.location
+            this.coordinates = deployment.location
           }
         } else {
           this.initializeAddMode();
