@@ -40,6 +40,7 @@ export class DeploymentFormComponent implements OnInit, AfterViewInit, OnDestroy
     period_end:    new FormControl<Moment|null>(null),
     lat:           new FormControl<number|null>(null, Validators.required),
     lon:           new FormControl<number|null>(null, Validators.required),
+    description:   new FormControl<string|null>(null),
   });
 
   displayCoordinates: CoordinatePoint | undefined;
@@ -95,6 +96,8 @@ export class DeploymentFormComponent implements OnInit, AfterViewInit, OnDestroy
 
           controls.lat.setValue(deployment.location.lat);
           controls.lon.setValue(deployment.location.lon);
+
+          controls.description.setValue(deployment.description);
 
           if (this.map !== undefined) {
             this.coordinates = deployment.location
@@ -184,6 +187,7 @@ export class DeploymentFormComponent implements OnInit, AfterViewInit, OnDestroy
         start: v.period_start,
         end:   v.period_end
       },
+      description: v.description,
       location: {
         lat: v.lat,
         lon: v.lon

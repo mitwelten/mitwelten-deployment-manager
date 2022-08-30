@@ -51,6 +51,14 @@
     </mat-form-field>
   </div>
 
+  <div class="description-container">
+    <mat-form-field class="full-width-field" appearance="outline">
+      <mat-label>Description (Location)</mat-label>
+      <input matInput type="text" formControlName="description" id="description">
+      <mat-hint>Describe the deployment, ideally by specific information on the location.</mat-hint>
+    </mat-form-field>
+  </div>
+
   <div class="form-buttons">
     <button [disabled]="!deploymentForm.valid" type="submit" mat-raised-button color="primary">Submit</button>
     <div>

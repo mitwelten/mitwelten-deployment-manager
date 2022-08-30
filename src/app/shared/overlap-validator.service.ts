@@ -21,6 +21,7 @@ export class NoOverlapValidator implements AsyncValidator {
         start: v.period_start,
         end:   v.period_end
       },
+      description: v.description,
       location: {
         lat: v.lat,
         lon: v.lon

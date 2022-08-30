@@ -16,5 +16,6 @@ export type Deployment = {
     period: TimeRange;
     node: Node;
     location: CoordinatePoint;
+    description?: string;
 };
 

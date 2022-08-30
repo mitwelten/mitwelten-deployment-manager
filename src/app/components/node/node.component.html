@@ -51,12 +51,9 @@
           <mat-icon (click)="editDeployment(deployment.deployment_id)" class="material-symbols-outlined" matTooltip="Edit this deployment" matTooltipPosition="before" matTooltipClass="tight-tooltip">edit</mat-icon>
       </div>
 
-      <strong *ngIf="deployment.location.name || deployment.location.description">Location</strong>
-      <div class="details location" *ngIf="deployment.location.name || deployment.location.description" >
-        <p>
-          <strong>{{deployment.location.name}}</strong>
-          ({{deployment.location.description}})
-        </p>
+      <strong *ngIf="deployment.description">Location</strong>
+      <div class="details location" *ngIf="deployment.description" >
+        <p>{{deployment.description}}</p>
       </div>
     </div>
     <div></div>

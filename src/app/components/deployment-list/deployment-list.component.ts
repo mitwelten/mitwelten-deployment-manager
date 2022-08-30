@@ -32,7 +32,7 @@ export class DeploymentListComponent implements AfterViewInit {
   dataSource: DeploymentsDataSource;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['action', 'node_label', 'type', 'platform', 'location', 'period_start', 'period_end'];
+  displayedColumns = ['action', 'node_label', 'type', 'platform', 'description', 'period_start', 'period_end'];
 
   constructor(
     private dataService: DataService,

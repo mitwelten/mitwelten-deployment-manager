@@ -15,12 +15,9 @@
       <div #periodAlways>always</div>
     </ng-template>
 
-    <strong>Location</strong>
+    <strong>Description (Location)</strong>
     <div style="max-width: fit-content;">
-      <p>
-        <strong>{{deployment.location.name}}</strong>
-        ({{deployment.location.description}})
-      </p>
+      <p>{{deployment.description}}</p>
     </div>
 
     <app-map [coordinates]="deployment.location"></app-map>
