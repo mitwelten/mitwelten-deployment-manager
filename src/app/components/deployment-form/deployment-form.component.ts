@@ -142,6 +142,17 @@ export class DeploymentFormComponent implements OnInit, AfterViewInit, OnDestroy
     });
   }
 
+  editCoordinates(e?: any) {
+    if (e.target.name === 'lat') {
+      this.coordinates = {lat: e.target.value, lon: this.deploymentForm.controls.lon.value};
+      this.deploymentForm.controls.lat.setValue(this.coordinates.lat);
+    }
+    if (e.target.name === 'lon') {
+      this.coordinates = {lat: this.deploymentForm.controls.lat.value, lon: e.target.value};
+      this.deploymentForm.controls.lon.setValue(this.coordinates.lon);
+    }
+  }
+
   ngOnDestroy(): void {
     this.mapSubscription?.unsubscribe();
   }

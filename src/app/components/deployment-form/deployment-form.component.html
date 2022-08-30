@@ -42,12 +42,12 @@
     </button>
     <mat-form-field class="full-width-field" appearance="outline">
       <mat-label>Latitude (WSG48)</mat-label>
-      <input matInput type="number" [value]="displayCoordinates?.lat" disabled id="latitude">
+      <input matInput type="number" step="0.00001" [value]="displayCoordinates?.lat" name="lat" (input)="editCoordinates($event)" id="latitude">
     </mat-form-field>
 
     <mat-form-field class="full-width-field" appearance="outline">
       <mat-label>Longitude (WSG48)</mat-label>
-      <input matInput type="number" [value]="displayCoordinates?.lon" disabled id="longitude">
+      <input matInput type="number" step="0.00001" [value]="displayCoordinates?.lon" name="lon" (input)="editCoordinates($event)" id="longitude">
     </mat-form-field>
   </div>
 
