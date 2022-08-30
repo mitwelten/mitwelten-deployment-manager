@@ -14,6 +14,11 @@ import {
 import { DeleteConfirmDialogComponent } from '../delete-confirm-dialog/delete-confirm-dialog.component';
 import { MapComponent } from '../map/map.component';
 
+import * as _moment from 'moment';
+// tslint:disable-next-line:no-duplicate-imports
+import {default as _rollupMoment, Moment} from 'moment';
+const moment = _rollupMoment || _moment;
+
 @Component({
   selector: 'app-deployment-form',
   templateUrl: './deployment-form.component.html',
@@ -31,8 +36,8 @@ export class DeploymentFormComponent implements OnInit, AfterViewInit, OnDestroy
   deploymentForm = new FormGroup({
     deployment_id: new FormControl<number|null>(null, Validators.required),
     node_id:       new FormControl<number|null>(null, Validators.required),
-    period_start:  new FormControl<string|null>(null),
-    period_end:    new FormControl<string|null>(null),
+    period_start:  new FormControl<Moment|null>(null),
+    period_end:    new FormControl<Moment|null>(null),
     lat:           new FormControl<number|null>(null, Validators.required),
     lon:           new FormControl<number|null>(null, Validators.required),
   });
@@ -40,7 +45,7 @@ export class DeploymentFormComponent implements OnInit, AfterViewInit, OnDestroy
   displayCoordinates: CoordinatePoint | undefined;
 
   @ViewChild('deleteError') deleteErrorDialog: TemplateRef<any>;
-  @ViewChild(MatDatepicker) rangePicker: MatDatepicker<Date> | undefined;
+  @ViewChild(MatDatepicker) rangePicker: MatDatepicker<Moment> | undefined;
   @ViewChild(MapComponent) map: MapComponent | undefined;
   mapSubscription: Subscription | undefined;
 
@@ -83,8 +88,8 @@ export class DeploymentFormComponent implements OnInit, AfterViewInit, OnDestroy
           });
 
           controls.deployment_id.setValue(deployment.deployment_id);
-          controls.period_start.setValue(deployment.period.start);
-          controls.period_end.setValue(deployment.period.end);
+          if (deployment.period.start !== null) controls.period_start.setValue(moment.utc(deployment.period.start).local());
+          if (deployment.period.end !== null) controls.period_end.setValue(moment.utc(deployment.period.end).local());
 
           this.displayCoordinates = deployment.location.location;
 
