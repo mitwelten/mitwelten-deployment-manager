@@ -11,6 +11,7 @@ export type Node = {
     type: string;
     serial_number?: string | null;
     description?: string | null;
+    deployment_count: number;
     /** Hardware platform */
     platform?: string | null;
     connectivity?: string | null;

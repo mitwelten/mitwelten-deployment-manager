@@ -13,7 +13,9 @@
             <mat-icon class="material-symbols-outlined" matTooltip="Edit this node" matTooltipPosition="before" matTooltipClass="tight-tooltip">edit</mat-icon>
           </button>
           <button mat-icon-button [routerLink]="['/deployments/add/', row.node_id]" (click)="$event.stopPropagation()">
-            <mat-icon class="material-symbols-outlined" matTooltip="Deploy this node" matTooltipPosition="after" matTooltipClass="tight-tooltip">add_location_alt</mat-icon>
+            <span [matBadge]="row.deployment_count" [matBadgeDisabled]="row.deployment_count === 0" matBadgeColor="accent" matBadgeOverlap="true" matBadgeSize="small" matBadgePosition="below">
+              <mat-icon class="material-symbols-outlined" matTooltip="Deploy this node" matTooltipPosition="after" matTooltipClass="tight-tooltip">add_location_alt</mat-icon>
+            </span>
           </button>
         </td>
       </ng-container>

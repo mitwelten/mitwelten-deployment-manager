@@ -8,6 +8,7 @@ import { MAT_MOMENT_DATE_FORMATS, MomentDateAdapter, MomentDateModule } from '@a
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
 import { DateAdapter, ErrorStateMatcher, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MatBadgeModule } from '@angular/material/badge';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
@@ -88,6 +89,7 @@ export class CustomMaterialFormsMatcher implements ErrorStateMatcher {
     MatSnackBarModule,
     MatAutocompleteModule,
     MatDividerModule,
+    MatBadgeModule,
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'de-CH' },
