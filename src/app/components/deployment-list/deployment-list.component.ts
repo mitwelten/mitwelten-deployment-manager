@@ -8,6 +8,8 @@ import { DeploymentsDataSource } from './deployments-datasource';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { MatDialog } from '@angular/material/dialog';
 import { DeploymentComponent } from '../deployment/deployment.component';
+import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
+import { Observable, map, shareReplay } from 'rxjs';
 
 @Component({
   selector: 'app-list',
@@ -24,8 +26,6 @@ import { DeploymentComponent } from '../deployment/deployment.component';
 })
 export class DeploymentListComponent implements AfterViewInit {
 
-
-
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatTable) table!: MatTable<Deployment>;
@@ -34,9 +34,16 @@ export class DeploymentListComponent implements AfterViewInit {
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['action', 'node_label', 'type', 'platform', 'description', 'period_start', 'period_end'];
 
+  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+    .pipe(
+      map(result => result.matches),
+      shareReplay()
+    );
+
   constructor(
     private dataService: DataService,
     public dialog: MatDialog,
+    private breakpointObserver: BreakpointObserver,
   ) {
     this.dataSource = new DeploymentsDataSource(this.dataService);
   }

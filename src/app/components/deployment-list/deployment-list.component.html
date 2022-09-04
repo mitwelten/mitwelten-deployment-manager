@@ -1,6 +1,6 @@
 <h1>Deployments</h1>
 
-<div class="container mat-elevation-z8">
+<div class="container" [ngClass]="(isHandset$ | async) ? 'mat-elevation-z4' : 'mat-elevation-z8'">
   <div class="table-container">
 
     <table mat-table class="full-width-table" matSort matSortActive="period_start" matSortDirection="desc" aria-label="Deployments">

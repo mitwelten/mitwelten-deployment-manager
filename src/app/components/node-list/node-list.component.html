@@ -1,6 +1,6 @@
 <h1>Nodes list</h1>
 
-<div class="container mat-elevation-z8">
+<div class="container" [ngClass]="(isHandset$ | async) ? 'mat-elevation-z4' : 'mat-elevation-z8'">
 <div class="table-container">
   <!-- <div class="mat-elevation-z8"> -->
     <table mat-table class="full-width-table" matSort matSortActive="node_label" matSortDirection="asc" aria-label="Nodes">

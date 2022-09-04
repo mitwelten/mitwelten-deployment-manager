@@ -1,8 +1,10 @@
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
+import { map, Observable, shareReplay } from 'rxjs';
 import { DataService, Node } from 'src/app/shared';
 import { NodeComponent } from '../node/node.component';
 import { NodesDataSource } from './list-datasource';
@@ -22,9 +24,16 @@ export class NodeListComponent implements AfterViewInit {
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['action', 'node_label', 'type', 'platform', 'description'];
 
+  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+    .pipe(
+      map(result => result.matches),
+      shareReplay()
+    );
+
   constructor(
     private dataService: DataService,
     private dialog: MatDialog,
+    private breakpointObserver: BreakpointObserver,
   ) {
     this.dataSource = new NodesDataSource(dataService);
   }

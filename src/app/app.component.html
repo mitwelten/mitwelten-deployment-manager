@@ -13,7 +13,7 @@
       <a mat-list-item *ngIf="loggedIn" (click)="logout()">Log Out</a>
     </mat-nav-list>
   </mat-sidenav>
-  <mat-sidenav-content>
+  <mat-sidenav-content [ngClass]="(isHandset$ | async) ? 'narrow' : 'wide'">
     <mat-toolbar color="primary">
       <button
         type="button"
