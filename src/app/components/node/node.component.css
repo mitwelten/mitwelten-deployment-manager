@@ -34,7 +34,7 @@ h3 {
   display: grid;
   grid-template-columns:  calc(20% - 6px) auto min-content;
   column-gap: 10px;
-  row-gap: 8px;
+  row-gap: 0px;
   position: relative;
   top:0;
   bottom:0;
