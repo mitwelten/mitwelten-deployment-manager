@@ -11,6 +11,7 @@ const routes: Routes = [
   { path: 'nodes/edit/:id', component: NodeFormComponent, runGuardsAndResolvers: 'always', canActivate: [AuthenticationGuard] },
   { path: 'nodes/add', component: NodeFormComponent, canActivate: [AuthenticationGuard] },
   { path: 'nodes', component: NodeListComponent },
+  { path: 'node/:label', component: NodeListComponent },
   { path: 'deployments/edit/:id', component: DeploymentFormComponent, canActivate: [AuthenticationGuard] },
   { path: 'deployments/add/:node', component: DeploymentFormComponent, canActivate: [AuthenticationGuard] },
   { path: 'deployments/add', component: DeploymentFormComponent, canActivate: [AuthenticationGuard] },

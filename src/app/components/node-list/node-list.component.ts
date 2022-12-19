@@ -1,9 +1,10 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
+import { ActivatedRoute } from '@angular/router';
 import { map, Observable, shareReplay } from 'rxjs';
 import { DataService, Node } from 'src/app/shared';
 import { NodeComponent } from '../node/node.component';
@@ -14,7 +15,7 @@ import { NodesDataSource } from './list-datasource';
   templateUrl: './node-list.component.html',
   styleUrls: ['./node-list.component.css']
 })
-export class NodeListComponent implements AfterViewInit {
+export class NodeListComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -32,10 +33,19 @@ export class NodeListComponent implements AfterViewInit {
 
   constructor(
     private dataService: DataService,
+    private route: ActivatedRoute,
     private dialog: MatDialog,
     private breakpointObserver: BreakpointObserver,
   ) {
     this.dataSource = new NodesDataSource(dataService);
+  }
+
+  ngOnInit(): void {
+    // load node record into dialog when label supplied as deep-link
+    if('label' in this.route.snapshot.params) {
+      this.dataService.getNodeByLabel(this.route.snapshot.params['label'])
+        .subscribe(node => this.detail(node));
+    }
   }
 
   ngAfterViewInit(): void {

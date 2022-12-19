@@ -35,6 +35,10 @@ export class DataService {
     return this.http.get<Node>(`${this.apiUrl}/node/${id}`);
   }
 
+  public getNodeByLabel(label: string): Observable<Node> {
+    return this.http.get<Node>(`${this.apiUrl}/node?label=${label}`);
+  }
+
   public deleteNode(id: number): Observable<boolean> {
     return this.http.delete<boolean>(`${this.apiUrl}/node/${id}`);
   }
