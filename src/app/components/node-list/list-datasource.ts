@@ -1,4 +1,5 @@
 import { DataSource } from '@angular/cdk/collections';
+import { FormGroup } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { merge, Observable } from 'rxjs';
@@ -14,6 +15,7 @@ export class NodesDataSource extends DataSource<Node> {
   data: Node[] | [] = [];
   paginator: MatPaginator | undefined;
   sort: MatSort | undefined;
+  filter: FormGroup;
 
   constructor(private dataService: DataService) {
     super();
@@ -32,9 +34,9 @@ export class NodesDataSource extends DataSource<Node> {
       // stream for the data-table to consume.
       return merge(this.dataService.listNodes().pipe(map((data: any) => {
         this.data = data;
-      })), this.paginator.page, this.sort.sortChange)
+      })), this.paginator.page, this.sort.sortChange, this.filter.valueChanges)
         .pipe(map(() => {
-          return this.getPagedData(this.getSortedData([...this.data]));
+          return this.getPagedData(this.getSortedData(this.getFilteredData([...this.data])));
         }));
     } else {
       throw Error('Please set the paginator and sort on the data source before connecting.');
@@ -79,6 +81,26 @@ export class NodesDataSource extends DataSource<Node> {
         default: return 0;
       }
     });
+  }
+
+  private getFilteredData(data: Node[]): Node[] {
+    console.log('i was called', this.filter.value);
+    let filteredData = data;
+
+    if (!this.filter) {
+      return filteredData;
+    }
+    if (this.filter.controls['node_label'].value) {
+      filteredData = filteredData.filter(e => e.node_label.includes(this.filter.controls['node_label'].value))
+    }
+    if (this.filter.controls['type'].value && this.filter.controls['type'].value.length > 0) {
+      filteredData = filteredData.filter(e => this.filter.controls['type'].value.includes(e.type));
+    }
+    if (this.filter.controls['platform'].value && this.filter.controls['platform'].value.length > 0) {
+      filteredData = filteredData.filter(e => this.filter.controls['platform'].value.includes(e.platform));
+    }
+    return filteredData;
+
   }
 }
 

@@ -1,5 +1,6 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -21,6 +22,14 @@ export class NodeListComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatTable) table!: MatTable<Node>;
   dataSource: NodesDataSource;
+
+  nodeForm =          new FormGroup({
+    node_label:       new FormControl<string|null>(null),
+    type:             new FormControl<[string]|null>(null),
+    platform:         new FormControl<[string]|null>(null)
+  });
+  typeOptions: any;
+  platformOptions: any;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['action', 'node_label', 'type', 'platform', 'description'];
@@ -46,11 +55,21 @@ export class NodeListComponent implements OnInit, AfterViewInit {
       this.dataService.getNodeByLabel(this.route.snapshot.params['label'])
         .subscribe(node => this.detail(node));
     }
+
+    this.dataService.getNodeTypeOptions('').subscribe(
+      options => this.typeOptions = options.sort(
+        (a, b) => a.toLowerCase().localeCompare(b.toLowerCase())
+      ));
+    this.dataService.getNodePlatformOptions('').subscribe(
+      options => this.platformOptions = options.sort(
+        (a, b) => a.toLowerCase().localeCompare(b.toLowerCase())
+      ));
   }
 
   ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
+    this.dataSource.filter = this.nodeForm;
     this.table.dataSource = this.dataSource;
   }
 
