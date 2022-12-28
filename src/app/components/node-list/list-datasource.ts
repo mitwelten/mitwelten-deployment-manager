@@ -16,6 +16,7 @@ export class NodesDataSource extends DataSource<Node> {
   paginator: MatPaginator | undefined;
   sort: MatSort | undefined;
   filter: FormGroup;
+  length: number = 0;
 
   constructor(private dataService: DataService) {
     super();
@@ -36,7 +37,9 @@ export class NodesDataSource extends DataSource<Node> {
         this.data = data;
       })), this.paginator.page, this.sort.sortChange, this.filter.valueChanges)
         .pipe(map(() => {
-          return this.getPagedData(this.getSortedData(this.getFilteredData([...this.data])));
+          const data = this.getPagedData(this.getSortedData(this.getFilteredData([...this.data])));
+          this.length = data.length;
+          return data;
         }));
     } else {
       throw Error('Please set the paginator and sort on the data source before connecting.');
@@ -84,12 +87,7 @@ export class NodesDataSource extends DataSource<Node> {
   }
 
   private getFilteredData(data: Node[]): Node[] {
-    console.log('i was called', this.filter.value);
     let filteredData = data;
-
-    if (!this.filter) {
-      return filteredData;
-    }
     if (this.filter.controls['node_label'].value) {
       filteredData = filteredData.filter(e => e.node_label.includes(this.filter.controls['node_label'].value))
     }
@@ -99,8 +97,16 @@ export class NodesDataSource extends DataSource<Node> {
     if (this.filter.controls['platform'].value && this.filter.controls['platform'].value.length > 0) {
       filteredData = filteredData.filter(e => this.filter.controls['platform'].value.includes(e.platform));
     }
+    if (this.filter.controls['deployed'].value && this.filter.controls['not_deployed'].value) {
+      // no-op, default
+    } else if (this.filter.controls['deployed'].value) {
+      filteredData = filteredData.filter(e => e.deployment_count > 0);
+    } else if (this.filter.controls['not_deployed'].value) {
+      filteredData = filteredData.filter(e => e.deployment_count === 0);
+    } else {
+      return [];
+    }
     return filteredData;
-
   }
 }
 

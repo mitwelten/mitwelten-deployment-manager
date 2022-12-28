@@ -22,8 +22,8 @@
   </mat-form-field>
   <!-- is deployed (intermediate, boolean) -->
   <div style="margin-top: -18px;">
-    <mat-checkbox [checked]="true">Deployed</mat-checkbox>
-    <mat-checkbox [checked]="true">Not deployed</mat-checkbox>
+    <mat-checkbox [checked]="true" formControlName="deployed">Deployed</mat-checkbox>
+    <mat-checkbox [checked]="true" formControlName="not_deployed">Not deployed</mat-checkbox>
   </div>
   <!-- description (text) -->
   <!-- reset-button -->
@@ -86,7 +86,7 @@
   </div>
 
     <mat-paginator #paginator
-        [length]="dataSource?.data?.length"
+        [length]="dataSource?.length"
         [pageIndex]="0"
         [pageSize]="100"
         [pageSizeOptions]="[5, 10, 20, 100]"

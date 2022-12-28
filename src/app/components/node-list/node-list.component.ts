@@ -26,7 +26,9 @@ export class NodeListComponent implements OnInit, AfterViewInit {
   nodeForm =          new FormGroup({
     node_label:       new FormControl<string|null>(null),
     type:             new FormControl<[string]|null>(null),
-    platform:         new FormControl<[string]|null>(null)
+    platform:         new FormControl<[string]|null>(null),
+    deployed:         new FormControl<boolean>(true, {nonNullable: true}),
+    not_deployed:     new FormControl<boolean>(true, {nonNullable: true})
   });
   typeOptions: any;
   platformOptions: any;
