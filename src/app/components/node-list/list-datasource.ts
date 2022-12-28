@@ -37,9 +37,7 @@ export class NodesDataSource extends DataSource<Node> {
         this.data = data;
       })), this.paginator.page, this.sort.sortChange, this.filter.valueChanges)
         .pipe(map(() => {
-          const data = this.getPagedData(this.getSortedData(this.getFilteredData([...this.data])));
-          this.length = data.length;
-          return data;
+          return this.getPagedData(this.getSortedData(this.getFilteredData([...this.data])));
         }));
     } else {
       throw Error('Please set the paginator and sort on the data source before connecting.');
@@ -106,6 +104,7 @@ export class NodesDataSource extends DataSource<Node> {
     } else {
       return [];
     }
+    this.length = filteredData.length;
     return filteredData;
   }
 }
