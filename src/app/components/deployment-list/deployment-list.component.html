@@ -28,7 +28,7 @@
   <!-- platform (multiselect) -->
   <mat-form-field appearance="outline">
     <mat-label>Platform</mat-label>
-    <mat-select formControlName="type" multiple>
+    <mat-select formControlName="platform" multiple>
       <mat-option *ngFor="let type of dataSource.platformOptions" [value]="type">{{type}}</mat-option>
     </mat-select>
   </mat-form-field>
