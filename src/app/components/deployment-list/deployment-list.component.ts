@@ -1,12 +1,12 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatLegacyPaginator as MatPaginator } from '@angular/material/legacy-paginator';
 import { MatSort } from '@angular/material/sort';
-import { MatTable } from '@angular/material/table';
+import { MatLegacyTable as MatTable } from '@angular/material/legacy-table';
 import { DataService, Deployment } from 'src/app/shared';
 import { DeploymentsDataSource } from './deployments-datasource';
 
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { DeploymentComponent } from '../deployment/deployment.component';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { Observable, map, shareReplay } from 'rxjs';
