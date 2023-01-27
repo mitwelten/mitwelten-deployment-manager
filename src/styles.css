@@ -5,16 +5,21 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
-mat-tooltip-component .tight-tooltip {
-  margin-left: 8px;
-  margin-right: 8px;
-}
-
-mat-chip.mat-standard-chip {
-  min-height: 24px;
-  padding: 5px 8px;
-}
-
-mat-chip-list div.mat-chip-list-wrapper {
+mat-chip-listbox span {
   max-width: 380px;
+}
+
+div.mat-mdc-dialog-actions {
+  padding: 16px 24px;
+}
+
+mat-dialog-container.mat-mdc-dialog-container {
+  max-width: 600px;
+}
+
+button.deployment span.mat-badge-small.mat-badge-after span.mat-badge-content {
+  right: -10px
+}
+button.deployment span.mat-badge-small.mat-badge-below span.mat-badge-content {
+  bottom: -2px;
 }

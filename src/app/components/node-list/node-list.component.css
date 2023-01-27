@@ -31,15 +31,15 @@
   overflow: auto;
 }
 
-.mat-elevation-z4 td.mat-cell:first-of-type {
+.mat-elevation-z4 td.mat-mdc-cell:first-of-type {
   padding-left: 8px;
 }
-.mat-elevation-z4 th.mat-header-cell:first-of-type {
+.mat-elevation-z4 th.mat-mdc-header-cell:first-of-type {
   padding-left: 16px;
 }
 
-.mat-elevation-z4 td.mat-cell:last-of-type,
-.mat-elevation-z4 th.mat-header-cell:last-of-type {
+.mat-elevation-z4 td.mat-mdc-cell:last-of-type,
+.mat-elevation-z4 th.mat-mdc-header-cell:last-of-type {
   padding-right: 16px;
 }
 
@@ -53,4 +53,10 @@
 .mat-column-description {
   padding-left: 4px;
   padding-right: 4px;
+}
+
+button.mat-mdc-icon-button.mat-mdc-button-base {
+  width: 40px;
+  height: 40px;
+  padding: 8px;
 }

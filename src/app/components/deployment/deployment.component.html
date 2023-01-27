@@ -16,9 +16,9 @@
     </ng-template>
 
     <strong>Tags</strong>
-    <mat-chip-list>
+    <mat-chip-set>
       <mat-chip *ngFor="let tag of deployment.tags">{{ tag.name }}</mat-chip>
-    </mat-chip-list>
+    </mat-chip-set>
 
     <strong>Description (Location)</strong>
     <div style="max-width: fit-content;">
