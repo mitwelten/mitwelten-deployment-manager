@@ -12,7 +12,7 @@
 .table-container {
   position: relative;
   min-height: 200px;
-  max-height: calc(100vh - 250px);
+  max-height: calc(100vh - 328px);
   overflow: auto;
 }
 
@@ -27,7 +27,7 @@
 .mat-elevation-z4 .table-container {
   position: relative;
   min-height: 200px;
-  max-height: calc(100vh - 180px);
+  max-height: calc(100vh - 258px);
   overflow: auto;
 }
 
