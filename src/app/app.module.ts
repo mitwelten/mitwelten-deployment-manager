@@ -24,6 +24,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
+import { MatChipsModule } from '@angular/material/chips';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -92,6 +93,7 @@ export class CustomMaterialFormsMatcher implements ErrorStateMatcher {
     MatDividerModule,
     MatBadgeModule,
     MatCheckboxModule,
+    MatChipsModule,
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'de-CH' },
