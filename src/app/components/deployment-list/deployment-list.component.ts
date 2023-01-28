@@ -10,6 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DeploymentComponent } from '../deployment/deployment.component';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { Observable, map, shareReplay } from 'rxjs';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-list',
@@ -31,6 +32,13 @@ export class DeploymentListComponent implements AfterViewInit {
   @ViewChild(MatTable) table!: MatTable<Deployment>;
   dataSource: DeploymentsDataSource;
 
+  filterForm = new FormGroup({
+    node:      new FormControl<[number]|null>(null),
+    tags:      new FormControl<[number]|null>(null),
+    type:      new FormControl<[string]|null>(null),
+    platform:  new FormControl<[string]|null>(null),
+  });
+
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['action', 'node_label', 'type', 'platform', 'description', 'period_start', 'period_end'];
 
@@ -51,6 +59,7 @@ export class DeploymentListComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
+    this.dataSource.filter = this.filterForm;
     this.table.dataSource = this.dataSource;
   }
 

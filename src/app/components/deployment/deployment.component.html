@@ -17,9 +17,7 @@
 
     <strong>Tags</strong>
     <mat-chip-list>
-      <mat-chip>Image Capture: Gleishof (AP 9203-9558)</mat-chip>
-      <mat-chip>9203-9558</mat-chip>
-      <mat-chip>Camera</mat-chip>
+      <mat-chip *ngFor="let tag of deployment.tags">{{ tag.name }}</mat-chip>
     </mat-chip-list>
 
     <strong>Description (Location)</strong>

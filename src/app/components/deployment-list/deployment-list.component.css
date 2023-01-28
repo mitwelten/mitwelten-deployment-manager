@@ -1,6 +1,14 @@
 .container {
   position: relative;
 }
+
+.filter-view {
+  display: grid;
+  grid-gap: 1em;
+  align-items: center;
+  grid-template-columns: min-content 25% repeat(4, min-content);
+}
+
 .table-container {
   position: relative;
   min-height: 200px;

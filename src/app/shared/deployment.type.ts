@@ -17,5 +17,6 @@ export type Deployment = {
     node: Node;
     location: CoordinatePoint;
     description?: string;
+    tags?: [{ id: number, name: string }];
 };
 

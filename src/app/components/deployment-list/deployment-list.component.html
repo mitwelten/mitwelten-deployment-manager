@@ -1,5 +1,47 @@
 <h1>Deployments</h1>
 
+<form [formGroup]="filterForm" class="filter-view">
+  <h3>Filter:</h3>
+
+  <!-- tags (multiselect) -->
+  <mat-form-field appearance="outline">
+    <mat-label>Tags</mat-label>
+    <mat-select formControlName="tags" multiple>
+      <mat-option *ngFor="let tag of dataSource.tagOptions" [value]="tag.id">{{tag.name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <!-- node -->
+  <mat-form-field appearance="outline">
+    <mat-label>Label / Name</mat-label>
+    <input matInput type="text" formControlName="node">
+  </mat-form-field>
+
+  <!-- type (multiselect) -->
+  <mat-form-field appearance="outline">
+    <mat-label>Type</mat-label>
+    <mat-select formControlName="type" multiple>
+      <mat-option *ngFor="let type of dataSource.typeOptions" [value]="type">{{type}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <!-- platform (multiselect) -->
+  <mat-form-field appearance="outline">
+    <mat-label>Platform</mat-label>
+    <mat-select formControlName="type" multiple>
+      <mat-option *ngFor="let type of dataSource.platformOptions" [value]="type">{{type}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <!-- reset-button -->
+  <div style="margin-top: -18px;">
+    <button matSuffix mat-icon-button aria-label="Clear" (click)="filterForm.reset()">
+        <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+</form>
+
 <div class="container" [ngClass]="(isHandset$ | async) ? 'mat-elevation-z4' : 'mat-elevation-z8'">
   <div class="table-container">
 
@@ -58,7 +100,7 @@
   </div>
 
   <mat-paginator #paginator
-      [length]="dataSource?.data?.length"
+      [length]="dataSource?.length"
       [pageIndex]="0"
       [pageSize]="100"
       [pageSizeOptions]="[5, 10, 20, 100]"
