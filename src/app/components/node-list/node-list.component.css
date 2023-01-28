@@ -6,7 +6,7 @@
   display: grid;
   grid-gap: 1em;
   align-items: center;
-  grid-template-columns: repeat(6, min-content);
+  grid-template-columns: min-content auto auto auto min-content min-content;
 }
 
 .table-container {
@@ -41,6 +41,11 @@
 .mat-elevation-z4 td.mat-mdc-cell:last-of-type,
 .mat-elevation-z4 th.mat-mdc-header-cell:last-of-type {
   padding-right: 16px;
+}
+
+.mat-column-action {
+  width: 116px;
+  min-width: 116px;
 }
 
 .mat-column-node_label {

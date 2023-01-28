@@ -9,6 +9,18 @@ mat-chip-listbox span {
   max-width: 380px;
 }
 
+.filter-view {
+  --mdc-checkbox-state-layer-size: 30px;
+}
+
+.filter-view mat-checkbox label {
+  white-space: nowrap;
+}
+
+.filter.mat-mdc-select-panel {
+  min-width: 240px;
+}
+
 div.mat-mdc-dialog-actions {
   padding: 16px 24px;
 }
