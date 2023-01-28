@@ -9,3 +9,12 @@ mat-tooltip-component .tight-tooltip {
   margin-left: 8px;
   margin-right: 8px;
 }
+
+mat-chip.mat-standard-chip {
+  min-height: 24px;
+  padding: 5px 8px;
+}
+
+mat-chip-list div.mat-chip-list-wrapper {
+  max-width: 380px;
+}
