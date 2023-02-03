@@ -32,6 +32,7 @@ export class DeploymentFormComponent implements OnInit, AfterViewInit, OnDestroy
   coordinates: CoordinatePoint = { lon: 7.614704694445322, lat: 47.53603016174955 };
 
   nodes: Node[] | [] = [];
+  tags: string[] = [];
 
   deploymentForm = new FormGroup({
     deployment_id: new FormControl<number|null>(null, Validators.required),
@@ -65,7 +66,7 @@ export class DeploymentFormComponent implements OnInit, AfterViewInit, OnDestroy
     private locationService: LocationService,
     private noOverlapValidator: NoOverlapValidator
   ) {
-    this.deploymentForm.setAsyncValidators([noOverlapValidator.validate.bind(noOverlapValidator)])
+    this.deploymentForm.setAsyncValidators([noOverlapValidator.validate.bind(noOverlapValidator)]);
   }
 
   ngOnInit(): void {
@@ -87,6 +88,8 @@ export class DeploymentFormComponent implements OnInit, AfterViewInit, OnDestroy
             this.nodes = nodes;
             controls.node_id.setValue(deployment.node.node_id);
           });
+
+          this.tags = deployment.tags.map(t => t.name);
 
           controls.deployment_id.setValue(deployment.deployment_id);
           if (deployment.period.start !== null) controls.period_start.setValue(moment.utc(deployment.period.start).local());
@@ -191,7 +194,8 @@ export class DeploymentFormComponent implements OnInit, AfterViewInit, OnDestroy
       location: {
         lat: v.lat,
         lon: v.lon
-      }
+      },
+      tags: this.tags,
     };
     this.dataService.putDeployment(deployment).subscribe(r => {
       this.deploymentForm.reset();
