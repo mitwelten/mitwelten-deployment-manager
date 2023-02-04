@@ -28,12 +28,14 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DeleteConfirmDialogComponent } from './components/delete-confirm-dialog/delete-confirm-dialog.component';
 import { DeploymentFormComponent } from './components/deployment-form/deployment-form.component';
 import { DeploymentListComponent } from './components/deployment-list/deployment-list.component';
+import { DeploymentTagsComponent } from './components/deployment-tags/deployment-tags.component';
 import { DeploymentComponent } from './components/deployment/deployment.component';
 import { LoginFormComponent } from './components/login-form/login-form.component';
 import { MapComponent } from './components/map/map.component';
@@ -60,6 +62,7 @@ export class CustomMaterialFormsMatcher implements ErrorStateMatcher {
     DeploymentComponent,
     MapComponent,
     DeploymentFormComponent,
+    DeploymentTagsComponent,
     DeleteConfirmDialogComponent,
     LoginFormComponent,
     NodeComponent,
@@ -94,6 +97,7 @@ export class CustomMaterialFormsMatcher implements ErrorStateMatcher {
     MatBadgeModule,
     MatCheckboxModule,
     MatChipsModule,
+    MatExpansionModule,
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'de-CH' },

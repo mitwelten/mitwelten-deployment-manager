@@ -6,6 +6,7 @@ import { Deployment } from './deployment.type';
 import { Node } from './node.type';
 
 import { environment } from 'src/environments/environment';
+import { Tag } from './tag.type';
 
 @Injectable({
   providedIn: 'root'
@@ -29,6 +30,11 @@ export class DataService {
   public listDeployments(node_id?: number): Observable<Array<Deployment>> {
     const queryParams = node_id !== undefined ? `?node_id=${node_id}` : '';
     return this.http.get<Array<Deployment>>(`${this.apiUrl}/deployments${queryParams}`);
+  }
+
+  public listTags(deployment_id?: number): Observable<Array<Tag>> {
+    const queryParams = deployment_id !== undefined ? `?deployment_id=${deployment_id}` : '';
+    return this.http.get<Array<Tag>>(`${this.apiUrl}/tags${queryParams}`);
   }
 
   public getNodeById(id: number): Observable<Node> {
