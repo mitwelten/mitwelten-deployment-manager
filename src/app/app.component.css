@@ -10,6 +10,10 @@
   background: inherit;
 }
 
+mat-nav-list mat-icon {
+  margin-right: 8px;
+}
+
 .mat-toolbar.mat-primary {
   position: sticky;
   top: 0;

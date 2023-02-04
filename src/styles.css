@@ -35,3 +35,9 @@ button.deployment span.mat-badge-small.mat-badge-after span.mat-badge-content {
 button.deployment span.mat-badge-small.mat-badge-below span.mat-badge-content {
   bottom: -2px;
 }
+
+.icon-header {
+  display: grid;
+  grid-template-columns: min-content auto;
+  column-gap: 16px;
+}
