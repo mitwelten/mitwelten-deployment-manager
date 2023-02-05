@@ -21,6 +21,10 @@ mat-chip-listbox span {
   min-width: 240px;
 }
 
+span.mdc-dialog__title::before {
+  height: 0px;
+}
+
 div.mat-mdc-dialog-actions {
   padding: 16px 24px;
 }

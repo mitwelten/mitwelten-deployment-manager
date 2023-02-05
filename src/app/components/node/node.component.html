@@ -1,4 +1,7 @@
-<h1 mat-dialog-title>Node {{node.node_label}}</h1>
+<span mat-dialog-title>
+<h1>Node {{node.node_label}}</h1>
+<span class="mat-body link-copy" (click)="copyUrl()">{{ nodeDeepLink }}</span>
+</span>
 <div mat-dialog-content>
 
   <div style="margin-bottom: 24px;" *ngIf="node.description">{{node.description}}</div>

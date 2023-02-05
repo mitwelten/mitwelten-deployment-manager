@@ -12,6 +12,10 @@
   max-width: 700px;
 }
 
+h1 {
+  margin: 0;
+}
+
 h3 {
   margin: 16px 0 16px 0;
 }
@@ -59,4 +63,32 @@ h3 {
 
 .deployment-container mat-icon {
   cursor: pointer;
+}
+
+.link-copy:hover:after {
+  content: "";
+  display: block;
+  height: 24px;
+  position: absolute;
+  right: -24px;
+  top: 0;
+  width: 24px;
+  background: rgba(0, 0, 0, 0.5) no-repeat;
+  /* This is a material `content_copy` icon
+   *  https://material.io/resources/icons/?search=copy&icon=content_copy&style=baseline
+   */
+  mask-image: url("/assets/content_copy-24px.svg");
+  mask-position: 4px 2px;
+  mask-repeat: no-repeat;
+  mask-size: 16px;
+}
+
+.link-copy:hover:active:after {
+  background-color: rgba(0, 0, 0, 0.8)
+}
+
+.link-copy:hover {
+  text-decoration: underline;
+  cursor: pointer;
+  position: relative;
 }
