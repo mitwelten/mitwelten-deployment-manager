@@ -23,3 +23,13 @@ export type Node = {
     updated_at?: string | null;
 };
 
+/**
+ * Node Type Guard
+ * @param node Object to check if is of Node type
+ * @returns boolean
+ */
+export function isNode(node: any): node is Node {
+  if (node === null || node === undefined) return false;
+  return (node as Node).node_label !== undefined
+      && (node as Node).type !== undefined;
+}
