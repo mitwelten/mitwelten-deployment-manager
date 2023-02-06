@@ -4,7 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { merge, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { DataService, Deployment } from 'src/app/shared';
+import { DataService, Deployment, Tag } from 'src/app/shared';
 
 /**
  * Data source for the InputList view. This class should
@@ -17,7 +17,7 @@ export class DeploymentsDataSource extends DataSource<Deployment> {
   sort: MatSort | undefined;
   filter: FormGroup;
   length: number = 0;
-  tagOptions: {id: number, name: string}[];
+  tagOptions: Tag[];
   // nodeOptions: {id: number, name: string}[];
   typeOptions: string[];
   platformOptions: string[];
@@ -42,7 +42,7 @@ export class DeploymentsDataSource extends DataSource<Deployment> {
         // .reduce((u, i) => u.filter(t => t.id === i.id).length ? u : [...u, i], [])
         // .sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
         this.tagOptions = data.map(d => d.tags).flat()
-          .reduce((u, i) => u.filter(t => t.id === i.id).length ? u : [...u, i], [])
+          .reduce((u, i) => u.filter(t => t.tag_id === i.tag_id).length ? u : [...u, i], [])
           .sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
 
         this.typeOptions = ([...new Set(data.map(d => d.node.type))])
@@ -108,7 +108,7 @@ export class DeploymentsDataSource extends DataSource<Deployment> {
     if (this.filter.controls['tags'].value && this.filter.controls['tags'].value.length > 0) {
       filteredData = filteredData.filter(
         e => e.tags.filter(
-          t => this.filter.controls['tags'].value.includes(t.id)
+          t => this.filter.controls['tags'].value.includes(t.tag_id)
         ).length);
     }
     if (this.filter.controls['node'].value) {

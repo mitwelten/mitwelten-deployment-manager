@@ -7,7 +7,7 @@
   <mat-form-field appearance="fill">
     <mat-label>Tags</mat-label>
     <mat-select formControlName="tags" multiple panelClass="filter">
-      <mat-option *ngFor="let tag of dataSource.tagOptions" [value]="tag.id">{{tag.name}}</mat-option>
+      <mat-option *ngFor="let tag of dataSource.tagOptions" [value]="tag.tag_id">{{tag.name}}</mat-option>
     </mat-select>
   </mat-form-field>
 
