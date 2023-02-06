@@ -10,6 +10,11 @@ export type TimeRange = {
   end?: string;
 }
 
+export type Tag = {
+  tag_id: number,
+  name: string
+}
+
 export type Deployment = {
     deployment_id?: number;
     node_id: number;
@@ -17,6 +22,5 @@ export type Deployment = {
     node: Node;
     location: CoordinatePoint;
     description?: string;
-    tags?: [{ id: number, name: string }];
+    tags?: Tag[];
 };
-
