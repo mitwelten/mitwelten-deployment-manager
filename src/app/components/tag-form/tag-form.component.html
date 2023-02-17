@@ -1,0 +1,23 @@
+<span mat-dialog-title>
+  <h1 class="icon-header"><mat-icon inline>label</mat-icon><span>Edit Tag "{{ data.name }}"</span></h1>
+</span>
+
+<form [formGroup]="tagForm" (ngSubmit)="submit()">
+
+  <div mat-dialog-content class="form-container">
+    <mat-form-field class="full-width-field" appearance="outline">
+      <mat-label>Tag name (a.k.a. label)</mat-label>
+      <input matInput type="text" formControlName="name" id="name">
+      <mat-error *ngIf="tagForm.controls.name.invalid">{{ getErrorMessage() }}</mat-error>
+    </mat-form-field>
+  </div>
+
+
+  <div mat-dialog-actions>
+    <div class="form-buttons">
+      <button type="submit" [disabled]="!tagForm.valid" mat-raised-button color="primary">Save</button>
+      <button  type="button" mat-raised-button (click)="cancel()">Cancel</button>
+    </div>
+  </div>
+
+</form>

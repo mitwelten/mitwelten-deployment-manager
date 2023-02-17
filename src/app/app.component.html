@@ -9,6 +9,7 @@
       <a mat-list-item *ngIf="loggedIn" routerLink="/deployments/add"><mat-icon matListItemIcon color="primary" class="material-symbols-outlined" matBadge="+" matBadgeColor="primary" matBadgeOverlap="true" matBadgeSize="small" matBadgePosition="below">location_on</mat-icon><div matListItemTitle>Add Deployment</div></a>
       <a mat-list-item routerLink="/nodes"><mat-icon matListItemIcon color="primary" class="material-symbols-outlined">sensors</mat-icon><div matListItemTitle>Nodes</div></a>
       <a mat-list-item *ngIf="loggedIn" routerLink="/nodes/add"><mat-icon matListItemIcon color="primary" class="material-symbols-outlined" matBadge="+" matBadgeColor="primary" matBadgeOverlap="true" matBadgeSize="small" matBadgePosition="below">sensors</mat-icon><div matListItemTitle>Add Node</div></a>
+      <a mat-list-item routerLink="/tags"><mat-icon matListItemIcon color="primary" class="material-symbols-outlined">label</mat-icon><div matListItemTitle>Tags</div></a>
       <a mat-list-item *ngIf="!(loggedIn)" routerLink="/login"><mat-icon matListItemIcon color="primary" class="material-symbols-outlined">login</mat-icon><div matListItemTitle>Log In</div></a>
       <a mat-list-item *ngIf="loggedIn" (click)="logout()"><mat-icon matListItemIcon color="primary" class="material-symbols-outlined">logout</mat-icon><div matListItemTitle>Log Out</div></a>
     </mat-nav-list>
