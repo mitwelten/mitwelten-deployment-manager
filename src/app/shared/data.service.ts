@@ -37,6 +37,18 @@ export class DataService {
     return this.http.get<Array<Tag>>(`${this.apiUrl}/tags${queryParams}`);
   }
 
+  public listTagStats(): Observable<Array<Tag>> {
+    return this.http.get<Array<Tag>>(`${this.apiUrl}/tags_stats`);
+  }
+
+  public putTag(tag: Partial<Tag>): Observable<number> {
+    return this.http.put<number>(`${this.apiUrl}/tags`, tag);
+  }
+
+  public deleteTag(tag_id: number): Observable<boolean> {
+    return this.http.delete<boolean>(`${this.apiUrl}/tag/${tag_id}`);
+  }
+
   public getNodeById(id: number): Observable<Node> {
     return this.http.get<Node>(`${this.apiUrl}/node/${id}`);
   }

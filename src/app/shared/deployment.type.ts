@@ -4,15 +4,11 @@
 
 import { CoordinatePoint } from './coordinate-point.type';
 import type { Node } from './node.type';
+import type { Tag } from './tag.type';
 
 export type TimeRange = {
   start?: string;
   end?: string;
-}
-
-export type Tag = {
-  tag_id: number,
-  name: string
 }
 
 export type Deployment = {
