@@ -38,3 +38,7 @@ mat-nav-list mat-icon {
   margin: 0 0;
   height: calc(100vh - 100px);
 }
+
+.active {
+  background-color: #dfd2f5;
+}
