@@ -85,6 +85,10 @@ export class DataService {
     return this.http.put<boolean>(`${this.apiUrl}/validate/node`, node);
   }
 
+  public isTagUnique(tag: Partial<Tag>) {
+    return this.http.put<boolean>(`${this.apiUrl}/validate/tag`, tag);
+  }
+
   public getNodeTypeOptions(searchTerm: string) {
     const segment = searchTerm === '' ? '' : `/${searchTerm}`;
     return this.http.get<string[]>(`${this.apiUrl}/node/type_options${segment}`);

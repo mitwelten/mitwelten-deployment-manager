@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
-import { DataService, Tag } from 'src/app/shared';
+import { DataService, Tag, UniqueTagValidator } from 'src/app/shared';
 
 @Component({
   selector: 'app-tag-form',
@@ -12,8 +12,14 @@ import { DataService, Tag } from 'src/app/shared';
 export class TagFormComponent implements OnInit {
   tagForm =          new FormGroup({
     tag_id:          new FormControl<number|null>(null),
-    name:            new FormControl<string|null>(null, {
-      validators: [Validators.required],
+    name:            new FormControl<string|null>(null),
+    tagValidator:    new FormGroup({
+      tag_id:        new FormControl<number|null>(null),
+      name:          new FormControl<string|null>(null, {
+        validators: [Validators.required]
+      }),
+    }, {
+      asyncValidators: [this.tagValidator.validate.bind(this.tagValidator)]
     }),
   });
 
@@ -27,12 +33,29 @@ export class TagFormComponent implements OnInit {
     public dialogRef: MatDialogRef<TagFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Tag,
     private dataService: DataService,
-    // TODO: implement validator that allows same tag but not duplicate with other
-    // private nodeValidator: NodeValidator,
+    private tagValidator: UniqueTagValidator,
     private snackBar: MatSnackBar,
   ) {}
 
   ngOnInit(): void {
+    this.tagForm.controls.name.valueChanges.subscribe(name => {
+      const c = this.tagForm.controls.tagValidator.controls
+      c.name.setValue(name);
+      if (this.tagForm.controls.tag_id.value !== null) {
+        c.tag_id.setValue(this.tagForm.controls.tag_id.value)
+      }
+    });
+
+    // Copy the errors of the proxy back to the original FormControl
+    this.tagForm.controls.tagValidator.statusChanges.subscribe(status => {
+      let errors = Object.assign({},
+        this.tagForm.controls.tagValidator.errors,
+        this.tagForm.controls.tagValidator.controls.name.errors);
+      this.tagForm.controls.name.setErrors(
+        Object.keys(errors).length === 0 ? null : errors,
+        { emitEvent: true });
+    });
+
     this.tagForm.patchValue(this.data);
   }
 
