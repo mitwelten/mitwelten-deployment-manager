@@ -2,11 +2,16 @@ form {
   min-width: 400px;
   max-width: 500px;
   width: 100%;
-  display: grid;
-  grid-template-columns: 1fr;
-  row-gap: 8px;
 }
 
 .full-width-field {
   width: 100%;
+}
+
+h1 {
+  margin: 0;
+}
+
+.form-container {
+  padding-bottom: 0;
 }
