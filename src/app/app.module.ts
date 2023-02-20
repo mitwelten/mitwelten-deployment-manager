@@ -1,6 +1,7 @@
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { LOCALE_ID, NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 import { LayoutModule } from '@angular/cdk/layout';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
@@ -75,6 +76,12 @@ export class CustomMaterialFormsMatcher implements ErrorStateMatcher {
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: !isDevMode(),
+      // Register the ServiceWorker as soon as the application is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    }),
     ReactiveFormsModule,
     BrowserAnimationsModule,
     LayoutModule,
