@@ -1,7 +1,7 @@
 {
-  "name": "mitwelten: deployment manager",
-  "short_name": "Manage mitwelten deployments",
-  "theme_color": "#673ab7",
+  "name": "Mitwelten Deployment Manager",
+  "short_name": "Deployment Manager",
+  "theme_color": "#4caf50",
   "background_color": "#ffffff",
   "display": "standalone",
   "scope": "./",
