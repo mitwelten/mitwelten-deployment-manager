@@ -11,7 +11,7 @@ import { AuthenticationService } from './shared/authentication.service';
 })
 export class AppComponent implements OnInit {
 
-  title = 'Mitwelten: Nodes Deployment Manager';
+  title = 'Mitwelten Deployments Manager';
 
   loggedIn: boolean;
 

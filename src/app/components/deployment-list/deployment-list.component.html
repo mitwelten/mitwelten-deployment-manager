@@ -1,4 +1,7 @@
-<h1 class="icon-header"><mat-icon inline class="material-symbols-outlined">location_on</mat-icon><span>Deployments</span></h1>
+<h2 class="icon-header">
+  <mat-icon inline class="material-symbols-outlined">location_on</mat-icon>
+  <span>Deployments</span>
+</h2>
 
 <form [formGroup]="filterForm" class="filter-view">
   <h3>Filter:</h3>
@@ -36,7 +39,7 @@
   <!-- reset-button -->
   <div style="margin-top: -18px;">
     <button matSuffix mat-icon-button aria-label="Clear" (click)="filterForm.reset()" matTooltip="Clear filters">
-        <mat-icon>close</mat-icon>
+      <mat-icon class="material-symbols-outlined">close</mat-icon>
     </button>
   </div>
 

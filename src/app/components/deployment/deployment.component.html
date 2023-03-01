@@ -1,6 +1,4 @@
-<span mat-dialog-title>
-  <h1>Deployment of Node {{deployment.node.node_label}}</h1>
-</span>
+<h1 mat-dialog-title>Deployment of Node {{deployment.node.node_label}}</h1>
 
 <div mat-dialog-content>
 
@@ -25,7 +23,7 @@
 
     <strong>Description (Location)</strong>
     <div style="max-width: fit-content;">
-      <p>{{deployment.description}}</p>
+      {{deployment.description}}
     </div>
 
     <app-map [coordinates]="deployment.location"></app-map>

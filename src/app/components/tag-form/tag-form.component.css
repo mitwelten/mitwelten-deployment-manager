@@ -12,6 +12,11 @@ h1 {
   margin: 0;
 }
 
+h1 mat-icon {
+  line-height: 32px;
+  padding-right: 8px;
+}
+
 .form-container {
   padding-bottom: 0;
 }

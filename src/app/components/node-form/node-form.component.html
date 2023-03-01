@@ -1,4 +1,7 @@
-<h1 class="icon-header"><mat-icon inline>sensors</mat-icon><span>{{ title }}</span></h1>
+<h2 class="icon-header">
+  <mat-icon inline class="material-symbols-outlined">sensors</mat-icon>
+  <span>{{ title }}</span>
+</h2>
 
 <form [formGroup]="nodeForm" (ngSubmit)="submit()">
 
@@ -6,7 +9,7 @@
     <mat-label>Name (a.k.a. Node Label / ID)</mat-label>
     <input matInput type="text" placeholder="2323-4242" formControlName="node_label" id="name">
     <mat-error *ngIf="nodeForm.controls.node_label.invalid">{{ getErrorMessage() }}</mat-error>
-    <button matSuffix mat-icon-button color="primary" type="button" (click)="generateLabel()" matTooltip="Generate a Node Label">
+    <button matSuffix mat-icon-button color="accent" type="button" (click)="generateLabel()" matTooltip="Generate a Node Label">
       <mat-icon class="material-symbols-outlined">magic_button</mat-icon>
     </button>
   </mat-form-field>

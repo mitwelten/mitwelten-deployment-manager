@@ -1,4 +1,7 @@
-<h1 class="icon-header"><mat-icon inline class="material-symbols-outlined">location_on</mat-icon><span>{{ title }}</span></h1>
+<h2 class="icon-header">
+  <mat-icon inline class="material-symbols-outlined">location_on</mat-icon>
+  <span>{{ title }}</span>
+</h2>
 
 <form [formGroup]="deploymentForm" (ngSubmit)="submit()">
 
@@ -38,7 +41,7 @@
 
   <div class="coordinates-container">
     <button (click)="getLocation()" type="button" mat-icon-button color="accent" matTooltip="Use my location" matTooltipPosition="before" matTooltipClass="tight-tooltip">
-      <mat-icon>my_location</mat-icon>
+      <mat-icon class="material-symbols-outlined">my_location</mat-icon>
     </button>
     <mat-form-field class="full-width-field" appearance="outline">
       <mat-label>Latitude (WSG48)</mat-label>

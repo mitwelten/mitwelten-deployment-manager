@@ -12,8 +12,8 @@
   max-width: 700px;
 }
 
-
 .details-container app-map {
+  margin-top: 8px;
   grid-column-start: 1;
   grid-column-end: span 2;
 }
