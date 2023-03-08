@@ -5,19 +5,19 @@
 
 <form [formGroup]="nodeForm" class="filter-view">
   <h3>Filter:</h3>
-  <mat-form-field appearance="fill">
+  <mat-form-field appearance="outline">
     <mat-label>Label / Name</mat-label>
     <input matInput type="text" formControlName="node_label">
   </mat-form-field>
   <!-- type (multiselect) -->
-  <mat-form-field appearance="fill">
+  <mat-form-field appearance="outline">
     <mat-label>Type</mat-label>
     <mat-select formControlName="type" multiple panelClass="filter">
       <mat-option *ngFor="let type of typeOptions" [value]="type">{{type}}</mat-option>
     </mat-select>
   </mat-form-field>
   <!-- platform (multiselect) -->
-  <mat-form-field appearance="fill">
+  <mat-form-field appearance="outline">
     <mat-label>Platform</mat-label>
     <mat-select formControlName="platform" multiple panelClass="filter">
       <mat-option *ngFor="let platform of platformOptions" [value]="platform">{{platform}}</mat-option>
