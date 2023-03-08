@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DeploymentFormComponent } from './components/deployment-form/deployment-form.component';
 import { DeploymentListComponent } from './components/deployment-list/deployment-list.component';
-import { LoginFormComponent } from './components/login-form/login-form.component';
 import { NodeFormComponent } from './components/node-form/node-form.component';
 import { NodeListComponent } from './components/node-list/node-list.component';
 import { TagListComponent } from './components/tag-list/tag-list.component';
@@ -19,7 +18,6 @@ const routes: Routes = [
   { path: 'deployments/:id', component: DeploymentListComponent },
   { path: 'deployments', component: DeploymentListComponent },
   { path: 'tags', component: TagListComponent },
-  { path: 'login', component: LoginFormComponent },
   { path: '', component: DeploymentListComponent, canActivate: [AuthenticationGuard] },
   { path: '**', redirectTo: '/', pathMatch: 'full' },
 ];

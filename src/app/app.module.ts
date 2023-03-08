@@ -1,7 +1,8 @@
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { LOCALE_ID, NgModule, isDevMode } from '@angular/core';
+import { LOCALE_ID, NgModule, isDevMode, APP_INITIALIZER } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
 
 import { LayoutModule } from '@angular/cdk/layout';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
@@ -38,17 +39,30 @@ import { DeploymentFormComponent } from './components/deployment-form/deployment
 import { DeploymentListComponent } from './components/deployment-list/deployment-list.component';
 import { DeploymentTagsComponent } from './components/deployment-tags/deployment-tags.component';
 import { DeploymentComponent } from './components/deployment/deployment.component';
-import { LoginFormComponent } from './components/login-form/login-form.component';
 import { MapComponent } from './components/map/map.component';
 import { NodeFormComponent } from './components/node-form/node-form.component';
 import { NodeListComponent } from './components/node-list/node-list.component';
 import { NodeComponent } from './components/node/node.component';
 import { TagListComponent } from './components/tag-list/tag-list.component';
 import { TagFormComponent } from './components/tag-form/tag-form.component';
-import { AuthErrorInterceptor } from './shared/auth-error.interceptor';
-import { BasicAuthInterceptor } from './shared/basic-auth.interceptor';
 
 import '@angular/common/locales/global/de';
+
+function initializeKeycloak(keycloak: KeycloakService) {
+  return () =>
+    keycloak.init({
+      config: {
+        url: 'https://auth.mitwelten.org/auth',
+        realm: 'mitwelten',
+        clientId: 'walk'
+      },
+      initOptions: {
+        onLoad: 'check-sso',
+        silentCheckSsoRedirectUri:
+          window.location.origin + '/assets/silent-check-sso.html'
+      }
+    });
+}
 
 export class CustomMaterialFormsMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null): boolean {
@@ -67,13 +81,13 @@ export class CustomMaterialFormsMatcher implements ErrorStateMatcher {
     DeploymentFormComponent,
     DeploymentTagsComponent,
     DeleteConfirmDialogComponent,
-    LoginFormComponent,
     NodeComponent,
     TagListComponent,
     TagFormComponent,
   ],
   imports: [
     BrowserModule,
+    KeycloakAngularModule,
     HttpClientModule,
     AppRoutingModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
@@ -116,8 +130,12 @@ export class CustomMaterialFormsMatcher implements ErrorStateMatcher {
     { provide: DateAdapter, useClass: MomentDateAdapter, deps: [ MAT_DATE_LOCALE ] },
     { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
     { provide: ErrorStateMatcher, useClass: CustomMaterialFormsMatcher },
-    { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: AuthErrorInterceptor, multi: true },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initializeKeycloak,
+      multi: true,
+      deps: [KeycloakService]
+    },
   ],
   bootstrap: [AppComponent]
 })

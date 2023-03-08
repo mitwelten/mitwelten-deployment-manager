@@ -27,15 +27,16 @@ export class AppComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.checkLogin();
-    this.authService.authState.subscribe(authState => this.loggedIn = authState);
+    this.authService.authStateSubject.subscribe(authState => this.loggedIn = authState);
+    this.authService.checkLogin();
+  }
+
+  login() {
+    this.authService.login();
   }
 
   logout() {
     this.authService.logout();
   }
 
-  private checkLogin() {
-    this.authService.checkLogin().subscribe(state => this.loggedIn = state)
-  }
 }
