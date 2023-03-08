@@ -12,6 +12,8 @@
       <a mat-list-item routerLinkActive="active" routerLink="/tags"><mat-icon matListItemIcon color="primary" class="material-symbols-outlined">label</mat-icon><div matListItemTitle>Tags</div></a>
       <a mat-list-item routerLinkActive="active" *ngIf="!(loggedIn)" routerLink="/login"><mat-icon matListItemIcon color="primary" class="material-symbols-outlined">login</mat-icon><div matListItemTitle>Log In</div></a>
       <a mat-list-item routerLinkActive="active" *ngIf="loggedIn" (click)="logout()"><mat-icon matListItemIcon color="primary" class="material-symbols-outlined">logout</mat-icon><div matListItemTitle>Log Out</div></a>
+      <mat-list-item  *ngIf="userData" disabled><span>Signed in as {{ userData.firstName }} {{ userData.lastName }}</span></mat-list-item>
+      <mat-list-item disabled><span>Version {{version}}</span></mat-list-item>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content [ngClass]="(isHandset$ | async) ? 'narrow' : 'wide'">

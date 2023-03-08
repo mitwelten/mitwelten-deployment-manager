@@ -1,8 +1,10 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, OnInit } from '@angular/core';
+import { KeycloakProfile } from 'keycloak-js';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { AuthenticationService } from './shared/authentication.service';
+import pkgJson from '../../package.json';
 
 @Component({
   selector: 'app-root',
@@ -12,8 +14,10 @@ import { AuthenticationService } from './shared/authentication.service';
 export class AppComponent implements OnInit {
 
   title = 'Mitwelten Deployments Manager';
+  version = pkgJson.version;
 
   loggedIn: boolean;
+  userData?: KeycloakProfile;
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -28,6 +32,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.authService.authStateSubject.subscribe(authState => this.loggedIn = authState);
+    this.authService.userData().subscribe(profile => this.userData = profile);
     this.authService.checkLogin();
   }
 
