@@ -16,7 +16,7 @@
           <mat-chip-row *ngFor="let tag of tags" (removed)="remove(tag)">
             {{tag}}
             <button matChipRemove [attr.aria-label]="'remove ' + tag">
-              <mat-icon>cancel</mat-icon>
+              <mat-icon class="material-symbols-outlined">cancel</mat-icon>
             </button>
           </mat-chip-row>
         </mat-chip-grid>
