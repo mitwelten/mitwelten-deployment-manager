@@ -109,7 +109,7 @@ export class DeploymentsDataSource extends DataSource<Deployment> {
       filteredData = filteredData.filter(
         e => e.tags.filter(
           t => this.filter.controls['tags'].value.includes(t.tag_id)
-        ).length);
+        ).length === this.filter.controls['tags'].value.length);
     }
     if (this.filter.controls['node'].value) {
       filteredData = filteredData.filter(e => e.node.node_label.includes(this.filter.controls['node'].value));
