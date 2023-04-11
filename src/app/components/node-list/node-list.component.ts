@@ -1,6 +1,6 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
@@ -11,6 +11,7 @@ import { map, Observable, shareReplay } from 'rxjs';
 import { DataService, Node, isNode } from 'src/app/shared';
 import { NodeComponent } from '../node/node.component';
 import { NodesDataSource } from './list-datasource';
+import { FilterStoreService } from 'src/app/shared/filter-store.service';
 
 @Component({
   selector: 'app-list',
@@ -24,13 +25,7 @@ export class NodeListComponent implements OnInit, AfterViewInit {
   @ViewChild(MatTable) table!: MatTable<Node>;
   dataSource: NodesDataSource;
 
-  nodeForm =          new FormGroup({
-    node_label:       new FormControl<string|null>(null),
-    type:             new FormControl<[string]|null>(null),
-    platform:         new FormControl<[string]|null>(null),
-    deployed:         new FormControl<boolean>(true, {nonNullable: true}),
-    not_deployed:     new FormControl<boolean>(true, {nonNullable: true})
-  });
+  nodeForm: FormGroup;
   typeOptions: any;
   platformOptions: any;
 
@@ -51,6 +46,7 @@ export class NodeListComponent implements OnInit, AfterViewInit {
 
   constructor(
     private dataService: DataService,
+    private filterStore: FilterStoreService,
     private route: ActivatedRoute,
     private router: Router,
     private snackBar: MatSnackBar,
@@ -58,6 +54,7 @@ export class NodeListComponent implements OnInit, AfterViewInit {
     private breakpointObserver: BreakpointObserver,
   ) {
     this.dataSource = new NodesDataSource(dataService);
+    this.nodeForm = this.filterStore.nodesFilter;
   }
 
   ngOnInit(): void {
