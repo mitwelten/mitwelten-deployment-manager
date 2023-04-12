@@ -5,10 +5,13 @@
 
 <form [formGroup]="nodeForm" class="filter-view">
   <h3>Filter:</h3>
+
+  <!-- node -->
   <mat-form-field appearance="outline">
     <mat-label>Label / Name</mat-label>
     <input matInput type="text" formControlName="node_label">
   </mat-form-field>
+
   <!-- type (multiselect) -->
   <mat-form-field appearance="outline">
     <mat-label>Type</mat-label>
@@ -16,6 +19,7 @@
       <mat-option *ngFor="let type of typeOptions" [value]="type">{{type}}</mat-option>
     </mat-select>
   </mat-form-field>
+
   <!-- platform (multiselect) -->
   <mat-form-field appearance="outline">
     <mat-label>Platform</mat-label>
@@ -23,19 +27,19 @@
       <mat-option *ngFor="let platform of platformOptions" [value]="platform">{{platform}}</mat-option>
     </mat-select>
   </mat-form-field>
+
   <!-- is deployed (intermediate, boolean) -->
   <div style="margin-top: -18px;">
     <mat-checkbox [checked]="true" formControlName="deployed">Deployed</mat-checkbox>
     <mat-checkbox [checked]="true" formControlName="not_deployed">Not deployed</mat-checkbox>
   </div>
-  <!-- description (text) -->
+
   <!-- reset-button -->
   <div style="margin-top: -18px;">
     <button matSuffix mat-icon-button aria-label="Clear" (click)="nodeForm.reset()" matTooltip="Clear filters">
       <mat-icon class="material-symbols-outlined">close</mat-icon>
     </button>
   </div>
-  <!-- (persist for session) -->
 
 </form>
 
