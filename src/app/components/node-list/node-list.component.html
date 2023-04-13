@@ -12,18 +12,18 @@
     <input matInput type="text" formControlName="node_label">
   </mat-form-field>
 
-  <!-- type (multiselect) -->
+  <!-- type (select) -->
   <mat-form-field appearance="outline">
     <mat-label>Type</mat-label>
-    <mat-select formControlName="type" multiple panelClass="filter">
+    <mat-select formControlName="type" panelClass="filter">
       <mat-option *ngFor="let type of typeOptions" [value]="type">{{type}}</mat-option>
     </mat-select>
   </mat-form-field>
 
-  <!-- platform (multiselect) -->
+  <!-- platform (select) -->
   <mat-form-field appearance="outline">
     <mat-label>Platform</mat-label>
-    <mat-select formControlName="platform" multiple panelClass="filter">
+    <mat-select formControlName="platform" panelClass="filter">
       <mat-option *ngFor="let platform of platformOptions" [value]="platform">{{platform}}</mat-option>
     </mat-select>
   </mat-form-field>
