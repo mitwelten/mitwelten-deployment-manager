@@ -1,0 +1,70 @@
+form {
+  /* min-width: 500px;
+  max-width: 800px; */
+  width: 100%;
+}
+
+.full-width-field {
+  width: 100%;
+}
+
+.env-slider {
+  width: 100%;
+  display: block;
+}
+
+.env-slider .description {
+  width: 100%;
+  /* width: calc(100% + 24px); */
+  display: grid;
+  column-gap: 16px;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+.env-slider .description span {
+  white-space: nowrap;
+  display: block;
+}
+
+.env-slider .description span.low {
+  justify-self: start;
+}
+.env-slider .description span.med {
+  justify-self: center;
+}
+.env-slider .description span.high {
+  justify-self: end;
+}
+
+mat-slider {
+  width: calc(100% - 16px);
+}
+
+h1 {
+  margin: 0;
+}
+
+h1 mat-icon {
+  line-height: 32px;
+  padding-right: 8px;
+}
+
+.form-container {
+  padding-bottom: 0;
+  width: calc(100% - 24px);
+}
+
+.coordinates-container {
+  width: 100%;
+  margin-top: 24px;
+}
+
+.coordinates-container button {
+  margin-top: 0px;
+}
+
+.timestamp-location-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 24px;
+  margin-bottom: 24px;
+}

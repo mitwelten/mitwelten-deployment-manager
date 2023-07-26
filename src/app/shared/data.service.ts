@@ -4,9 +4,11 @@ import { map, Observable } from 'rxjs';
 
 import { Deployment } from './deployment.type';
 import { Node } from './node.type';
+import { Tag } from './tag.type';
+import { Environment } from './environment.type';
+import { EnvironmentLabel } from './environment-label.type';
 
 import { environment } from 'src/environments/environment';
-import { Tag } from './tag.type';
 
 @Injectable({
   providedIn: 'root'
@@ -47,6 +49,22 @@ export class DataService {
 
   public deleteTag(tag_id: number): Observable<boolean> {
     return this.http.delete<boolean>(`${this.apiUrl}/tag/${tag_id}`);
+  }
+
+  public getEnvLabels(): Observable<{[key: string]: EnvironmentLabel}> {
+    return this.http.get<{[key: string]: EnvironmentLabel}>(`${this.apiUrl}/environment/legend`);
+  }
+
+  public listEnvEntries(): Observable<Array<Environment>> {
+    return this.http.get<Array<Environment>>(`${this.apiUrl}/environment/entries`);
+  }
+
+  public putEnvEntry(env: Partial<Environment>): Observable<Environment> {
+    return this.http.put<Environment>(`${this.apiUrl}/environment/entries/${env.environment_id}`, env);
+  }
+
+  public deleteEnvEntry(environment_id: number): Observable<{status: string, id: number}> {
+    return this.http.delete<{status: string, id: number}>(`${this.apiUrl}/environment/entries/${environment_id}`);
   }
 
   public getNodeById(id: number): Observable<Node> {

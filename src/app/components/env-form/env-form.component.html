@@ -1,0 +1,179 @@
+<h1 mat-dialog-title>
+  <mat-icon class="material-symbols-outlined">bubble_chart</mat-icon>
+  <span>Edit Environment Entry "{{ data.env.environment_id }}"</span>
+</h1>
+
+<form [formGroup]="envForm" (ngSubmit)="submit()">
+
+  <div mat-dialog-content class="form-container">
+
+    <div class="timestamp-location-container">
+      <div>
+
+        <mat-form-field class="full-width-field" appearance="outline">
+          <mat-label>Timestamp</mat-label>
+          <input matInput formControlName="timestamp" [matDatepicker]="picker">
+          <mat-hint>DD.MM.YYYY</mat-hint>
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <div class="coordinates-container">
+          <mat-form-field class="full-width-field" appearance="outline">
+            <mat-label>Latitude (WSG48)</mat-label>
+            <input matInput type="number" step="0.00001" [value]="displayCoordinates?.lat" name="lat" (input)="editCoordinates($event)" id="latitude">
+          </mat-form-field>
+
+          <mat-form-field class="full-width-field" appearance="outline">
+            <mat-label>Longitude (WSG48)</mat-label>
+            <input matInput type="number" step="0.00001" [value]="displayCoordinates?.lon" name="lon" (input)="editCoordinates($event)" id="longitude">
+          </mat-form-field>
+
+          <button (click)="getLocation()" type="button" mat-icon-button color="accent" matTooltip="Use my location" matTooltipPosition="before" matTooltipClass="tight-tooltip">
+            <mat-icon class="material-symbols-outlined">my_location</mat-icon>
+          </button>
+        </div>
+      </div>
+
+      <app-map [coordinates]="coordinates" [readonly]="false" (coordinatesSet)="displayCoordinates=$event"></app-map>
+
+    </div>
+
+    <div class="env-slider">
+      <label for="attribute_01"><strong>{{ data.labels['attribute_01'].label ?? 'attribute_01' }}: {{ envForm.controls.attribute_01.value }}</strong></label>
+      <div class="description">
+        <span class="low">{{ data.labels['attribute_01'].description[0] }}</span>
+        <span class="med">{{ data.labels['attribute_01'].description[1] }}</span>
+        <span class="high">{{ data.labels['attribute_01'].description[2] }}</span>
+      </div>
+      <mat-slider min="0" max="10" step="1" showTickMarks discrete>
+        <input matSliderThumb formControlName="attribute_01" id="attribute_01">
+      </mat-slider>
+    </div>
+
+    <div class="env-slider">
+      <label for="attribute_02"><strong>{{ data.labels['attribute_02'].label ?? 'attribute_02' }}: {{ envForm.controls.attribute_02.value }}</strong></label>
+      <div class="description">
+        <span class="low">{{ data.labels['attribute_02'].description[0] }}</span>
+        <span class="med">{{ data.labels['attribute_02'].description[1] }}</span>
+        <span class="high">{{ data.labels['attribute_02'].description[2] }}</span>
+      </div>
+      <mat-slider min="0" max="10" step="1" showTickMarks discrete>
+        <input matSliderThumb formControlName="attribute_02" id="attribute_02">
+      </mat-slider>
+    </div>
+
+    <div class="env-slider">
+      <label for="attribute_03"><strong>{{ data.labels['attribute_03'].label ?? 'attribute_03' }}: {{ envForm.controls.attribute_03.value }}</strong></label>
+      <div class="description">
+        <span class="low">{{ data.labels['attribute_03'].description[0] }}</span>
+        <span class="med">{{ data.labels['attribute_03'].description[1] }}</span>
+        <span class="high">{{ data.labels['attribute_03'].description[2] }}</span>
+      </div>
+      <mat-slider min="0" max="10" step="1" showTickMarks discrete>
+        <input matSliderThumb formControlName="attribute_03" id="attribute_03">
+      </mat-slider>
+    </div>
+
+    <div class="env-slider">
+      <label for="attribute_04"><strong>{{ data.labels['attribute_04'].label ?? 'attribute_04' }}: {{ envForm.controls.attribute_04.value }}</strong></label>
+      <div class="description">
+        <span class="low">{{ data.labels['attribute_04'].description[0] }}</span>
+        <span class="med">{{ data.labels['attribute_04'].description[1] }}</span>
+        <span class="high">{{ data.labels['attribute_04'].description[2] }}</span>
+      </div>
+      <mat-slider min="0" max="10" step="1" showTickMarks discrete>
+        <input matSliderThumb formControlName="attribute_04" id="attribute_04">
+      </mat-slider>
+    </div>
+
+    <div class="env-slider">
+      <label for="attribute_05"><strong>{{ data.labels['attribute_05'].label ?? 'attribute_05' }}: {{ envForm.controls.attribute_05.value }}</strong></label>
+      <div class="description">
+        <span class="low">{{ data.labels['attribute_05'].description[0] }}</span>
+        <span class="med">{{ data.labels['attribute_05'].description[1] }}</span>
+        <span class="high">{{ data.labels['attribute_05'].description[2] }}</span>
+      </div>
+      <mat-slider min="0" max="10" step="1" showTickMarks discrete>
+        <input matSliderThumb formControlName="attribute_05" id="attribute_05">
+      </mat-slider>
+    </div>
+
+    <div class="env-slider">
+      <label for="attribute_06"><strong>{{ data.labels['attribute_06'].label ?? 'attribute_06' }}: {{ envForm.controls.attribute_06.value }}</strong></label>
+      <div class="description">
+        <span class="low">{{ data.labels['attribute_06'].description[0] }}</span>
+        <span class="med">{{ data.labels['attribute_06'].description[1] }}</span>
+        <span class="high">{{ data.labels['attribute_06'].description[2] }}</span>
+      </div>
+      <mat-slider min="0" max="10" step="1" showTickMarks discrete>
+        <input matSliderThumb formControlName="attribute_06" id="attribute_06">
+      </mat-slider>
+    </div>
+
+    <div class="env-slider">
+      <label for="attribute_07"><strong>{{ data.labels['attribute_07'].label ?? 'attribute_07' }}: {{ envForm.controls.attribute_07.value }}</strong></label>
+      <div class="description">
+        <span class="low">{{ data.labels['attribute_07'].description[0] }}</span>
+        <span class="med">{{ data.labels['attribute_07'].description[1] }}</span>
+        <span class="high">{{ data.labels['attribute_07'].description[2] }}</span>
+      </div>
+      <mat-slider min="0" max="10" step="1" showTickMarks discrete>
+        <input matSliderThumb formControlName="attribute_07" id="attribute_07">
+      </mat-slider>
+    </div>
+
+    <div class="env-slider">
+      <label for="attribute_08"><strong>{{ data.labels['attribute_08'].label ?? 'attribute_08' }}: {{ envForm.controls.attribute_08.value }}</strong></label>
+      <div class="description">
+        <span class="low">{{ data.labels['attribute_08'].description[0] }}</span>
+        <span class="med">{{ data.labels['attribute_08'].description[1] }}</span>
+        <span class="high">{{ data.labels['attribute_08'].description[2] }}</span>
+      </div>
+      <mat-slider min="0" max="10" step="1" showTickMarks discrete>
+        <input matSliderThumb formControlName="attribute_08" id="attribute_08">
+      </mat-slider>
+    </div>
+
+    <div class="env-slider">
+      <label for="attribute_09"><strong>{{ data.labels['attribute_09'].label ?? 'attribute_09' }}: {{ envForm.controls.attribute_09.value }}</strong></label>
+      <div class="description">
+        <span class="low">{{ data.labels['attribute_09'].description[0] }}</span>
+        <span class="med">{{ data.labels['attribute_09'].description[1] }}</span>
+        <span class="high">{{ data.labels['attribute_09'].description[2] }}</span>
+      </div>
+      <mat-slider min="0" max="10" step="1" showTickMarks discrete>
+        <input matSliderThumb formControlName="attribute_09" id="attribute_09">
+      </mat-slider>
+    </div>
+
+    <div class="env-slider">
+      <label for="attribute_10"><strong>{{ data.labels['attribute_10'].label ?? 'attribute_10' }}: {{ envForm.controls.attribute_10.value }}</strong></label>
+      <div class="description">
+        <span class="low">{{ data.labels['attribute_10'].description[0] }}</span>
+        <span class="med">{{ data.labels['attribute_10'].description[1] }}</span>
+        <span class="high">{{ data.labels['attribute_10'].description[2] }}</span>
+      </div>
+      <mat-slider min="0" max="10" step="1" showTickMarks discrete>
+        <input matSliderThumb formControlName="attribute_10" id="attribute_10">
+      </mat-slider>
+    </div>
+
+    <!-- <div>
+      <label>attribute_01</label>
+      <mat-slider min="0" max="10" step="1" showTickMarks discrete>
+        <input matSliderThumb formControlName="attribute_01" id="attribute_01">
+      </mat-slider>
+    </div> -->
+
+  </div>
+
+
+  <div mat-dialog-actions>
+    <div class="form-buttons">
+      <button type="submit" [disabled]="!envForm.valid" mat-raised-button color="primary">Save</button>
+      <button  type="button" mat-raised-button (click)="cancel()">Cancel</button>
+    </div>
+  </div>
+
+</form>

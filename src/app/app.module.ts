@@ -31,6 +31,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatSliderModule } from '@angular/material/slider';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -45,6 +46,8 @@ import { NodeListComponent } from './components/node-list/node-list.component';
 import { NodeComponent } from './components/node/node.component';
 import { TagListComponent } from './components/tag-list/tag-list.component';
 import { TagFormComponent } from './components/tag-form/tag-form.component';
+import { EnvListComponent } from './components/env-list/env-list.component';
+import { EnvFormComponent } from './components/env-form/env-form.component';
 
 import '@angular/common/locales/global/de';
 
@@ -84,6 +87,8 @@ export class CustomMaterialFormsMatcher implements ErrorStateMatcher {
     NodeComponent,
     TagListComponent,
     TagFormComponent,
+    EnvListComponent,
+    EnvFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -123,6 +128,7 @@ export class CustomMaterialFormsMatcher implements ErrorStateMatcher {
     MatCheckboxModule,
     MatChipsModule,
     MatExpansionModule,
+    MatSliderModule,
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'de-CH' },
