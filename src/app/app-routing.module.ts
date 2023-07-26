@@ -5,6 +5,7 @@ import { DeploymentListComponent } from './components/deployment-list/deployment
 import { NodeFormComponent } from './components/node-form/node-form.component';
 import { NodeListComponent } from './components/node-list/node-list.component';
 import { TagListComponent } from './components/tag-list/tag-list.component';
+import { EnvListComponent } from './components/env-list/env-list.component';
 import { AuthenticationGuard } from './shared/authentication.guard';
 
 const routes: Routes = [
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'deployments/:id', component: DeploymentListComponent },
   { path: 'deployments', component: DeploymentListComponent },
   { path: 'tags', component: TagListComponent },
+  { path: 'environments', component: EnvListComponent },
   { path: '', component: DeploymentListComponent, canActivate: [AuthenticationGuard] },
   { path: '**', redirectTo: '/', pathMatch: 'full' },
 ];
