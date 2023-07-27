@@ -1,0 +1,203 @@
+<h1 mat-dialog-title>
+  <mat-icon class="material-symbols-outlined">bubble_chart</mat-icon>
+  <span>Filter Environment Entries</span>
+</h1>
+
+<form [formGroup]="filterStore.envFilter">
+
+  <div mat-dialog-content class="form-container">
+
+    <div class="timestamp-location-container">
+      <div>
+
+        <mat-form-field class="full-width-field" appearance="outline">
+          <mat-label>ID</mat-label>
+          <input matInput type="number" step="1" formControlName="environment_id" name="environment_id" id="environment_id">
+        </mat-form-field>
+
+        <mat-form-field class="full-width-field" appearance="outline">
+          <mat-label>Timestamp Range</mat-label>
+          <mat-date-range-input [rangePicker]="rangePicker">
+            <input matStartDate placeholder="Start date" formControlName="timestamp_s">
+            <input matEndDate placeholder="End date" formControlName="timestamp_e">
+          </mat-date-range-input>
+          <mat-hint>DD.MM.YYYY – DD.MM.YYYY (leave a date empty for unbounded range)</mat-hint>
+          <mat-datepicker-toggle matSuffix [for]="rangePicker"></mat-datepicker-toggle>
+          <mat-date-range-picker #rangePicker>
+            <mat-date-range-picker-actions>
+              <button mat-button matDateRangePickerCancel>Cancel</button>
+              <button mat-raised-button color="primary" matDateRangePickerApply>Apply</button>
+            </mat-date-range-picker-actions>
+          </mat-date-range-picker>
+        </mat-form-field>
+
+        <!-- <div formGroupName="location" class="coordinates-container">
+          <mat-form-field class="full-width-field" appearance="outline">
+            <mat-label>Latitude (WSG48)</mat-label>
+            <input matInput type="number" step="0.00001" formControlName="lat" name="lat" (input)="editCoordinates($event)" id="latitude">
+          </mat-form-field>
+
+          <mat-form-field class="full-width-field" appearance="outline">
+            <mat-label>Longitude (WSG48)</mat-label>
+            <input matInput type="number" step="0.00001" formControlName="lon" name="lon" (input)="editCoordinates($event)" id="longitude">
+          </mat-form-field>
+
+          <button (click)="getLocation()" type="button" mat-icon-button color="accent" matTooltip="Use my location" matTooltipPosition="after" matTooltipClass="tight-tooltip">
+            <mat-icon class="material-symbols-outlined">my_location</mat-icon>
+          </button>
+        </div> -->
+      </div>
+
+      <!-- <app-map [coordinates]="coordinates" [readonly]="false" (coordinatesSet)="filterStore.envFilter.controls.location.setValue($event)"></app-map> -->
+
+    </div>
+
+    <div class="env-slider">
+      <label for="attribute_01"><strong>{{ labels['attribute_01'].label ?? 'attribute_01' }}: {{ filterStore.envFilter.controls.attribute_01_s.value }} - {{ filterStore.envFilter.controls.attribute_01_e.value }}</strong></label>
+      <div class="description">
+        <span class="low">{{ labels['attribute_01'].description[0] }}</span>
+        <span class="med">{{ labels['attribute_01'].description[1] }}</span>
+        <span class="high">{{ labels['attribute_01'].description[2] }}</span>
+      </div>
+      <mat-slider min="0" max="10" step="1" showTickMarks discrete>
+        <input matSliderStartThumb formControlName="attribute_01_s" id="attribute_01_s">
+        <input matSliderEndThumb   formControlName="attribute_01_e" id="attribute_01_e">
+      </mat-slider>
+    </div>
+
+    <div class="env-slider">
+      <label for="attribute_02"><strong>{{ labels['attribute_02'].label ?? 'attribute_02' }}: {{ filterStore.envFilter.controls.attribute_02_s.value }} - {{ filterStore.envFilter.controls.attribute_02_e.value }}</strong></label>
+      <div class="description">
+        <span class="low">{{ labels['attribute_02'].description[0] }}</span>
+        <span class="med">{{ labels['attribute_02'].description[1] }}</span>
+        <span class="high">{{ labels['attribute_02'].description[2] }}</span>
+      </div>
+      <mat-slider min="0" max="10" step="1" showTickMarks discrete>
+        <input matSliderStartThumb formControlName="attribute_02_s" id="attribute_02_s">
+        <input matSliderEndThumb   formControlName="attribute_02_e" id="attribute_02_e">
+      </mat-slider>
+    </div>
+
+    <div class="env-slider">
+      <label for="attribute_03"><strong>{{ labels['attribute_03'].label ?? 'attribute_03' }}: {{ filterStore.envFilter.controls.attribute_03_s.value }} - {{ filterStore.envFilter.controls.attribute_03_e.value }}</strong></label>
+      <div class="description">
+        <span class="low">{{ labels['attribute_03'].description[0] }}</span>
+        <span class="med">{{ labels['attribute_03'].description[1] }}</span>
+        <span class="high">{{ labels['attribute_03'].description[2] }}</span>
+      </div>
+      <mat-slider min="0" max="10" step="1" showTickMarks discrete>
+        <input matSliderStartThumb formControlName="attribute_03_s" id="attribute_03_s">
+        <input matSliderEndThumb   formControlName="attribute_03_e" id="attribute_03_e">
+      </mat-slider>
+    </div>
+
+    <div class="env-slider">
+      <label for="attribute_04"><strong>{{ labels['attribute_04'].label ?? 'attribute_04' }}: {{ filterStore.envFilter.controls.attribute_04_s.value }} - {{ filterStore.envFilter.controls.attribute_04_e.value }}</strong></label>
+      <div class="description">
+        <span class="low">{{ labels['attribute_04'].description[0] }}</span>
+        <span class="med">{{ labels['attribute_04'].description[1] }}</span>
+        <span class="high">{{ labels['attribute_04'].description[2] }}</span>
+      </div>
+      <mat-slider min="0" max="10" step="1" showTickMarks discrete>
+        <input matSliderStartThumb formControlName="attribute_04_s" id="attribute_04_s">
+        <input matSliderEndThumb   formControlName="attribute_04_e" id="attribute_04_e">
+      </mat-slider>
+    </div>
+
+    <div class="env-slider">
+      <label for="attribute_05"><strong>{{ labels['attribute_05'].label ?? 'attribute_05' }}: {{ filterStore.envFilter.controls.attribute_05_s.value }} - {{ filterStore.envFilter.controls.attribute_05_e.value }}</strong></label>
+      <div class="description">
+        <span class="low">{{ labels['attribute_05'].description[0] }}</span>
+        <span class="med">{{ labels['attribute_05'].description[1] }}</span>
+        <span class="high">{{ labels['attribute_05'].description[2] }}</span>
+      </div>
+      <mat-slider min="0" max="10" step="1" showTickMarks discrete>
+        <input matSliderStartThumb formControlName="attribute_05_s" id="attribute_05_s">
+        <input matSliderEndThumb   formControlName="attribute_05_e" id="attribute_05_e">
+      </mat-slider>
+    </div>
+
+    <div class="env-slider">
+      <label for="attribute_06"><strong>{{ labels['attribute_06'].label ?? 'attribute_06' }}: {{ filterStore.envFilter.controls.attribute_06_s.value }} - {{ filterStore.envFilter.controls.attribute_06_e.value }}</strong></label>
+      <div class="description">
+        <span class="low">{{ labels['attribute_06'].description[0] }}</span>
+        <span class="med">{{ labels['attribute_06'].description[1] }}</span>
+        <span class="high">{{ labels['attribute_06'].description[2] }}</span>
+      </div>
+      <mat-slider min="0" max="10" step="1" showTickMarks discrete>
+        <input matSliderStartThumb formControlName="attribute_06_s" id="attribute_06_s">
+        <input matSliderEndThumb   formControlName="attribute_06_e" id="attribute_06_e">
+      </mat-slider>
+    </div>
+
+    <div class="env-slider">
+      <label for="attribute_07"><strong>{{ labels['attribute_07'].label ?? 'attribute_07' }}: {{ filterStore.envFilter.controls.attribute_07_s.value }} - {{ filterStore.envFilter.controls.attribute_07_e.value }}</strong></label>
+      <div class="description">
+        <span class="low">{{ labels['attribute_07'].description[0] }}</span>
+        <span class="med">{{ labels['attribute_07'].description[1] }}</span>
+        <span class="high">{{ labels['attribute_07'].description[2] }}</span>
+      </div>
+      <mat-slider min="0" max="10" step="1" showTickMarks discrete>
+        <input matSliderStartThumb formControlName="attribute_07_s" id="attribute_07_s">
+        <input matSliderEndThumb   formControlName="attribute_07_e" id="attribute_07_e">
+      </mat-slider>
+    </div>
+
+    <div class="env-slider">
+      <label for="attribute_08"><strong>{{ labels['attribute_08'].label ?? 'attribute_08' }}: {{ filterStore.envFilter.controls.attribute_08_s.value }} - {{ filterStore.envFilter.controls.attribute_08_e.value }}</strong></label>
+      <div class="description">
+        <span class="low">{{ labels['attribute_08'].description[0] }}</span>
+        <span class="med">{{ labels['attribute_08'].description[1] }}</span>
+        <span class="high">{{ labels['attribute_08'].description[2] }}</span>
+      </div>
+      <mat-slider min="0" max="10" step="1" showTickMarks discrete>
+        <input matSliderStartThumb formControlName="attribute_08_s" id="attribute_08_s">
+        <input matSliderEndThumb   formControlName="attribute_08_e" id="attribute_08_e">
+      </mat-slider>
+    </div>
+
+    <div class="env-slider">
+      <label for="attribute_09"><strong>{{ labels['attribute_09'].label ?? 'attribute_09' }}: {{ filterStore.envFilter.controls.attribute_09_s.value }} - {{ filterStore.envFilter.controls.attribute_09_e.value }}</strong></label>
+      <div class="description">
+        <span class="low">{{ labels['attribute_09'].description[0] }}</span>
+        <span class="med">{{ labels['attribute_09'].description[1] }}</span>
+        <span class="high">{{ labels['attribute_09'].description[2] }}</span>
+      </div>
+      <mat-slider min="0" max="10" step="1" showTickMarks discrete>
+        <input matSliderStartThumb formControlName="attribute_09_s" id="attribute_09_s">
+        <input matSliderEndThumb   formControlName="attribute_09_e" id="attribute_09_e">
+      </mat-slider>
+    </div>
+
+    <div class="env-slider">
+      <label for="attribute_10"><strong>{{ labels['attribute_10'].label ?? 'attribute_10' }}: {{ filterStore.envFilter.controls.attribute_10_s.value }} - {{ filterStore.envFilter.controls.attribute_10_e.value }}</strong></label>
+      <div class="description">
+        <span class="low">{{ labels['attribute_10'].description[0] }}</span>
+        <span class="med">{{ labels['attribute_10'].description[1] }}</span>
+        <span class="high">{{ labels['attribute_10'].description[2] }}</span>
+      </div>
+      <mat-slider min="0" max="10" step="1" showTickMarks discrete>
+        <input matSliderStartThumb formControlName="attribute_10_s" id="attribute_10_s">
+        <input matSliderEndThumb   formControlName="attribute_10_e" id="attribute_10_e">
+      </mat-slider>
+    </div>
+
+    <!-- <div>
+      <label>attribute_01</label>
+      <mat-slider min="0" max="10" step="1" showTickMarks discrete>
+        <input matSliderStartThumb formControlName="attribute_01_s" id="attribute_01_s">
+        <input matSliderEndThumb   formControlName="attribute_01_e" id="attribute_01_e">
+      </mat-slider>
+    </div> -->
+
+  </div>
+
+
+  <div mat-dialog-actions>
+    <div class="form-buttons">
+      <button  type="button" mat-raised-button color="accent" aria-label="Clear" (click)="filterStore.envFilter.reset()" matTooltip="Clear filters">Reset/Clear</button>
+      <button  type="button" mat-raised-button matDialogClose>Close</button>
+    </div>
+  </div>
+
+</form>

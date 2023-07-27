@@ -11,7 +11,6 @@ import { CoordinatePoint, DataService, Environment, EnvironmentLabel, LocationSe
 })
 export class EnvFormComponent implements OnInit {
   coordinates: CoordinatePoint = { lon: 7.614704694445322, lat: 47.53603016174955 };
-  displayCoordinates?: CoordinatePoint;
 
   envForm =          new FormGroup({
     environment_id:  new FormControl<number|null>(null),
@@ -20,16 +19,16 @@ export class EnvFormComponent implements OnInit {
       lat:           new FormControl<number|null>(null, Validators.required),
       lon:           new FormControl<number|null>(null, Validators.required),
     }),
-    attribute_01:    new FormControl<number|null>(null, Validators.required),
-    attribute_02:    new FormControl<number|null>(null, Validators.required),
-    attribute_03:    new FormControl<number|null>(null, Validators.required),
-    attribute_04:    new FormControl<number|null>(null, Validators.required),
-    attribute_05:    new FormControl<number|null>(null, Validators.required),
-    attribute_06:    new FormControl<number|null>(null, Validators.required),
-    attribute_07:    new FormControl<number|null>(null, Validators.required),
-    attribute_08:    new FormControl<number|null>(null, Validators.required),
-    attribute_09:    new FormControl<number|null>(null, Validators.required),
-    attribute_10:    new FormControl<number|null>(null, Validators.required),
+    attribute_01:    new FormControl<number|null>(null),
+    attribute_02:    new FormControl<number|null>(null),
+    attribute_03:    new FormControl<number|null>(null),
+    attribute_04:    new FormControl<number|null>(null),
+    attribute_05:    new FormControl<number|null>(null),
+    attribute_06:    new FormControl<number|null>(null),
+    attribute_07:    new FormControl<number|null>(null),
+    attribute_08:    new FormControl<number|null>(null),
+    attribute_09:    new FormControl<number|null>(null),
+    attribute_10:    new FormControl<number|null>(null),
   });
 
   snackBarConfig: MatSnackBarConfig = {
@@ -47,11 +46,13 @@ export class EnvFormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // this.coordinates.lat = this.data.env.location.lat;
-    // this.coordinates.lon = this.data.env.location.lon;
-    this.coordinates = <CoordinatePoint> this.data.env.location;
-    this.displayCoordinates = <CoordinatePoint> this.data.env.location;
-    this.envForm.patchValue(this.data.env);
+    if (this.data.env !== null) {
+      this.coordinates = <CoordinatePoint> this.data.env.location;
+      this.envForm.patchValue(this.data.env);
+    } else {
+      this.envForm.controls.timestamp.setValue(new Date().toISOString());
+      this.envForm.controls.timestamp.updateValueAndValidity();
+    }
   }
 
   getErrorMessage() {
@@ -64,11 +65,17 @@ export class EnvFormComponent implements OnInit {
   }
 
   submit() {
-    this.envForm.controls.location.patchValue(this.displayCoordinates);
-    this.dataService.putEnvEntry(this.envForm.value).subscribe(env => {
-      this.snackBar.open(`Environment entry ${env.environment_id} updated`, '🎉', this.snackBarConfig);
-      this.dialogRef.close(true);
-    });
+    if (this.envForm.controls.environment_id.value === null) {
+      this.dataService.postEnvEntry(this.envForm.value).subscribe(env => {
+        this.snackBar.open(`Environment entry ${env.environment_id} added`, '🎉', this.snackBarConfig);
+        this.dialogRef.close(true);
+      });
+    } else {
+      this.dataService.putEnvEntry(this.envForm.value).subscribe(env => {
+        this.snackBar.open(`Environment entry ${env.environment_id} updated`, '🎉', this.snackBarConfig);
+        this.dialogRef.close(true);
+      });
+    }
   }
 
   cancel() {
@@ -81,21 +88,20 @@ export class EnvFormComponent implements OnInit {
         this.snackBar.open('Finding your location failed.', '😔', this.snackBarConfig)
       } else {
         this.coordinates = location;
-        this.displayCoordinates = location;
-        this.envForm.controls.location.controls.lat.setValue(location.lat);
-        this.envForm.controls.location.controls.lon.setValue(location.lon);
+        this.envForm.controls.location.setValue(location);
       }
     });
   }
 
+  /**
+   * Update coordinates for input to map component
+   */
   editCoordinates(event: Event) {
     if ((event.target as HTMLInputElement).name === 'lat') {
       this.coordinates = {lat: Number((event.target as HTMLInputElement).value), lon: this.envForm.controls.location.controls.lon.value};
-      this.envForm.controls.location.controls.lat.setValue(this.coordinates.lat);
     }
     if ((event.target as HTMLInputElement).name === 'lon') {
       this.coordinates = {lat: this.envForm.controls.location.controls.lat.value, lon: Number((event.target as HTMLInputElement).value)};
-      this.envForm.controls.location.controls.lon.setValue(this.coordinates.lon);
     }
   }
 }

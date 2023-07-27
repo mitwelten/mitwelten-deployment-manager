@@ -43,8 +43,8 @@
   padding-right: 16px;
 }
 
-td.mat-column-action {
-  display: block;
+td.mat-column-action,
+td.mat-column-action > div {
   width: max-content;
 }
 /*

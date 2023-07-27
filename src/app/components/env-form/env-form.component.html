@@ -1,6 +1,6 @@
 <h1 mat-dialog-title>
   <mat-icon class="material-symbols-outlined">bubble_chart</mat-icon>
-  <span>Edit Environment Entry "{{ data.env.environment_id }}"</span>
+  <span>{{ data.env ? 'Edit' : 'Add' }} Environment Entry {{ data.env?.environment_id }}</span>
 </h1>
 
 <form [formGroup]="envForm" (ngSubmit)="submit()">
@@ -18,24 +18,24 @@
           <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
 
-        <div class="coordinates-container">
+        <div formGroupName="location" class="coordinates-container">
           <mat-form-field class="full-width-field" appearance="outline">
             <mat-label>Latitude (WSG48)</mat-label>
-            <input matInput type="number" step="0.00001" [value]="displayCoordinates?.lat" name="lat" (input)="editCoordinates($event)" id="latitude">
+            <input matInput type="number" step="0.00001" formControlName="lat" name="lat" (input)="editCoordinates($event)" id="latitude">
           </mat-form-field>
 
           <mat-form-field class="full-width-field" appearance="outline">
             <mat-label>Longitude (WSG48)</mat-label>
-            <input matInput type="number" step="0.00001" [value]="displayCoordinates?.lon" name="lon" (input)="editCoordinates($event)" id="longitude">
+            <input matInput type="number" step="0.00001" formControlName="lon" name="lon" (input)="editCoordinates($event)" id="longitude">
           </mat-form-field>
 
-          <button (click)="getLocation()" type="button" mat-icon-button color="accent" matTooltip="Use my location" matTooltipPosition="before" matTooltipClass="tight-tooltip">
+          <button (click)="getLocation()" type="button" mat-icon-button color="accent" matTooltip="Use my location" matTooltipPosition="after" matTooltipClass="tight-tooltip">
             <mat-icon class="material-symbols-outlined">my_location</mat-icon>
           </button>
         </div>
       </div>
 
-      <app-map [coordinates]="coordinates" [readonly]="false" (coordinatesSet)="displayCoordinates=$event"></app-map>
+      <app-map [coordinates]="coordinates" [readonly]="false" (coordinatesSet)="envForm.controls.location.setValue($event)"></app-map>
 
     </div>
 
