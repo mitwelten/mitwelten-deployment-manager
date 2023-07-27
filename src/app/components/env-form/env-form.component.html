@@ -29,7 +29,7 @@
             <input matInput type="number" step="0.00001" [value]="displayCoordinates?.lon" name="lon" (input)="editCoordinates($event)" id="longitude">
           </mat-form-field>
 
-          <button (click)="getLocation()" type="button" mat-icon-button color="accent" matTooltip="Use my location" matTooltipPosition="before" matTooltipClass="tight-tooltip">
+          <button (click)="getLocation()" type="button" mat-icon-button color="accent" matTooltip="Use my location" matTooltipPosition="after" matTooltipClass="tight-tooltip">
             <mat-icon class="material-symbols-outlined">my_location</mat-icon>
           </button>
         </div>
