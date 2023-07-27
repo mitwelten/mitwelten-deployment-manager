@@ -33,6 +33,12 @@
         </td>
       </ng-container>
 
+      <!-- ID Column -->
+      <ng-container matColumnDef="environment_id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+        <td mat-cell *matCellDef="let row">{{row.environment_id}}</td>
+      </ng-container>
+
       <!-- Timestamp Column -->
       <ng-container matColumnDef="timestamp">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Timestamp</th>
