@@ -1,6 +1,6 @@
 <h1 mat-dialog-title>
   <mat-icon class="material-symbols-outlined">bubble_chart</mat-icon>
-  <span>Edit Environment Entry "{{ data.env.environment_id }}"</span>
+  <span>{{ data.env ? 'Edit' : 'Add' }} Environment Entry {{ data.env?.environment_id }}</span>
 </h1>
 
 <form [formGroup]="envForm" (ngSubmit)="submit()">
