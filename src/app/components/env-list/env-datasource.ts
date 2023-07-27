@@ -86,10 +86,18 @@ export class EnvironmentsDataSource extends DataSource<Environment> {
     return data.sort((a, b) => {
       const isAsc = this.sort?.direction === 'asc';
       switch (this.sort?.active) {
-        // case 'name': return compare(a.name ?? '', b.name ?? '', isAsc);
-        // case 'deployments': return compare(a.deployments ?? 0, b.deployments ?? 0, isAsc);
-        // case 'entries': return compare(a.entries ?? 0, b.entries ?? 0, isAsc);
+        case 'environment_id': return compare(a.environment_id ?? 0, b.environment_id ?? 0, isAsc);
         case 'timestamp': return compare(a.timestamp ?? 0, b.timestamp ?? 0, isAsc);
+        case 'attribute_01': return compare(a.attribute_01 ?? 0, b.attribute_01 ?? 0, isAsc);
+        case 'attribute_02': return compare(a.attribute_02 ?? 0, b.attribute_02 ?? 0, isAsc);
+        case 'attribute_03': return compare(a.attribute_03 ?? 0, b.attribute_03 ?? 0, isAsc);
+        case 'attribute_04': return compare(a.attribute_04 ?? 0, b.attribute_04 ?? 0, isAsc);
+        case 'attribute_05': return compare(a.attribute_05 ?? 0, b.attribute_05 ?? 0, isAsc);
+        case 'attribute_06': return compare(a.attribute_06 ?? 0, b.attribute_06 ?? 0, isAsc);
+        case 'attribute_07': return compare(a.attribute_07 ?? 0, b.attribute_07 ?? 0, isAsc);
+        case 'attribute_08': return compare(a.attribute_08 ?? 0, b.attribute_08 ?? 0, isAsc);
+        case 'attribute_09': return compare(a.attribute_09 ?? 0, b.attribute_09 ?? 0, isAsc);
+        case 'attribute_10': return compare(a.attribute_10 ?? 0, b.attribute_10 ?? 0, isAsc);
         case 'created': return compare(a.created_at ?? 0, b.created_at ?? 0, isAsc);
         case 'updated': return compare(a.updated_at ?? 0, b.updated_at ?? 0, isAsc);
         default: return 0;
