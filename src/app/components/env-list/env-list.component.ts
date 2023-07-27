@@ -72,6 +72,13 @@ export class EnvListComponent implements AfterViewInit {
     });
   }
 
+  addEnvironment() {
+    const dialogRef = this.dialog.open(EnvFormComponent, { data: {env: null, labels: this.labels} });
+    dialogRef.afterClosed().subscribe(response => {
+      if (response === true) this.dataSource.fetchEnvironments()
+    });
+  }
+
   deleteEnvironment(env: Environment) {
     if(env.environment_id) {
       const dialogRef = this.dialog.open(DeleteConfirmDialogComponent, {

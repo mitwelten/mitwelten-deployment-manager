@@ -48,7 +48,7 @@ button.deployment span.mat-badge-small.mat-badge-below span.mat-badge-content {
 
 .icon-header {
   display: grid;
-  grid-template-columns: min-content auto;
+  grid-template-columns: min-content auto max-content;
   column-gap: 16px;
 }
 

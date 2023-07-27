@@ -59,6 +59,10 @@ export class DataService {
     return this.http.get<Array<Environment>>(`${this.apiUrl}/environment/entries`);
   }
 
+  public postEnvEntry(env: Partial<Environment>): Observable<Environment> {
+    return this.http.post<Environment>(`${this.apiUrl}/environment/entries`, env);
+  }
+
   public putEnvEntry(env: Partial<Environment>): Observable<Environment> {
     return this.http.put<Environment>(`${this.apiUrl}/environment/entries/${env.environment_id}`, env);
   }

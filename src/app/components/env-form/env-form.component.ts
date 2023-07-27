@@ -47,11 +47,11 @@ export class EnvFormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // this.coordinates.lat = this.data.env.location.lat;
-    // this.coordinates.lon = this.data.env.location.lon;
-    this.coordinates = <CoordinatePoint> this.data.env.location;
-    this.displayCoordinates = <CoordinatePoint> this.data.env.location;
-    this.envForm.patchValue(this.data.env);
+    if (this.data.env !== null) {
+      this.coordinates = <CoordinatePoint> this.data.env.location;
+      this.displayCoordinates = <CoordinatePoint> this.data.env.location;
+      this.envForm.patchValue(this.data.env);
+    }
   }
 
   getErrorMessage() {
@@ -65,10 +65,17 @@ export class EnvFormComponent implements OnInit {
 
   submit() {
     this.envForm.controls.location.patchValue(this.displayCoordinates);
-    this.dataService.putEnvEntry(this.envForm.value).subscribe(env => {
-      this.snackBar.open(`Environment entry ${env.environment_id} updated`, '🎉', this.snackBarConfig);
-      this.dialogRef.close(true);
-    });
+    if (this.envForm.controls.environment_id === null) {
+      this.dataService.postEnvEntry(this.envForm.value).subscribe(env => {
+        this.snackBar.open(`Environment entry ${env.environment_id} added`, '🎉', this.snackBarConfig);
+        this.dialogRef.close(true);
+      });
+    } else {
+      this.dataService.putEnvEntry(this.envForm.value).subscribe(env => {
+        this.snackBar.open(`Environment entry ${env.environment_id} updated`, '🎉', this.snackBarConfig);
+        this.dialogRef.close(true);
+      });
+    }
   }
 
   cancel() {
