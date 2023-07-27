@@ -51,6 +51,9 @@ export class EnvFormComponent implements OnInit {
       this.coordinates = <CoordinatePoint> this.data.env.location;
       this.displayCoordinates = <CoordinatePoint> this.data.env.location;
       this.envForm.patchValue(this.data.env);
+    } else {
+      this.envForm.controls.timestamp.setValue(new Date().toISOString());
+      this.envForm.controls.timestamp.updateValueAndValidity();
     }
   }
 
