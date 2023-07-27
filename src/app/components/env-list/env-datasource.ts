@@ -6,6 +6,11 @@ import { merge, Observable, Subject } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { DataService, Deployment, Environment } from 'src/app/shared';
 
+import * as _moment from 'moment';
+// tslint:disable-next-line:no-duplicate-imports
+import {default as _rollupMoment, Moment} from 'moment';
+const moment = _rollupMoment || _moment;
+
 /**
  * Data source for the InputList view. This class should
  * encapsulate all logic for fetching and manipulating the displayed data
@@ -108,9 +113,26 @@ export class EnvironmentsDataSource extends DataSource<Environment> {
   private getFilteredData(data: Environment[]): Environment[] {
     let filteredData = data;
 
-    // if (this.filter.controls['name'].value) {
-    //   filteredData = filteredData.filter(e => e.name.toLowerCase().includes(this.filter.controls['name'].value.toLowerCase()));
-    // }
+    const attrKeys = ['attribute_01', 'attribute_02', 'attribute_03', 'attribute_04', 'attribute_05', 'attribute_06', 'attribute_07', 'attribute_08', 'attribute_09', 'attribute_10'];
+
+    if (this.filter.controls['environment_id'].value !== null) {
+      filteredData = filteredData.filter(e => e.environment_id === this.filter.controls['environment_id'].value);
+    }
+
+    if (this.filter.controls['timestamp_s'].value !== null) {
+      filteredData = filteredData.filter(e => moment.utc(e.timestamp).local() >= this.filter.controls['timestamp_s'].value);
+    }
+
+    if (this.filter.controls['timestamp_e'].value !== null) {
+      filteredData = filteredData.filter(e => moment.utc(e.timestamp).local() <= this.filter.controls['timestamp_e'].value);
+    }
+
+    attrKeys.forEach(k => {
+      if (this.filter.controls[k+'_s'].value !== null)
+      filteredData = filteredData.filter(e => e[<keyof Environment>k] >= this.filter.controls[k+'_s'].value);
+      if (this.filter.controls[k+'_e'].value !== null)
+      filteredData = filteredData.filter(e => e[<keyof Environment>k] <= this.filter.controls[k+'_e'].value);
+    })
 
     this.length = filteredData.length;
     return filteredData;

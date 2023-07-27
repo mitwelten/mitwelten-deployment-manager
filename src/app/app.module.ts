@@ -48,6 +48,7 @@ import { TagListComponent } from './components/tag-list/tag-list.component';
 import { TagFormComponent } from './components/tag-form/tag-form.component';
 import { EnvListComponent } from './components/env-list/env-list.component';
 import { EnvFormComponent } from './components/env-form/env-form.component';
+import { EnvFilterComponent } from './components/env-filter/env-filter.component';
 
 import '@angular/common/locales/global/de';
 
@@ -89,6 +90,7 @@ export class CustomMaterialFormsMatcher implements ErrorStateMatcher {
     TagFormComponent,
     EnvListComponent,
     EnvFormComponent,
+    EnvFilterComponent,
   ],
   imports: [
     BrowserModule,

@@ -13,6 +13,8 @@ import { catchError, map, Observable, of, shareReplay } from 'rxjs';
 import { DeleteConfirmDialogComponent } from '../delete-confirm-dialog/delete-confirm-dialog.component';
 import { EnvFormComponent } from '../env-form/env-form.component';
 import { EnvironmentsDataSource } from './env-datasource';
+import { EnvFilterComponent } from '../env-filter/env-filter.component';
+import { FilterStoreService } from 'src/app/shared/filter-store.service';
 
 @Component({
   selector: 'app-env-list',
@@ -35,10 +37,6 @@ export class EnvListComponent implements AfterViewInit {
     verticalPosition: 'top',
   };
 
-  filterForm = new FormGroup({
-    name:      new FormControl<[string]|null>(null),
-  });
-
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['action', 'environment_id', 'timestamp', 'attribute_01', 'attribute_02', 'attribute_03', 'attribute_04', 'attribute_05', 'attribute_06', 'attribute_07', 'attribute_08', 'attribute_09', 'attribute_10', 'created', 'updated'];
 
@@ -51,6 +49,7 @@ export class EnvListComponent implements AfterViewInit {
   constructor(
     private dataService: DataService,
     public dialog: MatDialog,
+    private filterStore: FilterStoreService,
     private breakpointObserver: BreakpointObserver,
     private snackBar: MatSnackBar,
   ) {
@@ -61,8 +60,12 @@ export class EnvListComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
-    this.dataSource.filter = this.filterForm;
+    this.dataSource.filter = this.filterStore.envFilter;
     this.table.dataSource = this.dataSource;
+  }
+
+  filter() {
+    this.dialog.open(EnvFilterComponent, { data: this.labels } );
   }
 
   editEnvironment(env: Environment) {
