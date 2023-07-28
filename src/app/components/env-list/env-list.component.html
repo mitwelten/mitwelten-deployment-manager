@@ -1,13 +1,13 @@
 <h2 class="icon-header">
   <mat-icon inline class="material-symbols-outlined">bubble_chart</mat-icon>
   <span>Environment Entries</span>
-  <div>
+  <div class="button-header">
     <button mat-icon-button color="primary" (click)="addEnvironment()"
-      matTooltip="Add an environment entry" matTooltipPosition="before" matTooltipClass="tight-tooltip">
+      matTooltip="Add an environment entry" matTooltipPosition="above" matTooltipClass="tight-tooltip">
       <mat-icon class="material-symbols-outlined">add</mat-icon>
     </button>
     <button mat-icon-button color="primary" (click)="filter()"
-      matTooltip="Filter environment entries" matTooltipPosition="after" matTooltipClass="tight-tooltip">
+      matTooltip="Filter environment entries" matTooltipPosition="above" matTooltipClass="tight-tooltip">
       <mat-icon class="material-symbols-outlined">search</mat-icon>
     </button>
     <mat-button-toggle-group #group="matButtonToggleGroup">
