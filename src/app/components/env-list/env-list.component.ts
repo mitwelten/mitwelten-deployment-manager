@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, TemplateRef, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, TemplateRef, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
@@ -9,6 +9,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
+import { MatButtonToggleGroup } from '@angular/material/button-toggle';
 import { catchError, map, Observable, of, shareReplay } from 'rxjs';
 import { DeleteConfirmDialogComponent } from '../delete-confirm-dialog/delete-confirm-dialog.component';
 import { EnvFormComponent } from '../env-form/env-form.component';
@@ -26,9 +27,11 @@ export class EnvListComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatTable) table!: MatTable<Environment>;
+  @ViewChild('toggleDisplay') toggleDisplay!: MatButtonToggleGroup;
   @ViewChild('deleteError') deleteErrorDialog: TemplateRef<any>;
   dataSource: EnvironmentsDataSource;
   deletePending = false;
+  display = 'table';
   labels: {[key: string]: EnvironmentLabel};
 
   snackBarConfig: MatSnackBarConfig = {
@@ -52,12 +55,22 @@ export class EnvListComponent implements AfterViewInit {
     private filterStore: FilterStoreService,
     private breakpointObserver: BreakpointObserver,
     private snackBar: MatSnackBar,
+    private changeDetector : ChangeDetectorRef,
   ) {
     this.dataSource = new EnvironmentsDataSource(this.dataService);
     this.dataService.getEnvLabels().subscribe(labels => this.labels = labels);
   }
 
   ngAfterViewInit(): void {
+    this.toggleDisplay.change.subscribe(selection => {
+      this.display = selection.value;
+      this.changeDetector.detectChanges();
+      if (selection.value === 'table') this.initTable();
+    })
+    if (this.display === 'table') this.initTable();
+  }
+
+  private initTable() {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     this.dataSource.filter = this.filterStore.envFilter;

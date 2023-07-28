@@ -10,12 +10,12 @@
       matTooltip="Filter environment entries" matTooltipPosition="above" matTooltipClass="tight-tooltip">
       <mat-icon class="material-symbols-outlined">search</mat-icon>
     </button>
-    <mat-button-toggle-group #group="matButtonToggleGroup">
-      <mat-button-toggle checked value="table" aria-label="Table display"
+    <mat-button-toggle-group #toggleDisplay="matButtonToggleGroup">
+      <mat-button-toggle [checked]="display === 'table'" value="table" aria-label="Table display"
         matTooltip="Toggle table display" matTooltipPosition="above" matTooltipClass="tight-tooltip">
         <mat-icon color="primary" class="material-symbols-outlined">list</mat-icon>
       </mat-button-toggle>
-      <mat-button-toggle value="map" aria-label="Map display"
+      <mat-button-toggle [checked]="display === 'map'" value="map" aria-label="Map display"
         matTooltip="Toggle map display" matTooltipPosition="above" matTooltipClass="tight-tooltip">
         <mat-icon color="primary" class="material-symbols-outlined">map</mat-icon>
       </mat-button-toggle>
@@ -24,7 +24,10 @@
 </h2>
 
 <div class="container" [ngClass]="(isHandset$ | async) ? 'mat-elevation-z4' : 'mat-elevation-z8'">
-  <div class="table-container">
+
+  <app-map *ngIf="display === 'map'"></app-map>
+
+  <div *ngIf="display === 'table'" class="table-container">
 
     <table mat-table class="full-width-table" matSort matSortActive="timestamp" matSortDirection="asc" aria-label="Environment Entries">
 
@@ -134,7 +137,7 @@
     </table>
   </div>
 
-  <mat-paginator #paginator
+  <mat-paginator #paginator *ngIf="display === 'table'"
       [length]="dataSource?.length"
       [pageIndex]="0"
       [pageSize]="100"

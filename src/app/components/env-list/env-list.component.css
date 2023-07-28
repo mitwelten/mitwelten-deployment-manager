@@ -16,6 +16,13 @@
   overflow: auto;
 }
 
+app-map {
+  min-height: 200px;
+  max-height: calc(100vh - 200px);
+  height: 100vh;
+  display: block;
+}
+
 .full-width-table {
   width: 100%;
 }
