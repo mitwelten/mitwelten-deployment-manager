@@ -57,3 +57,9 @@ td.mat-column-action > div {
   padding-left: 4px;
   padding-right: 4px;
 } */
+
+.button-header {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  column-gap: 4px;
+}

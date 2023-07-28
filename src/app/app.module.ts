@@ -32,6 +32,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSliderModule } from '@angular/material/slider';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -131,6 +132,7 @@ export class CustomMaterialFormsMatcher implements ErrorStateMatcher {
     MatChipsModule,
     MatExpansionModule,
     MatSliderModule,
+    MatButtonToggleModule,
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'de-CH' },

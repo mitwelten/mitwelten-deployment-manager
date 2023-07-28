@@ -59,3 +59,17 @@ mat-icon .mat-badge-content,
   line-height: 16px;
   font-family: Roboto, sans-serif;
 }
+
+.mat-button-toggle-appearance-standard
+.mat-button-toggle-label-content {
+  padding: 0 6px;
+  line-height: 32px;
+}
+
+.mat-button-toggle-appearance-standard
+.mat-button-toggle-label-content
+mat-icon.material-symbols-outlined {
+  width: 20px;
+  height: 20px;
+  font-size: 20px;
+}

@@ -10,6 +10,16 @@
       matTooltip="Filter environment entries" matTooltipPosition="after" matTooltipClass="tight-tooltip">
       <mat-icon class="material-symbols-outlined">search</mat-icon>
     </button>
+    <mat-button-toggle-group #group="matButtonToggleGroup">
+      <mat-button-toggle checked value="table" aria-label="Table display"
+        matTooltip="Toggle table display" matTooltipPosition="above" matTooltipClass="tight-tooltip">
+        <mat-icon color="primary" class="material-symbols-outlined">list</mat-icon>
+      </mat-button-toggle>
+      <mat-button-toggle value="map" aria-label="Map display"
+        matTooltip="Toggle map display" matTooltipPosition="above" matTooltipClass="tight-tooltip">
+        <mat-icon color="primary" class="material-symbols-outlined">map</mat-icon>
+      </mat-button-toggle>
+    </mat-button-toggle-group>
   </div>
 </h2>
 
