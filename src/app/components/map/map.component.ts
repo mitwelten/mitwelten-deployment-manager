@@ -60,57 +60,57 @@ export class MapComponent implements AfterViewInit, OnDestroy, OnChanges {
     });
 
     this.map.on('load', (e) => {
-    this.marker = new Marker({color: "#FF0000", draggable: draggable})
-      .setLngLat([initialState.lng, initialState.lat])
-      .addTo(this.map);
+      this.marker = new Marker({color: "#FF0000", draggable: draggable})
+        .setLngLat([initialState.lng, initialState.lat])
+        .addTo(this.map);
 
-    this.marker.on('drag', () => {
-      const ll = this.marker?.getLngLat();
-      if (ll !== undefined) {
-        this.coordinatesSet.emit({lat: ll.lat, lon: ll.lng});
-      }
-    });
+      this.marker.on('drag', () => {
+        const ll = this.marker?.getLngLat();
+        if (ll !== undefined) {
+          this.coordinatesSet.emit({lat: ll.lat, lon: ll.lng});
+        }
+      });
 
-    this.popup = new Popup({
-        closeButton: false,
-        closeOnClick: false
-    });
+      this.popup = new Popup({
+          closeButton: false,
+          closeOnClick: false
+      });
 
-    this.map.on('mouseenter', 'customFeatures', (e) => {
-      if (e.features[0].geometry.type !== 'Point') return;
-      this.map.getCanvas().style.cursor = 'pointer';
-      const coordinates = <[number, number]> e.features[0].geometry.coordinates.slice();
-      const description = `
-        <strong>Environment ID ${e.features[0].properties['environment_id']}</strong>
-        <p>
-          attr 01: ${e.features[0].properties['attribute_01']}<br>
-          attr 02: ${e.features[0].properties['attribute_02']}<br>
-          attr 03: ${e.features[0].properties['attribute_03']}<br>
-          attr 04: ${e.features[0].properties['attribute_04']}<br>
-          attr 05: ${e.features[0].properties['attribute_05']}<br>
-          attr 06: ${e.features[0].properties['attribute_06']}<br>
-          attr 07: ${e.features[0].properties['attribute_07']}<br>
-          attr 08: ${e.features[0].properties['attribute_08']}<br>
-          attr 09: ${e.features[0].properties['attribute_09']}<br>
-          attr 10: ${e.features[0].properties['attribute_10']}<br>
-        </p>
-      `;
-      // Ensure that if the map is zoomed out such that multiple
-      // copies of the feature are visible, the popup appears
-      // over the copy being pointed to.
-      // while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-      //     coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-      // }
+      this.map.on('mouseenter', 'customFeatures', (e) => {
+        if (e.features[0].geometry.type !== 'Point') return;
+        this.map.getCanvas().style.cursor = 'pointer';
+        const coordinates = <[number, number]> e.features[0].geometry.coordinates.slice();
+        const description = `
+          <strong>Environment ID ${e.features[0].properties['environment_id']}</strong>
+          <p>
+            attr 01: ${e.features[0].properties['attribute_01']}<br>
+            attr 02: ${e.features[0].properties['attribute_02']}<br>
+            attr 03: ${e.features[0].properties['attribute_03']}<br>
+            attr 04: ${e.features[0].properties['attribute_04']}<br>
+            attr 05: ${e.features[0].properties['attribute_05']}<br>
+            attr 06: ${e.features[0].properties['attribute_06']}<br>
+            attr 07: ${e.features[0].properties['attribute_07']}<br>
+            attr 08: ${e.features[0].properties['attribute_08']}<br>
+            attr 09: ${e.features[0].properties['attribute_09']}<br>
+            attr 10: ${e.features[0].properties['attribute_10']}<br>
+          </p>
+        `;
+        // Ensure that if the map is zoomed out such that multiple
+        // copies of the feature are visible, the popup appears
+        // over the copy being pointed to.
+        // while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+        //     coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+        // }
 
-      // Populate the popup and set its coordinates
-      // based on the feature found.
-      this.popup.setLngLat(coordinates).setHTML(description).addTo(this.map);
-    });
+        // Populate the popup and set its coordinates
+        // based on the feature found.
+        this.popup.setLngLat(coordinates).setHTML(description).addTo(this.map);
+      });
 
-    this.map.on('mouseleave', 'customFeatures', () => {
-      this.map.getCanvas().style.cursor = '';
-      this.popup.remove();
-    });
+      this.map.on('mouseleave', 'customFeatures', () => {
+        this.map.getCanvas().style.cursor = '';
+        this.popup.remove();
+      });
     });
   }
 
