@@ -59,6 +59,7 @@ export class MapComponent implements AfterViewInit, OnDestroy, OnChanges {
       zoom: initialState.zoom
     });
 
+    this.map.on('load', (e) => {
     this.marker = new Marker({color: "#FF0000", draggable: draggable})
       .setLngLat([initialState.lng, initialState.lat])
       .addTo(this.map);
@@ -109,6 +110,7 @@ export class MapComponent implements AfterViewInit, OnDestroy, OnChanges {
     this.map.on('mouseleave', 'customFeatures', () => {
       this.map.getCanvas().style.cursor = '';
       this.popup.remove();
+    });
     });
   }
 
