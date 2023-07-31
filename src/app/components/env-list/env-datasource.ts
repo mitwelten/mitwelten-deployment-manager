@@ -46,10 +46,20 @@ export class EnvironmentsDataSource extends DataSource<Environment> {
         .pipe(map(() => {
           return this.getPagedData(this.getSortedData(this.getFilteredData([...this.data])));
         }));
-        this.fetchEnvironments();
-        return data$;
-      } else {
-      throw Error('Please set the paginator and sort on the data source before connecting.');
+      this.fetchEnvironments();
+      return data$;
+    } else {
+      // datasource without paginator and sorting for map display
+      const data$ =  merge(this.EnvironmentListSubject.pipe(
+        map((data: Environment[]) => {
+          this.data = data;
+        })
+        ), this.filter.valueChanges)
+        .pipe(map(() => {
+          return this.getFilteredData([...this.data]);
+        }));
+      this.fetchEnvironments();
+      return data$;
     }
   }
 
