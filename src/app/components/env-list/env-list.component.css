@@ -70,3 +70,7 @@ td.mat-column-action > div {
   grid-template-columns: auto auto auto;
   column-gap: 4px;
 }
+
+.button-header mat-button-toggle-group {
+  align-self: start;
+}
