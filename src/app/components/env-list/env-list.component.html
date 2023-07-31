@@ -25,7 +25,7 @@
 
 <div class="container" [ngClass]="(isHandset$ | async) ? 'mat-elevation-z4' : 'mat-elevation-z8'">
 
-  <app-map *ngIf="display === 'map'"></app-map>
+  <app-map *ngIf="display === 'map'" (editFeature)="editEnvironment($event)"></app-map>
 
   <div *ngIf="display === 'table'" class="table-container">
 

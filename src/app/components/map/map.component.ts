@@ -21,6 +21,9 @@ export class MapComponent implements AfterViewInit, OnDestroy, OnChanges {
   @Output()
   coordinatesSet = new EventEmitter<CoordinatePoint>;
 
+  @Output()
+  editFeature =  new EventEmitter<number>;
+
   @Input()
   coordinates: CoordinatePoint = { lon: 7.614704694445322, lat: 47.53603016174955 } ;
 
@@ -74,6 +77,11 @@ export class MapComponent implements AfterViewInit, OnDestroy, OnChanges {
       this.popup = new Popup({
           closeButton: false,
           closeOnClick: false
+      });
+
+      this.map.on('click', 'customFeatures', (e) => {
+        if ('environment_id' in e.features[0].properties)
+        this.editFeature.emit(e.features[0].properties['environment_id']);
       });
 
       this.map.on('mouseenter', 'customFeatures', (e) => {

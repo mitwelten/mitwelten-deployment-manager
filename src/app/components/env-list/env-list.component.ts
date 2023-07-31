@@ -105,11 +105,15 @@ export class EnvListComponent implements AfterViewInit {
     this.dialog.open(EnvFilterComponent, { data: this.labels } );
   }
 
-  editEnvironment(env: Environment) {
-    const dialogRef = this.dialog.open(EnvFormComponent, { data: {env, labels: this.labels} });
-    dialogRef.afterClosed().subscribe(response => {
-      if (response === true) this.dataSource.fetchEnvironments()
-    });
+  editEnvironment(payload: Environment | number) {
+    const edit = (env: Environment) => {
+      const dialogRef = this.dialog.open(EnvFormComponent, { data: {env, labels: this.labels} });
+      dialogRef.afterClosed().subscribe(response => {
+        if (response === true) this.dataSource.fetchEnvironments()
+      });
+    }
+    if (typeof payload === 'number') this.dataService.getEnvEntry(payload).subscribe(env => edit(env));
+    else edit(payload);
   }
 
   addEnvironment() {

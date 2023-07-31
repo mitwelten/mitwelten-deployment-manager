@@ -55,6 +55,10 @@ export class DataService {
     return this.http.get<{[key: string]: EnvironmentLabel}>(`${this.apiUrl}/environment/legend`);
   }
 
+  public getEnvEntry(environment_id: number): Observable<Environment> {
+    return this.http.get<Environment>(`${this.apiUrl}/environment/entries/${environment_id}`);
+  }
+
   public listEnvEntries(): Observable<Array<Environment>> {
     return this.http.get<Array<Environment>>(`${this.apiUrl}/environment/entries`);
   }
