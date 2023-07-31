@@ -4,6 +4,7 @@ import {
 } from '@angular/core';
 import { FeatureCollection } from 'geojson';
 import { GeoJSONSource, LngLatBoundsLike, Map, Marker, Popup } from 'maplibre-gl';
+import { ReplaySubject } from 'rxjs';
 import { CoordinatePoint } from 'src/app/shared';
 
 @Component({
@@ -18,6 +19,8 @@ export class MapComponent implements AfterViewInit, OnDestroy, OnChanges {
   marker: Marker | undefined;
   popup: Popup | undefined;
 
+  private features$ = new ReplaySubject<FeatureCollection>;
+
   @Output()
   coordinatesSet = new EventEmitter<CoordinatePoint>;
 
@@ -31,7 +34,7 @@ export class MapComponent implements AfterViewInit, OnDestroy, OnChanges {
   readonly = true;
 
   set features(features: FeatureCollection) {
-    this.drawFeatures(this.map, features);
+    this.features$.next(features);
   }
 
   @ViewChild('map')
@@ -78,6 +81,8 @@ export class MapComponent implements AfterViewInit, OnDestroy, OnChanges {
           closeButton: false,
           closeOnClick: false
       });
+
+      this.features$.subscribe(features => this.drawFeatures(this.map, features));
 
       this.map.on('click', 'customFeatures', (e) => {
         if ('environment_id' in e.features[0].properties)
