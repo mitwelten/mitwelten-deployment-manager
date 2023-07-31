@@ -38,8 +38,8 @@ export class MapComponent implements AfterViewInit, OnDestroy, OnChanges {
   ngOnDestroy(): void {
     this.map?.remove();
   }
-  ngAfterViewInit(): void {
 
+  ngAfterViewInit(): void {
     let draggable = false;
     let initialState = { lng: this.coordinates.lon, lat: this.coordinates.lat, zoom: 15 };
 
