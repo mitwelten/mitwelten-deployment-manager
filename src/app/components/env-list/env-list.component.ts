@@ -16,6 +16,8 @@ import { EnvFormComponent } from '../env-form/env-form.component';
 import { EnvironmentsDataSource } from './env-datasource';
 import { EnvFilterComponent } from '../env-filter/env-filter.component';
 import { FilterStoreService } from 'src/app/shared/filter-store.service';
+import { Feature, FeatureCollection } from 'geojson';
+import { MapComponent } from '../map/map.component';
 
 @Component({
   selector: 'app-env-list',
@@ -27,6 +29,7 @@ export class EnvListComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatTable) table!: MatTable<Environment>;
+  @ViewChild(MapComponent) map?: MapComponent;
   @ViewChild('toggleDisplay') toggleDisplay!: MatButtonToggleGroup;
   @ViewChild('deleteError') deleteErrorDialog: TemplateRef<any>;
   dataSource: EnvironmentsDataSource;
@@ -66,8 +69,10 @@ export class EnvListComponent implements AfterViewInit {
       this.display = selection.value;
       this.changeDetector.detectChanges();
       if (selection.value === 'table') this.initTable();
+      if (selection.value === 'map') this.initMap();
     })
     if (this.display === 'table') this.initTable();
+    if (this.display === 'map') this.initMap();
   }
 
   private initTable() {
@@ -75,6 +80,25 @@ export class EnvListComponent implements AfterViewInit {
     this.dataSource.paginator = this.paginator;
     this.dataSource.filter = this.filterStore.envFilter;
     this.table.dataSource = this.dataSource;
+  }
+
+  private initMap() {
+    this.dataSource.filter = this.filterStore.envFilter;
+    this.dataSource.connect().pipe(map(envs => {
+      const features = envs.map(e => {
+        return <Feature>{
+          type: 'Feature',
+          properties: e,
+          geometry: { type: 'Point', coordinates: [e.location.lon, e.location.lat] }
+        }
+      });
+      return <FeatureCollection>{
+        type: 'FeatureCollection',
+        features: features
+      }
+    })).subscribe(geojson => {
+      if (this.map) this.map.features = geojson;
+    })
   }
 
   filter() {

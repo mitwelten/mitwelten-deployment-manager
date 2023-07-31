@@ -2,7 +2,8 @@ import {
   AfterViewInit, Component, ElementRef, EventEmitter, Input, OnChanges,
   OnDestroy, Output, SimpleChanges, ViewChild
 } from '@angular/core';
-import { Map, Marker } from 'maplibre-gl';
+import { FeatureCollection } from 'geojson';
+import { GeoJSONSource, LngLatBoundsLike, Map, Marker } from 'maplibre-gl';
 import { CoordinatePoint } from 'src/app/shared';
 
 @Component({
@@ -24,6 +25,10 @@ export class MapComponent implements AfterViewInit, OnDestroy, OnChanges {
 
   @Input()
   readonly = true;
+
+  set features(features: FeatureCollection) {
+    this.drawFeatures(this.map, features);
+  }
 
   @ViewChild('map')
   private mapContainer!: ElementRef<HTMLElement>;
@@ -69,6 +74,41 @@ export class MapComponent implements AfterViewInit, OnDestroy, OnChanges {
     if ('coordinates' in changes) {
       this.map?.setCenter(changes['coordinates'].currentValue)
       this.marker?.setLngLat(changes['coordinates'].currentValue)
+    }
+  }
+
+  private drawFeatures(map: Map, features: FeatureCollection) {
+    // zoom to features
+    if (features.features.length) {
+      const lngs = features.features.map(f => f.geometry.type === 'Point' ? f.geometry.coordinates[0] : 0).sort();
+      const lats = features.features.map(f => f.geometry.type === 'Point' ? f.geometry.coordinates[1] : 0).sort();
+      const bbox = <LngLatBoundsLike>[lngs[0]-0.001, lats[0]-0.001, lngs[lngs.length-1]+0.001, lats[lats.length-1]+0.001];
+      this.map.fitBounds(bbox);
+    }
+
+    // set features/layer
+    const source = <GeoJSONSource>this.map?.getSource('customFeatures');
+    if (source) {
+      source.setData(features)
+    } else {
+      map.addSource('customFeatures', {
+        type: 'geojson',
+        data: features
+      });
+      map.addLayer({
+        id: 'customFeatures',
+        type: 'circle',
+        source: 'customFeatures',
+        layout: { },
+        paint: {
+          'circle-radius': 8,
+          'circle-color': '#fff',
+          'circle-opacity': 0.6,
+          'circle-stroke-color': '#D42222',
+          'circle-stroke-opacity': 0.9,
+          'circle-stroke-width': 2
+        }
+      });
     }
   }
 
