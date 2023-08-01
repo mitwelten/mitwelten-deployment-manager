@@ -54,6 +54,11 @@ button.deployment span.mat-badge-small.mat-badge-below span.mat-badge-content {
   margin: 16px 0;
 }
 
+h2.icon-header {
+  font-size: 20px;
+  line-height: 36px;
+}
+
 mat-icon .mat-badge-content,
 .mdc-icon-button .mat-badge-content {
   font-size: 12px;
