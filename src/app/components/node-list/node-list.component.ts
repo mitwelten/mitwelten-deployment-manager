@@ -12,6 +12,8 @@ import { DataService, Node, isNode } from 'src/app/shared';
 import { NodeComponent } from '../node/node.component';
 import { NodesDataSource } from './list-datasource';
 import { FilterStoreService } from 'src/app/shared/filter-store.service';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
+import { NodeFilterComponent } from './node-filter.component';
 
 @Component({
   selector: 'app-list',
@@ -46,10 +48,11 @@ export class NodeListComponent implements OnInit, AfterViewInit {
 
   constructor(
     private dataService: DataService,
-    private filterStore: FilterStoreService,
+    public filterStore: FilterStoreService,
     private route: ActivatedRoute,
     private router: Router,
     private snackBar: MatSnackBar,
+    private bottomSheet: MatBottomSheet,
     private dialog: MatDialog,
     private breakpointObserver: BreakpointObserver,
   ) {
@@ -69,15 +72,6 @@ export class NodeListComponent implements OnInit, AfterViewInit {
           };
         });
     }
-
-    this.dataService.getNodeTypeOptions('').subscribe(
-      options => this.typeOptions = options.sort(
-        (a, b) => a.toLowerCase().localeCompare(b.toLowerCase())
-      ));
-    this.dataService.getNodePlatformOptions('').subscribe(
-      options => this.platformOptions = options.sort(
-        (a, b) => a.toLowerCase().localeCompare(b.toLowerCase())
-      ));
   }
 
   ngAfterViewInit(): void {
@@ -91,6 +85,10 @@ export class NodeListComponent implements OnInit, AfterViewInit {
     this.dialog.open(NodeComponent, {
       data: node
     });
+  }
+
+  filter() {
+    this.bottomSheet.open(NodeFilterComponent, { data: { dataSource: this.dataSource }})
   }
 
 }

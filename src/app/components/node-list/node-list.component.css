@@ -16,13 +16,6 @@
   column-gap: 4px;
 }
 
-.filter-view {
-  display: grid;
-  grid-gap: 1em;
-  align-items: center;
-  grid-template-columns: min-content auto auto auto min-content min-content;
-}
-
 .table-container {
   overflow: auto;
   flex: 1 1 auto;

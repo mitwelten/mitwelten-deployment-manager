@@ -6,48 +6,16 @@
       matTooltip="Add a node" matTooltipPosition="above" matTooltipClass="tight-tooltip">
       <mat-icon matListItemIcon color="primary" class="material-symbols-outlined" matBadge="+" matBadgeColor="primary" matBadgeOverlap="true" matBadgeSize="small" matBadgePosition="below">sensors</mat-icon>
     </button>
-  </div>
-</h2>
-
-<form [formGroup]="nodeForm" class="filter-view">
-  <h3>Filter:</h3>
-
-  <!-- node -->
-  <mat-form-field appearance="outline">
-    <mat-label>Label / Name</mat-label>
-    <input matInput type="text" formControlName="node_label">
-  </mat-form-field>
-
-  <!-- type (select) -->
-  <mat-form-field appearance="outline">
-    <mat-label>Type</mat-label>
-    <mat-select formControlName="type" panelClass="filter">
-      <mat-option *ngFor="let type of typeOptions" [value]="type">{{type}}</mat-option>
-    </mat-select>
-  </mat-form-field>
-
-  <!-- platform (select) -->
-  <mat-form-field appearance="outline">
-    <mat-label>Platform</mat-label>
-    <mat-select formControlName="platform" panelClass="filter">
-      <mat-option *ngFor="let platform of platformOptions" [value]="platform">{{platform}}</mat-option>
-    </mat-select>
-  </mat-form-field>
-
-  <!-- is deployed (intermediate, boolean) -->
-  <div style="margin-top: -18px;">
-    <mat-checkbox [checked]="true" formControlName="deployed">Deployed</mat-checkbox>
-    <mat-checkbox [checked]="true" formControlName="not_deployed">Not deployed</mat-checkbox>
-  </div>
-
-  <!-- reset-button -->
-  <div style="margin-top: -18px;">
-    <button matSuffix mat-icon-button aria-label="Clear" (click)="nodeForm.reset()" matTooltip="Clear filters">
-      <mat-icon class="material-symbols-outlined">close</mat-icon>
+    <button mat-icon-button color="primary" (click)="filter()"
+      matTooltip="Filter nodes" matTooltipPosition="above" matTooltipClass="tight-tooltip">
+      <mat-icon class="material-symbols-outlined">{{ filterStore.nodesFilter.pristine ? 'search' : 'saved_search' }}</mat-icon>
+    </button>
+    <button *ngIf="!filterStore.nodesFilter.pristine" mat-icon-button color="primary" (click)="filterStore.nodesFilter.reset()"
+      matTooltip="Clear filters" matTooltipPosition="above" matTooltipClass="tight-tooltip">
+      <mat-icon class="material-symbols-outlined">search_off</mat-icon>
     </button>
   </div>
-
-</form>
+</h2>
 
 <div class="container" [ngClass]="(isHandset$ | async) ? 'mat-elevation-z4' : 'mat-elevation-z8'">
 <div class="table-container">

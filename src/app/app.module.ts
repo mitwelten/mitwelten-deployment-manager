@@ -46,6 +46,7 @@ import { DeploymentFilterComponent } from './components/deployment-list/deployme
 import { MapComponent } from './components/map/map.component';
 import { NodeFormComponent } from './components/node-form/node-form.component';
 import { NodeListComponent } from './components/node-list/node-list.component';
+import { NodeFilterComponent } from './components/node-list/node-filter.component';
 import { NodeComponent } from './components/node/node.component';
 import { TagListComponent } from './components/tag-list/tag-list.component';
 import { TagFormComponent } from './components/tag-form/tag-form.component';
@@ -90,6 +91,7 @@ export class CustomMaterialFormsMatcher implements ErrorStateMatcher {
     DeploymentTagsComponent,
     DeleteConfirmDialogComponent,
     NodeComponent,
+    NodeFilterComponent,
     TagListComponent,
     TagFormComponent,
     EnvListComponent,
