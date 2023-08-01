@@ -1,6 +1,12 @@
 <h2 class="icon-header">
   <mat-icon inline class="material-symbols-outlined">sensors</mat-icon>
   <span>Nodes list</span>
+  <div class="button-header">
+    <button mat-icon-button color="primary" routerLink="/nodes/add"
+      matTooltip="Add a node" matTooltipPosition="above" matTooltipClass="tight-tooltip">
+      <mat-icon matListItemIcon color="primary" class="material-symbols-outlined" matBadge="+" matBadgeColor="primary" matBadgeOverlap="true" matBadgeSize="small" matBadgePosition="below">sensors</mat-icon>
+    </button>
+  </div>
 </h2>
 
 <form [formGroup]="nodeForm" class="filter-view">

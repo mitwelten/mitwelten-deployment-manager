@@ -7,7 +7,6 @@
     <mat-nav-list>
       <a mat-list-item routerLinkActive="active" routerLink="/deployments"><mat-icon matListItemIcon color="primary" class="material-symbols-outlined">location_on</mat-icon><div matListItemTitle>Deployments</div></a>
       <a mat-list-item routerLinkActive="active" routerLink="/nodes"><mat-icon matListItemIcon color="primary" class="material-symbols-outlined">sensors</mat-icon><div matListItemTitle>Nodes</div></a>
-      <a mat-list-item routerLinkActive="active" *ngIf="loggedIn" routerLink="/nodes/add"><mat-icon matListItemIcon color="primary" class="material-symbols-outlined" matBadge="+" matBadgeColor="primary" matBadgeOverlap="true" matBadgeSize="small" matBadgePosition="below">sensors</mat-icon><div matListItemTitle>Add Node</div></a>
       <a mat-list-item routerLinkActive="active" routerLink="/tags"><mat-icon matListItemIcon color="primary" class="material-symbols-outlined">label</mat-icon><div matListItemTitle>Tags</div></a>
       <a mat-list-item routerLinkActive="active" routerLink="/environments"><mat-icon matListItemIcon color="primary" class="material-symbols-outlined">bubble_chart</mat-icon><div matListItemTitle>Environments</div></a>
       <a mat-list-item routerLinkActive="active" *ngIf="!(loggedIn)" routerLink="/login"><mat-icon matListItemIcon color="primary" class="material-symbols-outlined">login</mat-icon><div matListItemTitle>Log In</div></a>
