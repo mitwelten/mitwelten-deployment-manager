@@ -47,9 +47,11 @@ button.deployment span.mat-badge-small.mat-badge-below span.mat-badge-content {
 }
 
 .icon-header {
+  flex: 0 1 auto;
   display: grid;
   grid-template-columns: min-content auto max-content;
   column-gap: 16px;
+  margin: 16px 0;
 }
 
 mat-icon .mat-badge-content,
@@ -72,4 +74,8 @@ mat-icon.material-symbols-outlined {
   width: 20px;
   height: 20px;
   font-size: 20px;
+}
+
+.mat-mdc-paginator {
+  border-top: 1px solid rgba(0,0,0,0.12);
 }

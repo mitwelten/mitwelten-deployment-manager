@@ -1,19 +1,27 @@
-.container {
-  position: relative;
+:host {
+  display: flex;
+  flex-flow: column;
+  height: 100%;
 }
 
-.filter-view {
+.container {
+  display: flex;
+  height: 100%;
+  flex: 1 1 auto;
+  flex-flow: column;
+
+}
+
+.button-header {
   display: grid;
-  grid-gap: 1em;
-  align-items: center;
-  grid-template-columns: min-content repeat(4, auto) min-content;
+  grid-template-columns: auto auto auto;
+  column-gap: 4px;
 }
 
 .table-container {
-  position: relative;
-  min-height: 200px;
-  max-height: calc(100vh - 328px);
   overflow: auto;
+  flex: 1 1 auto;
+  height: 1px;
 }
 
 .full-width-table {
@@ -27,13 +35,6 @@ td.mat-mdc-cell {
 
 .mat-elevation-z4 {
   margin: 0 -16px;
-}
-
-.mat-elevation-z4 .table-container {
-  position: relative;
-  min-height: 200px;
-  max-height: calc(100vh - 258px);
-  overflow: auto;
 }
 
 .mat-elevation-z4 td.mat-mdc-cell:first-of-type {

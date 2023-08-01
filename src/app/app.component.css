@@ -26,17 +26,19 @@ mat-nav-list mat-icon {
 }
 
 .wide .main-content {
-  padding: 20px 50px 0;
+  padding: 0px 32px 0;
+  height: calc(100% - 56px - 32px);
 }
 
 .narrow .main-content {
-  padding: 20px 16px 0;
+  padding: 0px 16px 0;
+  height: calc(100% - 48px);
 }
 
 .container {
   text-align: left;
   margin: 0 0;
-  height: calc(100vh - 100px);
+  height: 100%;
 }
 
 .active {
