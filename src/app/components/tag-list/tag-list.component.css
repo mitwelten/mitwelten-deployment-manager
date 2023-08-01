@@ -20,9 +20,9 @@
 
 .filter-view {
   display: grid;
-  grid-gap: 1em;
+  grid-gap: 4px;
   align-items: center;
-  grid-template-columns: min-content auto min-content;
+  grid-template-columns: auto min-content;
 }
 
 .table-container {

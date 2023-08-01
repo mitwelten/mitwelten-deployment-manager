@@ -84,3 +84,18 @@ mat-icon.material-symbols-outlined {
 .mat-mdc-paginator {
   border-top: 1px solid rgba(0,0,0,0.12);
 }
+
+/* narrow search field for tags header */
+.button-header .mat-mdc-text-field-wrapper .mat-mdc-form-field-flex .mat-mdc-floating-label {
+  top: 18px;
+}
+.button-header .mat-mdc-text-field-wrapper.mdc-text-field--outlined .mat-mdc-form-field-infix {
+  padding-top: 6px;
+  padding-bottom: 6px;
+  height: 36px;
+  min-height: 36px;
+}
+.button-header  .mat-mdc-text-field-wrapper.mdc-text-field--outlined .mdc-notched-outline--upgraded .mdc-floating-label--float-above {
+  --mat-mdc-form-field-label-transform: translateY( -24px) scale(var(--mat-mdc-form-field-floating-label-scale, 0.75));
+  transform: var(--mat-mdc-form-field-label-transform);
+}
