@@ -12,6 +12,8 @@ import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { Observable, map, shareReplay } from 'rxjs';
 import { FormGroup } from '@angular/forms';
 import { FilterStoreService } from 'src/app/shared/filter-store.service';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
+import { DeploymentFilterComponent } from './deployment-filter.component';
 
 @Component({
   selector: 'app-list',
@@ -46,7 +48,8 @@ export class DeploymentListComponent implements AfterViewInit {
 
   constructor(
     private dataService: DataService,
-    private filterStore: FilterStoreService,
+    public filterStore: FilterStoreService,
+    private bottomSheet: MatBottomSheet,
     public dialog: MatDialog,
     private breakpointObserver: BreakpointObserver,
   ) {
@@ -65,6 +68,10 @@ export class DeploymentListComponent implements AfterViewInit {
     this.dialog.open(DeploymentComponent, {
       data: deployment
     });
+  }
+
+  filter() {
+    this.bottomSheet.open(DeploymentFilterComponent, { data: { dataSource: this.dataSource }})
   }
 
 }

@@ -1,49 +1,21 @@
 <h2 class="icon-header">
   <mat-icon inline class="material-symbols-outlined">location_on</mat-icon>
   <span>Deployments</span>
-</h2>
-
-<form [formGroup]="filterForm" class="filter-view">
-  <h3>Filter:</h3>
-
-  <!-- node -->
-  <mat-form-field appearance="outline">
-    <mat-label>Label / Name</mat-label>
-    <input matInput type="text" formControlName="node">
-  </mat-form-field>
-
-  <!-- type (select) -->
-  <mat-form-field appearance="outline">
-    <mat-label>Type</mat-label>
-    <mat-select formControlName="type" panelClass="filter">
-      <mat-option *ngFor="let type of dataSource.typeOptions" [value]="type">{{type}}</mat-option>
-    </mat-select>
-  </mat-form-field>
-
-  <!-- platform (select) -->
-  <mat-form-field appearance="outline">
-    <mat-label>Platform</mat-label>
-    <mat-select formControlName="platform" panelClass="filter">
-      <mat-option *ngFor="let type of dataSource.platformOptions" [value]="type">{{type}}</mat-option>
-    </mat-select>
-  </mat-form-field>
-
-  <!-- tags (multiselect) -->
-  <mat-form-field appearance="outline">
-    <mat-label>Tags</mat-label>
-    <mat-select formControlName="tags" multiple panelClass="filter">
-      <mat-option *ngFor="let tag of dataSource.tagOptions" [value]="tag.tag_id">{{tag.name}}</mat-option>
-    </mat-select>
-  </mat-form-field>
-
-  <!-- reset-button -->
-  <div style="margin-top: -18px;">
-    <button matSuffix mat-icon-button aria-label="Clear" (click)="filterForm.reset()" matTooltip="Clear filters">
-      <mat-icon class="material-symbols-outlined">close</mat-icon>
+  <div class="button-header">
+    <button mat-icon-button color="primary" routerLink="/deployments/add"
+      matTooltip="Add a deployment" matTooltipPosition="above" matTooltipClass="tight-tooltip">
+      <mat-icon matListItemIcon color="primary" class="material-symbols-outlined" matBadge="+" matBadgeColor="primary" matBadgeOverlap="true" matBadgeSize="small" matBadgePosition="below">location_on</mat-icon>
+    </button>
+    <button mat-icon-button color="primary" (click)="filter()"
+      matTooltip="Filter deployments" matTooltipPosition="above" matTooltipClass="tight-tooltip">
+      <mat-icon class="material-symbols-outlined">{{ filterStore.deploymentsFilter.pristine ? 'search' : 'saved_search' }}</mat-icon>
+    </button>
+    <button *ngIf="!filterStore.deploymentsFilter.pristine" mat-icon-button color="primary" (click)="filterStore.deploymentsFilter.reset()"
+      matTooltip="Clear filters" matTooltipPosition="above" matTooltipClass="tight-tooltip">
+      <mat-icon class="material-symbols-outlined">search_off</mat-icon>
     </button>
   </div>
-
-</form>
+</h2>
 
 <div class="container" [ngClass]="(isHandset$ | async) ? 'mat-elevation-z4' : 'mat-elevation-z8'">
   <div class="table-container">

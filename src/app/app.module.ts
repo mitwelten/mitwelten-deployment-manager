@@ -33,6 +33,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -41,6 +42,7 @@ import { DeploymentFormComponent } from './components/deployment-form/deployment
 import { DeploymentListComponent } from './components/deployment-list/deployment-list.component';
 import { DeploymentTagsComponent } from './components/deployment-tags/deployment-tags.component';
 import { DeploymentComponent } from './components/deployment/deployment.component';
+import { DeploymentFilterComponent } from './components/deployment-list/deployment-filter.component';
 import { MapComponent } from './components/map/map.component';
 import { NodeFormComponent } from './components/node-form/node-form.component';
 import { NodeListComponent } from './components/node-list/node-list.component';
@@ -84,6 +86,7 @@ export class CustomMaterialFormsMatcher implements ErrorStateMatcher {
     DeploymentComponent,
     MapComponent,
     DeploymentFormComponent,
+    DeploymentFilterComponent,
     DeploymentTagsComponent,
     DeleteConfirmDialogComponent,
     NodeComponent,
@@ -133,6 +136,7 @@ export class CustomMaterialFormsMatcher implements ErrorStateMatcher {
     MatExpansionModule,
     MatSliderModule,
     MatButtonToggleModule,
+    MatBottomSheetModule,
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'de-CH' },
