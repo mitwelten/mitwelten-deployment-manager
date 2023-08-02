@@ -34,33 +34,26 @@ export class EnvironmentsDataSource extends DataSource<Environment> {
    * @returns A stream of the items to be rendered.
    */
   connect(): Observable<Environment[]> {
-
+    const environments$ = this.EnvironmentListSubject.pipe(
+      tap((data: Environment[]) => this.data = data)
+    );
+    let data$: Observable<Environment[]>;
     if (this.paginator && this.sort) {
       // Combine everything that affects the rendered data into one update
       // stream for the data-table to consume.
-      const data$ =  merge(this.EnvironmentListSubject.pipe(
-        map((data: Environment[]) => {
-          this.data = data;
-        })
-        ), this.paginator.page, this.sort.sortChange, this.filter.valueChanges)
+      data$ = merge(environments$, this.paginator.page, this.sort.sortChange, this.filter.valueChanges)
         .pipe(map(() => {
           return this.getPagedData(this.getSortedData(this.getFilteredData([...this.data])));
         }));
-      this.fetchEnvironments();
-      return data$;
     } else {
       // datasource without paginator and sorting for map display
-      const data$ =  merge(this.EnvironmentListSubject.pipe(
-        map((data: Environment[]) => {
-          this.data = data;
-        })
-        ), this.filter.valueChanges)
+      data$ = merge(environments$, this.filter.valueChanges)
         .pipe(map(() => {
           return this.getFilteredData([...this.data]);
         }));
-      this.fetchEnvironments();
-      return data$;
     }
+    this.fetchEnvironments();
+    return data$;
   }
 
   fetchEnvironments() {
