@@ -12,13 +12,9 @@
 }
 
 .button-header {
-  display: grid;
-  grid-template-columns: auto auto auto;
-  column-gap: 4px;
-}
-
-.button-header mat-button-toggle-group {
-  align-self: start;
+  display: flex;
+  flex-flow: row;
+  gap: 4px;
 }
 
 .table-container {

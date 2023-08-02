@@ -13,9 +13,9 @@
 }
 
 .button-header {
-  display: grid;
-  grid-template-columns: auto auto auto;
-  column-gap: 4px;
+  display: flex;
+  flex-flow: row;
+  gap: 4px;
 }
 
 .filter-view {
