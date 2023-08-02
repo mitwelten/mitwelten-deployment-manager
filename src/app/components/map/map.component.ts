@@ -47,27 +47,18 @@ export class MapComponent implements AfterViewInit, OnDestroy, OnChanges {
   }
 
   ngAfterViewInit(): void {
-    let draggable = false;
-    let initialState = { lng: this.coordinates.lon, lat: this.coordinates.lat, zoom: 15 };
-
-    if (this.readonly === false) {
-      draggable = true;
-    } else {
-      initialState = { lng: this.coordinates.lon, lat: this.coordinates.lat, zoom: 17 };
-      draggable = false;
-    }
 
     this.map = new Map({
       container: this.mapContainer.nativeElement,
       // `https://vectortiles.geo.admin.ch/styles/ch.swisstopo.leichte-basiskarte.vt/style.json`,
       style: `https://vectortiles.geo.admin.ch/styles/ch.swisstopo.leichte-basiskarte-imagery.vt/style.json`,
-      center: [initialState.lng, initialState.lat],
-      zoom: initialState.zoom
+      center: [this.coordinates.lon, this.coordinates.lat],
+      zoom: this.readonly ? 17 : 15,
     });
 
     this.map.on('load', (e) => {
-      this.marker = new Marker({color: "#FF0000", draggable: draggable})
-        .setLngLat([initialState.lng, initialState.lat])
+      this.marker = new Marker({color: "#FF0000", draggable: !this.readonly})
+        .setLngLat([this.coordinates.lon, this.coordinates.lat])
         .addTo(this.map);
 
       this.marker.on('drag', () => {
