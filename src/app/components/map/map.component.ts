@@ -1,5 +1,5 @@
 import {
-  AfterViewInit, Component, ElementRef, EventEmitter, Input, OnChanges,
+  AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, OnChanges,
   OnDestroy, Output, SimpleChanges, ViewChild
 } from '@angular/core';
 import { FeatureCollection } from 'geojson';
@@ -8,7 +8,7 @@ import { ReplaySubject } from 'rxjs';
 import { CoordinatePoint } from 'src/app/shared';
 
 @Component({
-  // changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.css']
@@ -55,8 +55,10 @@ export class MapComponent implements AfterViewInit, OnDestroy, OnChanges {
       center: [this.coordinates.lon, this.coordinates.lat],
       zoom: this.readonly ? 17 : 15,
     });
+    this.map.getContainer().style.height = '99.9%'; // 1. re-layout hack to fix ngIf introduced bug
 
     this.map.on('load', (e) => {
+      this.map.getContainer().style.height = '100%'; // 2. re-layout hack to fix ngIf introduced bug
       this.marker = new Marker({color: "#FF0000", draggable: !this.readonly})
         .setLngLat([this.coordinates.lon, this.coordinates.lat])
         .addTo(this.map);
@@ -120,8 +122,8 @@ export class MapComponent implements AfterViewInit, OnDestroy, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if ('coordinates' in changes) {
-      this.map?.setCenter(changes['coordinates'].currentValue)
-      this.marker?.setLngLat(changes['coordinates'].currentValue)
+      this.map?.setCenter(changes['coordinates'].currentValue);
+      this.marker?.setLngLat(changes['coordinates'].currentValue);
     }
   }
 

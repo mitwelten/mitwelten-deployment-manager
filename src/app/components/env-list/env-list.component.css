@@ -9,7 +9,6 @@
   height: 100%;
   flex: 1 1 auto;
   flex-flow: column;
-
 }
 
 .button-header {
@@ -24,15 +23,7 @@
 
 .table-container {
   overflow: auto;
-  flex: 1 1 auto;
-  height: 1px;
-}
-
-app-map {
-  min-height: 200px;
-  max-height: calc(100vh - 200px);
-  height: 100vh;
-  display: block;
+  flex: 1 0 0px;
 }
 
 .full-width-table {
