@@ -55,7 +55,7 @@ export class EnvListComponent implements AfterViewInit {
   constructor(
     private dataService: DataService,
     public dialog: MatDialog,
-    private filterStore: FilterStoreService,
+    public filterStore: FilterStoreService,
     private breakpointObserver: BreakpointObserver,
     private snackBar: MatSnackBar,
     private changeDetector : ChangeDetectorRef,

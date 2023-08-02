@@ -8,7 +8,11 @@
     </button>
     <button mat-icon-button color="primary" (click)="filter()"
       matTooltip="Filter environment entries" matTooltipPosition="above" matTooltipClass="tight-tooltip">
-      <mat-icon class="material-symbols-outlined">search</mat-icon>
+      <mat-icon class="material-symbols-outlined">{{ filterStore.envFilter.pristine ? 'search' : 'saved_search' }}</mat-icon>
+    </button>
+    <button *ngIf="!filterStore.envFilter.pristine" mat-icon-button color="primary" (click)="filterStore.envFilter.reset()"
+      matTooltip="Clear filters" matTooltipPosition="above" matTooltipClass="tight-tooltip">
+      <mat-icon class="material-symbols-outlined">search_off</mat-icon>
     </button>
     <mat-button-toggle-group #toggleDisplay="matButtonToggleGroup">
       <mat-button-toggle [checked]="display === 'table'" value="table" aria-label="Table display"
