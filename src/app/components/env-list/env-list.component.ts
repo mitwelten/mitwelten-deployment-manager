@@ -84,6 +84,7 @@ export class EnvListComponent implements AfterViewInit {
 
   private initMap() {
     this.dataSource.filter = this.filterStore.envFilter;
+    this.dataSource.paginator = null;
     this.dataSource.connect().pipe(map(envs => {
       const features = envs.map(e => {
         return <Feature>{
