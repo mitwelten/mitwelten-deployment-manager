@@ -35,7 +35,7 @@
         </div>
       </div>
 
-      <app-map [coordinates]="coordinates" [readonly]="false" (coordinatesSet)="envForm.controls.location.setValue($event)"></app-map>
+      <app-map [marker]="coordinates" [readonly]="false" (coordinatesSet)="envForm.controls.location.setValue($event)"></app-map>
 
     </div>
 

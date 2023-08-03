@@ -15,9 +15,9 @@ import { CoordinatePoint } from 'src/app/shared';
 })
 export class MapComponent implements AfterViewInit, OnDestroy, OnChanges {
 
-  map: Map | undefined;
-  marker: Marker | undefined;
-  popup: Popup | undefined;
+  private map?: Map;
+  private marker?: Marker;
+  private popup?: Popup;
 
   private features$ = new ReplaySubject<FeatureCollection>;
 
@@ -27,8 +27,13 @@ export class MapComponent implements AfterViewInit, OnDestroy, OnChanges {
   @Output()
   editFeature =  new EventEmitter<number>;
 
-  @Input()
-  coordinates: CoordinatePoint = { lon: 7.614704694445322, lat: 47.53603016174955 } ;
+  // eslint-disable-next-line @angular-eslint/no-input-rename
+  @Input('marker')
+  markerCoordinates?: CoordinatePoint;
+
+  // eslint-disable-next-line @angular-eslint/no-input-rename
+  @Input('center')
+  centerCoordinates?: CoordinatePoint;
 
   @Input()
   readonly = true;
@@ -48,27 +53,35 @@ export class MapComponent implements AfterViewInit, OnDestroy, OnChanges {
 
   ngAfterViewInit(): void {
 
+    if (!this.centerCoordinates) {
+      if (this.markerCoordinates) this.centerCoordinates = this.markerCoordinates;
+      else this.centerCoordinates = { lon: 7.614704694445322, lat: 47.53603016174955 };
+    }
+
     this.map = new Map({
       container: this.mapContainer.nativeElement,
       // `https://vectortiles.geo.admin.ch/styles/ch.swisstopo.leichte-basiskarte.vt/style.json`,
       style: `https://vectortiles.geo.admin.ch/styles/ch.swisstopo.leichte-basiskarte-imagery.vt/style.json`,
-      center: [this.coordinates.lon, this.coordinates.lat],
+      center: [this.centerCoordinates.lon, this.centerCoordinates.lat],
       zoom: this.readonly ? 17 : 15,
     });
     this.map.getContainer().style.height = '99.9%'; // 1. re-layout hack to fix ngIf introduced bug
 
     this.map.on('load', (e) => {
       this.map.getContainer().style.height = '100%'; // 2. re-layout hack to fix ngIf introduced bug
-      this.marker = new Marker({color: "#FF0000", draggable: !this.readonly})
-        .setLngLat([this.coordinates.lon, this.coordinates.lat])
-        .addTo(this.map);
 
-      this.marker.on('drag', () => {
-        const ll = this.marker?.getLngLat();
-        if (ll !== undefined) {
-          this.coordinatesSet.emit({lat: ll.lat, lon: ll.lng});
-        }
-      });
+      if (this.markerCoordinates) {
+        this.marker = new Marker({color: "#FF0000", draggable: !this.readonly})
+          .setLngLat([this.markerCoordinates.lon, this.markerCoordinates.lat])
+          .addTo(this.map);
+
+        this.marker.on('drag', () => {
+          const ll = this.marker?.getLngLat();
+          if (ll !== undefined) {
+            this.coordinatesSet.emit({lat: ll.lat, lon: ll.lng});
+          }
+        });
+      }
 
       this.popup = new Popup({
           closeButton: false,
@@ -121,9 +134,12 @@ export class MapComponent implements AfterViewInit, OnDestroy, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if ('coordinates' in changes) {
-      this.map?.setCenter(changes['coordinates'].currentValue);
-      this.marker?.setLngLat(changes['coordinates'].currentValue);
+    if ('markerCoordinates' in changes) {
+      this.marker?.setLngLat(changes['markerCoordinates'].currentValue);
+      this.map?.setCenter(changes['markerCoordinates'].currentValue);
+    }
+    if ('centerCoordinates' in changes) {
+      this.map?.setCenter(changes['centerCoordinates'].currentValue);
     }
   }
 

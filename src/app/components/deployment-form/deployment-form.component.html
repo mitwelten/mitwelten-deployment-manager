@@ -37,7 +37,7 @@
     </mat-date-range-picker>
   </mat-form-field>
 
-  <app-map [coordinates]="coordinates" [readonly]="false" (coordinatesSet)="displayCoordinates=$event"></app-map>
+  <app-map [marker]="coordinates" [readonly]="false" (coordinatesSet)="displayCoordinates=$event"></app-map>
 
   <div class="coordinates-container">
     <button (click)="getLocation()" type="button" mat-icon-button color="accent" matTooltip="Use my location" matTooltipPosition="before" matTooltipClass="tight-tooltip">
