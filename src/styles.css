@@ -52,11 +52,12 @@ button.deployment span.mat-badge-small.mat-badge-below span.mat-badge-content {
   grid-template-columns: min-content auto max-content;
   column-gap: 16px;
   margin: 16px 0;
+  justify-items: start;
 }
 
 h2.icon-header {
   font-size: 20px;
-  line-height: 36px;
+  line-height: 24px;
 }
 
 mat-icon .mat-badge-content,
@@ -70,7 +71,7 @@ mat-icon .mat-badge-content,
 .mat-button-toggle-appearance-standard
 .mat-button-toggle-label-content {
   padding: 0 6px;
-  line-height: 33px;
+  line-height: 36px;
 }
 
 .mat-button-toggle-appearance-standard

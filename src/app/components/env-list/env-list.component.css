@@ -15,6 +15,7 @@
   display: flex;
   flex-flow: row;
   gap: 4px;
+  align-items: start;
 }
 
 .table-container {
