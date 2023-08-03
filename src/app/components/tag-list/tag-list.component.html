@@ -1,15 +1,15 @@
 <h2 class="icon-header">
   <mat-icon inline class="material-symbols-outlined">label</mat-icon>
   <span>Tags</span>
-  <form [formGroup]="filterForm" class="filter-view button-header">
+  <form [formGroup]="filterStore.tagsFilter" class="filter-view button-header">
     <!-- tag name -->
     <mat-form-field appearance="outline" subscriptSizing="dynamic">
       <mat-label>Filter Tag Names</mat-label>
       <input matInput type="text" formControlName="name">
     </mat-form-field>
     <!-- reset-button -->
-    <button matSuffix mat-icon-button aria-label="Clear" (click)="filterForm.reset()" matTooltip="Clear filters" color="primary">
-      <mat-icon class="material-symbols-outlined">{{ filterForm.pristine ? 'search' : 'search_off' }}</mat-icon>
+    <button matSuffix mat-icon-button aria-label="Clear" (click)="filterStore.tagsFilter.reset()" matTooltip="Clear filters" color="primary">
+      <mat-icon class="material-symbols-outlined">{{ filterStore.tagsFilter.pristine ? 'search' : 'search_off' }}</mat-icon>
     </button>
   </form>
 </h2>

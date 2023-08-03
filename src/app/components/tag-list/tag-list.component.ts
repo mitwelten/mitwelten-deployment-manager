@@ -13,6 +13,7 @@ import { catchError, map, Observable, of, shareReplay } from 'rxjs';
 import { DeleteConfirmDialogComponent } from '../delete-confirm-dialog/delete-confirm-dialog.component';
 import { TagFormComponent } from '../tag-form/tag-form.component';
 import { TagsDataSource } from './tags-datasource';
+import { FilterStoreService } from 'src/app/shared/filter-store.service';
 
 @Component({
   selector: 'app-tag-list',
@@ -34,10 +35,6 @@ export class TagListComponent implements AfterViewInit {
     verticalPosition: 'top',
   };
 
-  filterForm = new FormGroup({
-    name:      new FormControl<[string]|null>(null),
-  });
-
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['action', 'name', 'deployments', 'entries', 'created', 'updated'];
 
@@ -52,6 +49,7 @@ export class TagListComponent implements AfterViewInit {
     public dialog: MatDialog,
     private breakpointObserver: BreakpointObserver,
     private snackBar: MatSnackBar,
+    public filterStore: FilterStoreService,
   ) {
     this.dataSource = new TagsDataSource(this.dataService);
   }
@@ -59,7 +57,7 @@ export class TagListComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
-    this.dataSource.filter = this.filterForm;
+    this.dataSource.filter = this.filterStore.tagsFilter;
     this.table.dataSource = this.dataSource;
   }
 

@@ -21,6 +21,10 @@ export class FilterStoreService {
     not_deployed:     new FormControl<boolean>(true, {nonNullable: true})
   });
 
+  tagsFilter =        new FormGroup({
+    name:             new FormControl<[string]|null>(null),
+  });
+
   envFilter =         new FormGroup({
     environment_id:   new FormControl<number|null>(null),
     timestamp_s:      new FormControl<string|null>(null),
