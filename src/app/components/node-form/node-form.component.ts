@@ -7,6 +7,8 @@ import { ActivatedRoute, ActivationEnd, Params, Router } from '@angular/router';
 import { catchError, debounceTime, Observable, of, startWith, Subscription, switchMap } from 'rxjs';
 import { DataService, NodeValidator } from 'src/app/shared';
 import { DeleteConfirmDialogComponent } from '../delete-confirm-dialog/delete-confirm-dialog.component';
+import { MatIconButton } from '@angular/material/button';
+import { CdkTrapFocus } from '@angular/cdk/a11y';
 
 @Component({
   selector: 'app-node-form',
@@ -49,6 +51,8 @@ export class NodeFormComponent implements OnInit, OnDestroy {
   powerOptions: Observable<string[]>;
 
   @ViewChild('deleteError') deleteErrorDialog: TemplateRef<any>;
+  @ViewChild(CdkTrapFocus, { static: true }) focusTrap: CdkTrapFocus;
+  @ViewChild('generate', { static: true, read: MatIconButton }) buttonGenerate: MatIconButton;
 
   snackBarConfig: MatSnackBarConfig = {
     duration: 3000,
@@ -117,6 +121,9 @@ export class NodeFormComponent implements OnInit, OnDestroy {
       startWith(''), debounceTime(250),
       switchMap(v => this.dataService.getNodePowerOptions(v))
     );
+
+    // in addition to cdkFocusInitial, this will show the label
+    this.buttonGenerate.focus('keyboard');
   }
 
   ngOnDestroy(): void {
@@ -133,6 +140,7 @@ export class NodeFormComponent implements OnInit, OnDestroy {
       this.dataService.getNodeById(id).subscribe(node => {
         if (node !== null) {
           this.mode = 'edit';
+          this.focusTrap.focusTrap.focusFirstTabbableElement();
           this.title = `Edit Node ${node.node_label} (${node.node_id})`
           this.nodeForm.patchValue(node);
         }

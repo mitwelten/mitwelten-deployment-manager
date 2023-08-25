@@ -55,6 +55,7 @@ import { EnvFormComponent } from './components/env-form/env-form.component';
 import { EnvFilterComponent } from './components/env-filter/env-filter.component';
 
 import '@angular/common/locales/global/de';
+import { A11yModule } from '@angular/cdk/a11y';
 
 function initializeKeycloak(keycloak: KeycloakService) {
   return () =>
@@ -112,6 +113,7 @@ export class CustomMaterialFormsMatcher implements ErrorStateMatcher {
     ReactiveFormsModule,
     BrowserAnimationsModule,
     LayoutModule,
+    A11yModule,
     MatToolbarModule,
     MatButtonModule,
     MatSidenavModule,

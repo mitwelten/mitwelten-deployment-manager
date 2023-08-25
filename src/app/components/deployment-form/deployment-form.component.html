@@ -3,7 +3,7 @@
   <span>{{ title }}</span>
 </h2>
 
-<form [formGroup]="deploymentForm" (ngSubmit)="submit()">
+<form [formGroup]="deploymentForm" (ngSubmit)="submit()" cdkTrapFocus cdkTrapFocusAutoCapture>
 
   <mat-form-field class="full-width-field" appearance="outline">
     <mat-label>Node</mat-label>
@@ -28,7 +28,7 @@
     </mat-date-range-input>
     <mat-hint>DD.MM.YYYY – DD.MM.YYYY (leave a date empty for unbounded range)</mat-hint>
     <mat-error *ngIf="deploymentForm.errors !== null">errors</mat-error>
-    <mat-datepicker-toggle matSuffix [for]="rangePicker"></mat-datepicker-toggle>
+    <mat-datepicker-toggle cdkFocusInitial matSuffix [for]="rangePicker"></mat-datepicker-toggle>
     <mat-date-range-picker #rangePicker>
       <mat-date-range-picker-actions>
         <button mat-button matDateRangePickerCancel>Cancel</button>
