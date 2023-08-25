@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, HostListener, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
@@ -14,6 +14,7 @@ import { FormGroup } from '@angular/forms';
 import { FilterStoreService } from 'src/app/shared/filter-store.service';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { DeploymentFilterComponent } from './deployment-filter.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-list',
@@ -52,6 +53,7 @@ export class DeploymentListComponent implements AfterViewInit {
     private bottomSheet: MatBottomSheet,
     public dialog: MatDialog,
     private breakpointObserver: BreakpointObserver,
+    private router: Router,
   ) {
     this.dataSource = new DeploymentsDataSource(this.dataService);
     this.filterForm = this.filterStore.deploymentsFilter;
@@ -72,6 +74,29 @@ export class DeploymentListComponent implements AfterViewInit {
 
   filter() {
     this.bottomSheet.open(DeploymentFilterComponent, { data: { dataSource: this.dataSource }})
+  }
+
+  @HostListener('window:keydown.f', ['$event'])
+  filterKey(event: KeyboardEvent) {
+    if (!this.bottomSheet._openedBottomSheetRef) {
+      event.preventDefault();
+      this.filter();
+    }
+  }
+
+  @HostListener('window:keydown.a', ['$event'])
+  addKey(event: KeyboardEvent) {
+    event.preventDefault();
+    this.router.navigate(['/deployments/add']);
+  }
+
+  @HostListener('window:keydown.c', ['$event'])
+  clearKey(event: KeyboardEvent) {
+    // only reset if no form an therefore no input is open
+    if (!this.bottomSheet._openedBottomSheetRef) {
+      event.preventDefault();
+      this.filterForm.reset();
+    }
   }
 
 }

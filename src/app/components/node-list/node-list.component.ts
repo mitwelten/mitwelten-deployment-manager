@@ -1,5 +1,5 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
@@ -89,6 +89,29 @@ export class NodeListComponent implements OnInit, AfterViewInit {
 
   filter() {
     this.bottomSheet.open(NodeFilterComponent, { data: { dataSource: this.dataSource }})
+  }
+
+  @HostListener('window:keydown.f', ['$event'])
+  filterKey(event: KeyboardEvent) {
+    if (!this.bottomSheet._openedBottomSheetRef) {
+      event.preventDefault();
+      this.filter();
+    }
+  }
+
+  @HostListener('window:keydown.a', ['$event'])
+  addKey(event: KeyboardEvent) {
+    event.preventDefault();
+    this.router.navigate(['/nodes/add']);
+  }
+
+  @HostListener('window:keydown.c', ['$event'])
+  clearKey(event: KeyboardEvent) {
+    // only reset if no form an therefore no input is open
+    if (!this.bottomSheet._openedBottomSheetRef) {
+      event.preventDefault();
+      this.nodeForm.reset();
+    }
   }
 
 }

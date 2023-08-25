@@ -9,7 +9,8 @@ The node record stores data on type, technical specifications, serial numbers,
 and simiar identifiers.
 
 The menu-iterm _Nodes_ and the route `/nodes` shows a list of all nodes.
-Use the filter form on top to narrow down the list.
+Use the filter form (open with _Filter nodes_ button or `f`-key) to narrow down the list.
+Use the _Clear filters_ button (`c`-key) to clear the filters.
 Filter options: Label / ID, node type (like _audio_),
 platform (like _Audiomoth_), wether the not is/was ever deployed.
 
@@ -28,7 +29,7 @@ Editing a node record only concerns the information related to the node itself,
 not to its deployment.
 The edit form can be used to delete the node as well.
 
-To add a new node, use the _Add node_ menu item or the `node/add` route.
+To add a new node, use the _Add node_ button (`a`-key) item or the `node/add` route.
 The _magic_ button auto-generates node labels in the correct format.
 
 To deploy a node, click the _deploy node_ button in the left column of the list.
@@ -44,8 +45,12 @@ In that case a tag describing the setup/location briefly would be added to all
 corresponding nodes.
 
 The menu-item _Deployments_ and the route `/deploymnets` shows a list of all deployments.
-Similar to the nodes list, you may use the filter form on top to narrow down
+Similar to the nodes list, you may use the filter form (open with _Filter deployments_ button or `f`-key) to narrow down
 the list of deployments. The fiter options include tags (for finding groups of deployments / nodes), node label / ID, node type and node platform.
+Use the _Clear filters_ button (`c`-key) to clear the filters.
+
+To edit a deployment, click the pencil icon in the left column of the list.
+To add a new deployment, use the _Add deployment_ button (`a`-key) item or the `deployments/add` route.
 
 ![list-deployments](./assets/list-deployments.png)
 _Deployments list view_
@@ -68,8 +73,9 @@ _Environment list view_
 
 The menu-item _Environments_ and the route `/environments` shows a list of all Environment entries.
 The view can be switch to display a map of all records using the _list/map toggle_ on the top right.
-To filter the entries, open the filter view using the _looking-glass button_ on the top right.
-To add a new entry, using the _plus button_ on the top right.
+To filter the entries, open the filter view using the _looking-glass button_ (`f`-key) on the top right.
+Use the _Clear filters_ button (`c`-key) to clear the filters.
+To add a new entry, using the _Add an environment entry_ button (`a`-key) on the top right.
 
 ![map-env](./assets/map-env.png)
 _Environment map view_

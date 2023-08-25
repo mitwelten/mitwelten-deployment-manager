@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, TemplateRef, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, HostListener, TemplateRef, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
@@ -157,6 +157,31 @@ export class EnvListComponent implements AfterViewInit {
           });
         }
       });
+    }
+  }
+
+  @HostListener('window:keydown.f', ['$event'])
+  filterKey(event: KeyboardEvent) {
+    if (!this.dialog.openDialogs.length) {
+      event.preventDefault();
+      this.filter();
+    }
+  }
+
+  @HostListener('window:keydown.a', ['$event'])
+  addKey(event: KeyboardEvent) {
+    if (!this.dialog.openDialogs.length) {
+      event.preventDefault();
+      this.addEnvironment();
+    }
+  }
+
+  @HostListener('window:keydown.c', ['$event'])
+  clearKey(event: KeyboardEvent) {
+    // only reset if no form an therefore no input is open
+    if (!this.dialog.openDialogs.length) {
+      event.preventDefault();
+      this.filterStore.envFilter.reset();
     }
   }
 
