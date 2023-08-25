@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, TemplateRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
@@ -14,17 +14,19 @@ import { DeleteConfirmDialogComponent } from '../delete-confirm-dialog/delete-co
 import { TagFormComponent } from '../tag-form/tag-form.component';
 import { TagsDataSource } from './tags-datasource';
 import { FilterStoreService } from 'src/app/shared/filter-store.service';
+import { MatInput } from '@angular/material/input';
 
 @Component({
   selector: 'app-tag-list',
   templateUrl: './tag-list.component.html',
   styleUrls: ['./tag-list.component.css']
 })
-export class TagListComponent implements AfterViewInit {
+export class TagListComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatTable) table!: MatTable<Tag>;
+  @ViewChild(MatInput, { static: true }) tagFilterInput?: MatInput;
   @ViewChild('deleteError') deleteErrorDialog: TemplateRef<any>;
   dataSource: TagsDataSource;
   deletePending = false;
@@ -52,6 +54,10 @@ export class TagListComponent implements AfterViewInit {
     public filterStore: FilterStoreService,
   ) {
     this.dataSource = new TagsDataSource(this.dataService);
+  }
+
+  ngOnInit(): void {
+    this.tagFilterInput.focus();
   }
 
   ngAfterViewInit(): void {

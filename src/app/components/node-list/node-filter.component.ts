@@ -1,8 +1,9 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { NodesDataSource } from './list-datasource';
 import { MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
 import { FilterStoreService } from 'src/app/shared/filter-store.service';
 import { DataService } from 'src/app/shared';
+import { MatInput } from '@angular/material/input';
 
 @Component({
   selector: 'app-node-filter',
@@ -17,7 +18,7 @@ import { DataService } from 'src/app/shared';
   <!-- node -->
   <mat-form-field appearance="outline">
     <mat-label>Label / Name</mat-label>
-    <input matInput type="text" formControlName="node_label">
+    <input #node_label matInput type="text" formControlName="node_label">
   </mat-form-field>
   <!-- type (select) -->
   <mat-form-field appearance="outline">
@@ -73,6 +74,9 @@ export class NodeFilterComponent implements OnInit {
   typeOptions: string[];
   platformOptions: string[];
 
+  @ViewChild('node_label', { static: true, read: MatInput })
+  inputNodeLabel?: MatInput
+
   constructor(
     @Inject(MAT_BOTTOM_SHEET_DATA) public data: {dataSource: NodesDataSource},
     public filterStore: FilterStoreService,
@@ -81,6 +85,7 @@ export class NodeFilterComponent implements OnInit {
     }
 
   ngOnInit(): void {
+    this.inputNodeLabel.focus();
     this.dataService.getNodeTypeOptions('').subscribe(
       options => this.typeOptions = options.sort(
         (a, b) => a.toLowerCase().localeCompare(b.toLowerCase())

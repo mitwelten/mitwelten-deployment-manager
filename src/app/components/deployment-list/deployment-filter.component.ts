@@ -1,7 +1,8 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
 import { FilterStoreService } from 'src/app/shared/filter-store.service';
 import { DeploymentsDataSource } from './deployments-datasource';
+import { MatInput } from '@angular/material/input';
 
 @Component({
   selector: 'app-deployment-filter',
@@ -16,7 +17,7 @@ import { DeploymentsDataSource } from './deployments-datasource';
   <!-- node -->
   <mat-form-field appearance="outline">
     <mat-label>Label / Name</mat-label>
-    <input matInput type="text" formControlName="node">
+    <input #node_label matInput type="text" formControlName="node">
   </mat-form-field>
   <!-- type (select) -->
   <mat-form-field appearance="outline">
@@ -67,14 +68,21 @@ import { DeploymentsDataSource } from './deployments-datasource';
 `
   ]
 })
-export class DeploymentFilterComponent {
+export class DeploymentFilterComponent implements OnInit {
 
   dataSource: DeploymentsDataSource
+
+  @ViewChild('node_label', { static: true, read: MatInput })
+  inputNodeLabel?: MatInput
 
   constructor(
     @Inject(MAT_BOTTOM_SHEET_DATA) public data: {dataSource: DeploymentsDataSource},
     public filterStore: FilterStoreService) {
       this.dataSource = data.dataSource;
     }
+
+  ngOnInit() {
+    this.inputNodeLabel.focus();
+  }
 
 }
