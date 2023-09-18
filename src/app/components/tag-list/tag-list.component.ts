@@ -38,7 +38,7 @@ export class TagListComponent implements OnInit, AfterViewInit {
   };
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['action', 'name', 'deployments', 'entries', 'created', 'updated'];
+  displayedColumns = ['action', 'name', 'deployments', 'notes', 'created', 'updated'];
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
