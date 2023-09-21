@@ -31,7 +31,7 @@
           </button>
           <button mat-icon-button (click)="deleteTag(row)"
             matTooltip="Delete this tag" matTooltipPosition="before" matTooltipClass="tight-tooltip"
-            [disabled]="!(row.deployments === 0 && row.entries === 0)">
+            [disabled]="!(row.deployments === 0 && row.notes === 0)">
             <mat-icon class="material-symbols-outlined">delete</mat-icon>
           </button>
         </td>
@@ -49,10 +49,10 @@
         <td mat-cell *matCellDef="let row"><ng-container *ngIf="row.deployments > 0">{{row.deployments}}</ng-container></td>
       </ng-container>
 
-      <!-- Entries Column -->
-      <ng-container matColumnDef="entries">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Entries</th>
-        <td mat-cell *matCellDef="let row"><ng-container *ngIf="row.entries > 0">{{row.entries}}</ng-container></td>
+      <!-- Notes Column -->
+      <ng-container matColumnDef="notes">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Notes</th>
+        <td mat-cell *matCellDef="let row"><ng-container *ngIf="row.notes > 0">{{row.notes}}</ng-container></td>
       </ng-container>
 
       <!-- Created At Column -->

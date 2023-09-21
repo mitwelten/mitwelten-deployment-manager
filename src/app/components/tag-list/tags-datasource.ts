@@ -88,7 +88,7 @@ export class TagsDataSource extends DataSource<Tag> {
       switch (this.sort?.active) {
         case 'name': return compare(a.name ?? '', b.name ?? '', isAsc);
         case 'deployments': return compare(a.deployments ?? 0, b.deployments ?? 0, isAsc);
-        case 'entries': return compare(a.entries ?? 0, b.entries ?? 0, isAsc);
+        case 'notes': return compare(a.notes ?? 0, b.notes ?? 0, isAsc);
         case 'created': return compare(a.created_at ?? 0, b.created_at ?? 0, isAsc);
         case 'updated': return compare(a.updated_at ?? 0, b.updated_at ?? 0, isAsc);
         default: return 0;
