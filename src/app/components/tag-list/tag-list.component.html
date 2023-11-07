@@ -37,6 +37,12 @@
         </td>
       </ng-container>
 
+      <!-- Tag ID Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Tag ID</th>
+        <td mat-cell *matCellDef="let row">{{row.tag_id}}</td>
+      </ng-container>
+
       <!-- Tag Name Column -->
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Tag Name</th>

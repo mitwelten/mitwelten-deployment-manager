@@ -86,6 +86,7 @@ export class TagsDataSource extends DataSource<Tag> {
     return data.sort((a, b) => {
       const isAsc = this.sort?.direction === 'asc';
       switch (this.sort?.active) {
+        case 'id': return compare(a.tag_id ?? 0, b.tag_id ?? 0, isAsc);
         case 'name': return compare(a.name ?? '', b.name ?? '', isAsc);
         case 'deployments': return compare(a.deployments ?? 0, b.deployments ?? 0, isAsc);
         case 'notes': return compare(a.notes ?? 0, b.notes ?? 0, isAsc);
