@@ -27,7 +27,8 @@
             ],
             "styles": [
               "src/mitwelten-theme.scss",
-              "src/styles.css"
+              "src/styles.css",
+              "maplibre-gl/dist/maplibre-gl.css"
             ],
             "scripts": [],
             "allowedCommonJsDependencies": [
