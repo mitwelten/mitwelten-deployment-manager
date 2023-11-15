@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -20,6 +21,8 @@ import { Tag, } from 'src/app/shared';
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
+    MatDialogModule,
+    MatButtonModule,
   ],
   templateUrl: './tag-form.component.html',
   styleUrl: './tag-form.component.css'
