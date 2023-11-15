@@ -5,6 +5,10 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+strong, h1, h2, h3 /* , h4, h5 */ {
+  font-weight: 500;
+}
+
 mat-chip-listbox span {
   max-width: 380px;
 }
