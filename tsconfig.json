@@ -2,19 +2,19 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
+    "baseUrl": "./", // enable reference to src/environments/environments
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
     "strict": true,
-    "strictNullChecks": false,
-    "skipLibCheck": true,
+    "strictNullChecks": true, // with upgrade to ng17, this is now true
+    "skipLibCheck": false, // with upgrade to ng17, this is now false
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "resolveJsonModule": true,
+    "resolveJsonModule": true, // allow importing for package.json for version display
     "sourceMap": true,
     "declaration": false,
     "downlevelIteration": true,
