@@ -30,6 +30,11 @@
               "src/styles.css",
               "maplibre-gl/dist/maplibre-gl.css"
             ],
+            "allowedCommonJsDependencies": [
+              "maplibre-gl",
+              "base64-js",
+              "js-sha256"
+            ],
             "scripts": []
           },
           "configurations": {
