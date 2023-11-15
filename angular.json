@@ -72,10 +72,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "mitwelten-deploy-app:build:production"
+              "buildTarget": "mitwelten-deployment-manager:build:production"
             },
             "development": {
-              "buildTarget": "mitwelten-deploy-app:build:development"
+              "buildTarget": "mitwelten-deployment-manager:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -83,7 +83,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "mitwelten-deploy-app:build"
+            "buildTarget": "mitwelten-deployment-manager:build"
           }
         },
         "test": {
