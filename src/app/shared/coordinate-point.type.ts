@@ -6,7 +6,6 @@
  * Coordinate in WGS84 format
  */
 export type CoordinatePoint = {
-    lat: number;
-    lon: number;
+  lat: number;
+  lon: number;
 };
-

@@ -1,13 +1,32 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { KeycloakProfile } from 'keycloak-js';
-import { Observable } from 'rxjs';
-import { map, shareReplay } from 'rxjs/operators';
-import { AuthenticationService } from './shared/authentication.service';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { Observable, map, shareReplay } from 'rxjs';
+
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
+
 import pkgJson from '../../package.json';
+import { AuthenticationService } from './services';
 
 @Component({
   selector: 'app-root',
+  standalone: true,
+  imports: [
+    CommonModule,
+    RouterOutlet,
+    MatSidenavModule,
+    MatToolbarModule,
+    MatListModule,
+    MatIconModule,
+    MatButtonModule,
+    RouterLinkActive,
+    RouterLink,
+  ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
@@ -16,8 +35,8 @@ export class AppComponent implements OnInit {
   title = 'Mitwelten Deployments Manager';
   version = pkgJson.version;
 
-  loggedIn: boolean;
-  userData?: KeycloakProfile;
+  loggedIn = this.authService.isLoggedIn;
+  userData = this.authService.userData;
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -31,8 +50,6 @@ export class AppComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.authService.authStateSubject.subscribe(authState => this.loggedIn = authState);
-    this.authService.userData().subscribe(profile => this.userData = profile);
     this.authService.checkLogin();
   }
 
@@ -43,5 +60,4 @@ export class AppComponent implements OnInit {
   logout() {
     this.authService.logout();
   }
-
 }
