@@ -1,0 +1,163 @@
+<h2 class="icon-header">
+  <mat-icon inline class="material-symbols-outlined">bubble_chart</mat-icon>
+  <span>Environment Entries</span>
+  <div class="button-header">
+    <button mat-icon-button color="primary" (click)="addEnvironment()"
+      matTooltip="Add an environment entry" matTooltipPosition="above" matTooltipClass="tight-tooltip">
+      <mat-icon color="primary" class="material-symbols-outlined" matBadge="+" matBadgeColor="primary" matBadgeOverlap="true" matBadgeSize="small" matBadgePosition="below">bubble_chart</mat-icon>
+    </button>
+    <button mat-icon-button color="primary" (click)="filter()"
+      matTooltip="Filter environment entries" matTooltipPosition="above" matTooltipClass="tight-tooltip">
+      <mat-icon class="material-symbols-outlined">{{ filterStore.envFilter.pristine ? 'search' : 'saved_search' }}</mat-icon>
+    </button>
+    <button *ngIf="!filterStore.envFilter.pristine" mat-icon-button color="primary" (click)="filterStore.envFilter.reset()"
+      matTooltip="Clear filters" matTooltipPosition="above" matTooltipClass="tight-tooltip">
+      <mat-icon class="material-symbols-outlined">search_off</mat-icon>
+    </button>
+    <mat-button-toggle-group #toggleDisplay="matButtonToggleGroup">
+      <mat-button-toggle [checked]="display === 'table'" value="table" aria-label="Table display"
+        matTooltip="Toggle table display" matTooltipPosition="above" matTooltipClass="tight-tooltip">
+        <mat-icon color="primary" class="material-symbols-outlined">list</mat-icon>
+      </mat-button-toggle>
+      <mat-button-toggle [checked]="display === 'map'" value="map" aria-label="Map display"
+        matTooltip="Toggle map display" matTooltipPosition="above" matTooltipClass="tight-tooltip">
+        <mat-icon color="primary" class="material-symbols-outlined">map</mat-icon>
+      </mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
+</h2>
+
+<div class="container" [ngClass]="(isHandset$ | async) ? 'mat-elevation-z4' : 'mat-elevation-z8'">
+
+  <app-map *ngIf="display === 'map'" (editFeature)="editEnvironment($event)"></app-map>
+
+  <div *ngIf="display === 'table'" class="table-container">
+
+    <table mat-table class="full-width-table" matSort matSortActive="timestamp" matSortDirection="asc" aria-label="Environment Entries">
+
+      <!-- Action Column -->
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef>Action</th>
+        <td mat-cell *matCellDef="let row">
+          <div>
+            <button mat-icon-button (click)="editEnvironment(row)"
+              matTooltip="Edit this environment entry" matTooltipPosition="before" matTooltipClass="tight-tooltip">
+              <mat-icon class="material-symbols-outlined">edit</mat-icon>
+            </button>
+            <button mat-icon-button (click)="deleteEnvironment(row)"
+              matTooltip="Delete this environment entry" matTooltipPosition="after" matTooltipClass="tight-tooltip">
+              <mat-icon class="material-symbols-outlined">delete</mat-icon>
+            </button>
+          </div>
+        </td>
+      </ng-container>
+
+      <!-- ID Column -->
+      <ng-container matColumnDef="environment_id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+        <td mat-cell *matCellDef="let row">{{row.environment_id}}</td>
+      </ng-container>
+
+      <!-- Timestamp Column -->
+      <ng-container matColumnDef="timestamp">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Timestamp</th>
+        <td mat-cell *matCellDef="let row">{{row.timestamp | date:'mediumDate'}}</td>
+      </ng-container>
+
+      <!-- Attr 1 Column -->
+      <ng-container matColumnDef="attribute_01">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ labels ? labels['attribute_01'].label : 'attr 01' }}</th>
+        <td mat-cell *matCellDef="let row">{{row.attribute_01}}</td>
+      </ng-container>
+
+      <!-- Attr 2 Column -->
+      <ng-container matColumnDef="attribute_02">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ labels ? labels['attribute_02'].label : 'attr 02' }}</th>
+        <td mat-cell *matCellDef="let row">{{row.attribute_02}}</td>
+      </ng-container>
+
+      <!-- Attr 3 Column -->
+      <ng-container matColumnDef="attribute_03">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ labels ? labels['attribute_03'].label : 'attr 03' }}</th>
+        <td mat-cell *matCellDef="let row">{{row.attribute_03}}</td>
+      </ng-container>
+
+      <!-- Attr 4 Column -->
+      <ng-container matColumnDef="attribute_04">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ labels ? labels['attribute_04'].label : 'attr 04' }}</th>
+        <td mat-cell *matCellDef="let row">{{row.attribute_04}}</td>
+      </ng-container>
+
+      <!-- Attr 5 Column -->
+      <ng-container matColumnDef="attribute_05">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ labels ? labels['attribute_05'].label : 'attr 05' }}</th>
+        <td mat-cell *matCellDef="let row">{{row.attribute_05}}</td>
+      </ng-container>
+
+      <!-- Attr 6 Column -->
+      <ng-container matColumnDef="attribute_06">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ labels ? labels['attribute_06'].label : 'attr 06' }}</th>
+        <td mat-cell *matCellDef="let row">{{row.attribute_06}}</td>
+      </ng-container>
+
+      <!-- Attr 7 Column -->
+      <ng-container matColumnDef="attribute_07">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ labels ? labels['attribute_07'].label : 'attr 07' }}</th>
+        <td mat-cell *matCellDef="let row">{{row.attribute_07}}</td>
+      </ng-container>
+
+      <!-- Attr 8 Column -->
+      <ng-container matColumnDef="attribute_08">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ labels ? labels['attribute_08'].label : 'attr 08' }}</th>
+        <td mat-cell *matCellDef="let row">{{row.attribute_08}}</td>
+      </ng-container>
+
+      <!-- Attr 9 Column -->
+      <ng-container matColumnDef="attribute_09">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ labels ? labels['attribute_09'].label : 'attr 09' }}</th>
+        <td mat-cell *matCellDef="let row">{{row.attribute_09}}</td>
+      </ng-container>
+
+      <!-- Attr 10 Column -->
+      <ng-container matColumnDef="attribute_10">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ labels ? labels['attribute_10'].label : 'attr 10' }}</th>
+        <td mat-cell *matCellDef="let row">{{row.attribute_10}}</td>
+      </ng-container>
+
+      <!-- Created At Column -->
+      <ng-container matColumnDef="created">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Created</th>
+        <td mat-cell *matCellDef="let row">{{row.created_at | date:'mediumDate'}}</td>
+      </ng-container>
+
+      <!-- Updated At Column -->
+      <ng-container matColumnDef="updated">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Updated</th>
+        <td mat-cell *matCellDef="let row">{{row.updated_at | date:'mediumDate'}}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+
+  <mat-paginator #paginator *ngIf="display === 'table'"
+      [length]="dataSource.length"
+      [pageIndex]="0"
+      [pageSize]="100"
+      [pageSizeOptions]="[5, 10, 20, 100]"
+      aria-label="Select page">
+  </mat-paginator>
+</div>
+
+<ng-template #deleteError let-data>
+  <h1 mat-dialog-title>Deleting the environment entry failed:</h1>
+  <div mat-dialog-content>
+    <p>
+      Something wrong with this: {{data | json}}
+    </p>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-stroked-button [mat-dialog-close]="true" cdkFocusInitial>OK</button>
+  </div>
+</ng-template>

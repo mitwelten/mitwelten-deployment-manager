@@ -1,0 +1,71 @@
+<h1 mat-dialog-title>Node {{node.node_label}}</h1>
+
+<div mat-dialog-content>
+
+  <span aria-hidden="true" class="mat-body link-copy" (click)="copyUrl()">{{ nodeDeepLink }}</span>
+
+  <div style="margin-bottom: 24px;" *ngIf="node.description">{{node.description}}</div>
+
+  <div class="node-container">
+    <strong *ngIf="node.type">Type</strong>
+    <div *ngIf="node.type">{{node.type}}</div>
+
+    <strong *ngIf="node.serial_number">Serial Number</strong>
+    <div *ngIf="node.serial_number">{{node.serial_number}}</div>
+
+    <strong *ngIf="node.platform">Platform</strong>
+    <div *ngIf="node.platform">{{node.platform}}</div>
+
+    <strong *ngIf="node.connectivity">Connectivity</strong>
+    <div *ngIf="node.connectivity">{{node.connectivity}}</div>
+
+    <strong *ngIf="node.power">Power</strong>
+    <div *ngIf="node.power">{{node.power}}</div>
+
+    <strong *ngIf="node.hardware_version">Hardware Version</strong>
+    <div *ngIf="node.hardware_version">{{node.hardware_version}}</div>
+
+    <strong *ngIf="node.software_version">Software Version</strong>
+    <div *ngIf="node.software_version">{{node.software_version}}</div>
+
+    <strong *ngIf="node.firmware_version">Firmware Version</strong>
+    <div *ngIf="node.firmware_version">{{node.firmware_version}}</div>
+  </div>
+
+  <h3>Deployments</h3>
+
+  <p *ngIf="!deployments?.length">
+    This node has never been deployed.
+  </p>
+
+  <div *ngFor="let deployment of deployments; last as last">
+    <div class="deployment-container">
+      <strong>Period</strong>
+
+      <div class="details" *ngIf="deployment.period.start || deployment.period.end; else periodAlways">
+        {{deployment.period.start ? (deployment.period.start | date:'mediumDate') : 'always'}}
+        -
+        {{deployment.period.end ? (deployment.period.end | date:'mediumDate') : 'always'}}
+      </div>
+      <ng-template #periodAlways>
+        <div class="details" #periodAlways>always</div>
+      </ng-template>
+      <div class="edit">
+          <mat-icon (click)="editDeployment(deployment.deployment_id!)" class="material-symbols-outlined" matTooltip="Edit this deployment" matTooltipPosition="before" matTooltipClass="tight-tooltip">edit</mat-icon>
+      </div>
+
+      <strong *ngIf="deployment.description">Location</strong>
+      <div class="details location" *ngIf="deployment.description" >
+        <p>{{deployment.description}}</p>
+      </div>
+    </div>
+    <div></div>
+    <mat-divider *ngIf="!last"></mat-divider>
+  </div>
+
+</div>
+
+<div mat-dialog-actions>
+  <button mat-stroked-button color="accent" (click)="edit()">Edit</button>
+  <button mat-stroked-button mat-dialog-close cdkFocusInitial>Close</button>
+</div>
