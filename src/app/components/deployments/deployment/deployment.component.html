@@ -30,7 +30,10 @@
 
     <strong>Tags</strong>
     <mat-chip-set>
-      <mat-chip *ngFor="let tag of deployment.tags">{{ tag.name }}</mat-chip>
+      <mat-chip-option *ngFor="let tag of deployment.tags" [value]="tag.tag_id"
+        [selected]="checkTagSelected(tag.tag_id)" (selectionChange)="selectionChange($event)">
+          {{ tag.name }}
+      </mat-chip-option>
     </mat-chip-set>
 
   </div>
