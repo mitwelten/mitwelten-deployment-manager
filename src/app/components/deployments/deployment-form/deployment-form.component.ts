@@ -106,7 +106,7 @@ export class DeploymentFormComponent implements OnInit, AfterViewInit, OnDestroy
         if (deployment !== null) {
 
           const controls = this.deploymentForm.controls;
-          this.title = 'Edit Deployment';
+          this.title = `Edit Deployment (ID ${deployment.deployment_id})`;
           this.mode = 'edit';
 
           this.dataService.listNodes().subscribe(nodes => {
