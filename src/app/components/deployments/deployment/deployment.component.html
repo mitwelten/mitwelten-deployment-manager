@@ -19,11 +19,6 @@
       <div #periodAlways>always</div>
     </ng-template>
 
-    <strong>Tags</strong>
-    <mat-chip-set>
-      <mat-chip *ngFor="let tag of deployment.tags">{{ tag.name }}</mat-chip>
-    </mat-chip-set>
-
     <strong>Description (Location)</strong>
     <div style="max-width: fit-content;">
       {{deployment.description}}
@@ -32,6 +27,11 @@
     @defer {
       <app-map [marker]="deployment.location"></app-map>
     }
+
+    <strong>Tags</strong>
+    <mat-chip-set>
+      <mat-chip *ngFor="let tag of deployment.tags">{{ tag.name }}</mat-chip>
+    </mat-chip-set>
 
   </div>
 
