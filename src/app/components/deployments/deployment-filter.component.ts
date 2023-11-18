@@ -42,6 +42,7 @@ import { DeploymentsDataSource } from './deployments-datasource';
   <mat-form-field appearance="outline">
     <mat-label>Type</mat-label>
     <mat-select formControlName="type" panelClass="filter">
+      <mat-option>All Types</mat-option>
       <mat-option *ngFor="let type of dataSource.typeOptions" [value]="type">{{type}}</mat-option>
     </mat-select>
   </mat-form-field>
@@ -49,6 +50,7 @@ import { DeploymentsDataSource } from './deployments-datasource';
   <mat-form-field appearance="outline">
     <mat-label>Platform</mat-label>
     <mat-select formControlName="platform" panelClass="filter">
+      <mat-option>All Platforms</mat-option>
       <mat-option *ngFor="let type of dataSource.platformOptions" [value]="type">{{type}}</mat-option>
     </mat-select>
   </mat-form-field>
