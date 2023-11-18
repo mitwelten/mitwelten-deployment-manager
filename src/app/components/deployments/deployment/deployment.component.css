@@ -36,6 +36,17 @@ h3 {
   max-width: 700px;
 }
 
+@media screen and (max-width: 790px) {
+
+  .node-container {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    column-gap: 10px;
+    row-gap: 8px;
+  }
+
+}
+
 app-map {
   height: 280px;
 }
