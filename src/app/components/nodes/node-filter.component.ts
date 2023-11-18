@@ -45,6 +45,7 @@ import { NodesDataSource } from './nodes-datasource';
   <mat-form-field appearance="outline">
     <mat-label>Type</mat-label>
     <mat-select formControlName="type" panelClass="filter">
+      <mat-option>All Types</mat-option>
       <mat-option *ngFor="let type of typeOptions" [value]="type">{{type}}</mat-option>
     </mat-select>
   </mat-form-field>
@@ -52,6 +53,7 @@ import { NodesDataSource } from './nodes-datasource';
   <mat-form-field appearance="outline">
     <mat-label>Platform</mat-label>
     <mat-select formControlName="platform" panelClass="filter">
+      <mat-option>All Platforms</mat-option>
       <mat-option *ngFor="let platform of platformOptions" [value]="platform">{{platform}}</mat-option>
     </mat-select>
   </mat-form-field>
