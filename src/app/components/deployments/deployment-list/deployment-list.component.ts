@@ -19,6 +19,7 @@ import { Deployment } from 'src/app/shared';
 import { DeploymentFilterComponent } from '../deployment-filter.component';
 import { DeploymentComponent } from '../deployment/deployment.component';
 import { DeploymentsDataSource } from '../deployments-datasource';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-deployment-list',
@@ -34,6 +35,7 @@ import { DeploymentsDataSource } from '../deployments-datasource';
     RouterLink,
     MatButtonModule,
     MatBadgeModule,
+    MatTooltipModule,
   ],
   templateUrl: './deployment-list.component.html',
   styleUrl: './deployment-list.component.css'

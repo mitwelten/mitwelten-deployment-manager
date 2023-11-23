@@ -12,6 +12,7 @@ import { MatSelectModule } from '@angular/material/select';
 
 import { DataService, FilterStoreService } from 'src/app/services';
 import { NodesDataSource } from './nodes-datasource';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 @Component({
@@ -27,6 +28,7 @@ import { NodesDataSource } from './nodes-datasource';
     MatCheckboxModule,
     MatButtonModule,
     MatIconModule,
+    MatTooltipModule,
   ],
   template: `
 <div class="filter-header">

@@ -24,6 +24,7 @@ import { CoordinatePoint, DeploymentFormValue, Node, UpsertDeployment, mapDeploy
 import { DeleteConfirmDialogComponent } from '../../delete-confirm-dialog.component';
 import { MapComponent } from '../../map.component';
 import { DeploymentTagsComponent } from '../deployment-tags/deployment-tags.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-deployment-form',
@@ -43,6 +44,7 @@ import { DeploymentTagsComponent } from '../deployment-tags/deployment-tags.comp
     MatSelectModule,
     MatDialogClose,
     MatInputModule,
+    MatTooltipModule,
     DeploymentTagsComponent,
     MapComponent,
   ],

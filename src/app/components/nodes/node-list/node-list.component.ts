@@ -20,6 +20,7 @@ import { NodeFilterComponent } from '../node-filter.component';
 import { NodeComponent } from '../node/node.component';
 import { NodesDataSource } from '../nodes-datasource';
 import { MatButtonModule } from '@angular/material/button';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-node-list',
@@ -34,6 +35,7 @@ import { MatButtonModule } from '@angular/material/button';
     MatBottomSheetModule,
     MatTableModule,
     MatButtonModule,
+    MatTooltipModule,
   ],
   templateUrl: './node-list.component.html',
   styleUrl: './node-list.component.css'

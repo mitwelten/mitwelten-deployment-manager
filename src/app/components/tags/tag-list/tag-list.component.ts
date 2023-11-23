@@ -20,6 +20,7 @@ import { Tag } from 'src/app/shared';
 import { DeleteConfirmDialogComponent } from '../../delete-confirm-dialog.component';
 import { TagFormComponent } from '../tag-form/tag-form.component';
 import { TagsDataSource } from '../tags-datasource';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-tag-list',
@@ -35,6 +36,7 @@ import { TagsDataSource } from '../tags-datasource';
     MatPaginatorModule,
     MatFormFieldModule,
     MatInputModule,
+    MatTooltipModule,
   ],
   templateUrl: './tag-list.component.html',
   styleUrl: './tag-list.component.css'

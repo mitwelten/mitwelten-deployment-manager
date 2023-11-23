@@ -22,6 +22,7 @@ import { MapComponent } from '../../map.component';
 import { EnvironmentDataSource } from '../environment-datasource';
 import { EnvironmentFilterComponent } from '../environment-filter/environment-filter.component';
 import { EnvironmentFormComponent } from '../environment-form/environment-form.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-environment-list',
@@ -35,6 +36,7 @@ import { EnvironmentFormComponent } from '../environment-form/environment-form.c
     MatDialogClose,
     MatTableModule,
     MatButtonModule,
+    MatTooltipModule,
   ],
   templateUrl: './environment-list.component.html',
   styleUrl: './environment-list.component.css'

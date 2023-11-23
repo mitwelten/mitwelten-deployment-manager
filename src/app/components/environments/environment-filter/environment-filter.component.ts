@@ -13,6 +13,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { FilterStoreService } from 'src/app/services';
 import { EnvironmentLabel } from 'src/app/shared';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-environment-filter',
@@ -29,6 +30,7 @@ import { EnvironmentLabel } from 'src/app/shared';
     MatDatepickerModule,
     MatSliderModule,
     MatDialogModule,
+    MatTooltipModule,
   ],
   templateUrl: './environment-filter.component.html',
   styleUrl: './environment-filter.component.css'

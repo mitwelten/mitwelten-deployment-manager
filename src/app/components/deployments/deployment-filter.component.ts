@@ -11,6 +11,7 @@ import { MatSelectModule } from '@angular/material/select';
 
 import { FilterStoreService } from 'src/app/services';
 import { DeploymentsDataSource } from './deployments-datasource';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-deployment-filter',
@@ -24,6 +25,7 @@ import { DeploymentsDataSource } from './deployments-datasource';
     MatInputModule,
     MatButtonModule,
     MatSelectModule,
+    MatTooltipModule,
   ],
   template: `
 <div class="filter-header">

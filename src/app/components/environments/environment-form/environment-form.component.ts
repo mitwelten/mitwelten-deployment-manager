@@ -15,6 +15,7 @@ import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { DataService, LocationService } from 'src/app/services';
 import { CoordinatePoint, Environment, EnvironmentLabel } from 'src/app/shared';
 import { MapComponent } from '../../map.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-environment-form',
@@ -32,6 +33,7 @@ import { MapComponent } from '../../map.component';
     MatSliderModule,
     MapComponent,
     MatDialogModule,
+    MatTooltipModule,
   ],
   templateUrl: './environment-form.component.html',
   styleUrl: './environment-form.component.css'
