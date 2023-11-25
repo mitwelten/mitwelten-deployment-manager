@@ -55,7 +55,10 @@ export class DeploymentComponent {
     if (e.isUserInput) {
       const control = this.filterService.deploymentsFilter.controls.tags;
       const tags = control.value ?? [];
-      if (e.selected) control.setValue([...tags, <number>e.source.value]);
+      if (e.selected) {
+        control.setValue([...tags, <number>e.source.value]);
+        this.filterService.deploymentsFilter.markAsDirty();
+      }
       else control.setValue(tags.filter(t => t !== e.source.value));
     }
   }
