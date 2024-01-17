@@ -57,7 +57,7 @@ _Deployments list view_
 
 ## Tags
 
-Tags are used for multiple purposes: To group __deployments__ into units of dependent devices (for example a WiFi Accesspoint, Camera Nodes and an Aggregator Node), and to mark/tag __notes__ on the map ([viz.mitwelten.org](https://viz.mitwelten.org)). The tag list view gives an overview of all existing tags with number of assignments to either __deployment__ or __note__ records.
+Tags are used for multiple purposes: To group __deployments__ into units of dependent devices (for example a WiFi Accesspoint, Camera Nodes and an Aggregator Node), and to mark/tag __notes__ on the map ([discover.mitwelten.org](https://discover.mitwelten.org)). The tag list view gives an overview of all existing tags with number of assignments to either __deployment__ or __note__ records.
 
 ![list-tags](./assets/list-tags.png)
 _Tags list view_
