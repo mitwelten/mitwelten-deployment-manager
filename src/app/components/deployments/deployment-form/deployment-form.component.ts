@@ -210,7 +210,7 @@ export class DeploymentFormComponent implements OnInit, AfterViewInit, OnDestroy
 
   submit() {
     const v = this.deploymentForm.value as DeploymentFormValue;
-    const deployment: UpsertDeployment = mapDeploymentFromValue(v);
+    const deployment: UpsertDeployment = mapDeploymentFromValue(v, this.tags);
     this.dataService.putDeployment(deployment).subscribe(() => {
       this.deploymentForm.reset();
       this.router.navigate(['/deployments']);

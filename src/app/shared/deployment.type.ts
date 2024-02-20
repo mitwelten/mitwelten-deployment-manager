@@ -45,7 +45,7 @@ export type DeploymentFormValue = {
  * @param value - The partial DeploymentFormValue object to map.
  * @returns The mapped UpsertDeployment object.
  */
-export function mapDeploymentFromValue(value: Partial<DeploymentFormValue>): UpsertDeployment {
+export function mapDeploymentFromValue(value: Partial<DeploymentFormValue>, tags?: string[]): UpsertDeployment {
   const deployment: UpsertDeployment = {
     deployment_id: value.deployment_id ?? null,
     node_id: value.node_id!,
@@ -58,7 +58,7 @@ export function mapDeploymentFromValue(value: Partial<DeploymentFormValue>): Ups
       lon: value.lon!
     },
     description: value.description ?? null,
+    tags: tags
   };
-  console.log(deployment);
   return deployment;
 }
