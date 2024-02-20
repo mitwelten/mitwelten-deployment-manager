@@ -5,7 +5,7 @@ import {
 } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { Subscription, catchError, of, throttleTime } from 'rxjs';
+import { Subscription, asyncScheduler, catchError, of, throttleTime } from 'rxjs';
 
 import { DateFnsModule, MatDateFnsModule } from '@angular/material-date-fns-adapter';
 import { MatButtonModule } from '@angular/material/button';
@@ -173,7 +173,7 @@ export class DeploymentFormComponent implements OnInit, AfterViewInit, OnDestroy
 
   ngAfterViewInit(): void {
     this.mapSubscription = this.map?.coordinatesSet.asObservable().pipe(
-      throttleTime(500)
+      throttleTime(500, asyncScheduler, {leading: true, trailing: true})
     ).subscribe((coordinates: CoordinatePoint) => {
       this.deploymentForm.controls.lat.setValue(coordinates.lat);
       this.deploymentForm.controls.lon.setValue(coordinates.lon);

@@ -1,6 +1,6 @@
 {
   "name": "mitwelten-deployment-manager",
-  "version": "2.1.5",
+  "version": "2.1.6",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
