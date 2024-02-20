@@ -96,8 +96,10 @@ export class DeploymentListComponent implements AfterViewInit {
 
   @HostListener('window:keydown.a', ['$event'])
   addKey(event: KeyboardEvent) {
-    event.preventDefault();
-    this.router.navigate(['/deployments/add']);
+    if (!this.bottomSheet._openedBottomSheetRef) {
+      event.preventDefault();
+      this.router.navigate(['/deployments/add']);
+    }
   }
 
   @HostListener('window:keydown.c', ['$event'])

@@ -118,8 +118,10 @@ export class NodeListComponent implements OnInit, AfterViewInit {
 
   @HostListener('window:keydown.a', ['$event'])
   addKey(event: KeyboardEvent) {
-    event.preventDefault();
-    this.router.navigate(['/nodes/add']);
+    if (!this.bottomSheet._openedBottomSheetRef) {
+      event.preventDefault();
+      this.router.navigate(['/nodes/add']);
+    }
   }
 
   @HostListener('window:keydown.c', ['$event'])
