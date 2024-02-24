@@ -3,7 +3,7 @@
 /* eslint-disable */
 
 import { CoordinatePoint } from './coordinate-point.type';
-import type { Node } from './node.type';
+import { isNode, type Node } from './node.type';
 import type { Tag } from './tag.type';
 
 export type TimeRange = {
@@ -20,6 +20,22 @@ export type Deployment = {
     description?: string;
     tags?: Tag[];
 };
+
+/**
+* Deployment Type Guard
+* @param deployment Object to check if is of Deployment type
+* @returns boolean
+*/
+export function isDeployment(deployment: unknown): deployment is Deployment {
+  if (deployment === null || deployment === undefined) return false;
+  return (deployment as Deployment).deployment_id !== undefined
+      && (deployment as Deployment).node_id !== undefined
+      && (deployment as Deployment).period !== undefined
+      && (deployment as Deployment).node !== undefined
+      && isNode((deployment as Deployment).node)
+      && (deployment as Deployment).location !== undefined
+      ;
+}
 
 export type UpsertDeployment = {
   deployment_id: number | null;
