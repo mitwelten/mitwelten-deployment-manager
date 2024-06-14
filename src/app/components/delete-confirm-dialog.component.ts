@@ -1,11 +1,12 @@
 import { Component, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-delete-confirm-dialog',
   standalone: true,
-  imports: [CommonModule, MatDialogModule],
+  imports: [CommonModule, MatDialogModule, MatButtonModule],
   template: `
     <h1 mat-dialog-title>Deleting {{ data.recordType }} {{ data.recordLabel }}</h1>
     <div mat-dialog-content>
